@@ -23,8 +23,8 @@ function App() {
                     <Route path="/signup" element={<RegisterPage />} />
                     <Route path="/characters" element={<CharacterVaultPage />} />
                     <Route path="/characters/add" element={<AddCharacterPage />} />
-                    <Route path="/charactes/:id" element={<CharacterSheetPage />} />
-                    <Route path="/charactes/:id/edit" element={<EditCharacterPage />} />
+                    <Route path="/characters/:id" element={<CharacterSheetPage />} />
+                    <Route path="/characters/:id/edit" element={<EditCharacterPage />} />
                     <Route path="*" element={<NotFoundPage />} />
                 </Routes>
             </BrowserRouter>
