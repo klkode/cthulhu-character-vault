@@ -12,16 +12,16 @@ Having paper playing sheets can be inconvenient for players of Table Top Role Pl
 ### User Profile
 
 Call of Cthulhu 7e Players:
--wanting a digital copy of their character sheet(s)
--wanting a place to keep track of all their character ideas
+- wanting a digital copy of their character sheet(s)
+- wanting a place to keep track of all their character ideas
 
 ### Features
 
 - As a user, I want to be able to create an account to make character sheets
-- As a user, I want to be able to login to my account to make character sheets
+- As a user, I want to be able to login to my account to view my character sheets and make new ones
 
 - As a logged in user, I want to be able to create a new character sheet for the Call of Cthulhu 7e TTRPG
-- As a logged in user, I want to be able to see my character vault and it display a list of all the characters I have made to date
+- As a logged in user, I want to be able to see my character vault and its display a list of all the characters I have made to date
 - As a logged in user, I want to be able to see the details of a character in my vault
 - As a logged in user, I want to be able to update the details of my character sheets
 - As a logged in user, I want to be able to delete my character sheets that I no longer want to keep
@@ -39,10 +39,13 @@ Call of Cthulhu 7e Players:
     - react
     - react-router
     - axios
+    - sass
+    - bootstrap
 - Server libraries:
     - knex
     - express
     - uuid
+    - jsonwebtoken
 
 ### APIs
 
@@ -65,37 +68,37 @@ List the pages of your app with brief descriptions. You can show this visually, 
 
 - Website mockups can be seen [here](https://excalidraw.com/#json=MXN65C4-Uzili1IYZQCzE,vSOA3uaeYO-W5h961yS5EA)
 
-- Home Page
+Home Page
 ![](home-page.PNG)
 
-- Lists Page
+Lists Page
 ![](list-page.PNG)
 
-- Add Page
+Add Page
 ![](add-character-page.PNG)
 
-- Form States: 
-    - State 1(investigator):
+Form States: 
+State 1(investigator):
     ![](form-part-1.PNG)
-    - State 2(stats):
+State 2(stats):
     ![](form-part-2.PNG)
-    - State 3(background):
+State 3(background):
     ![](form-part-3.PNG)
-    - State 4(skills):
+State 4(skills):
     ![](form-part-4.PNG)
-    - State 5(extra details):
+State 5(extra details):
     ![](form-part-5.PNG)
 
-- View Page
+View Page
 ![](view-character-page.PNG)
 
-- Edit Page
+Edit Page
 ![](edit-character-page.PNG)
 
-- Sign Up Page
+Sign Up Page
 ![](sign-up-page.PNG)
 
-- Log In Page
+Log In Page
 ![](log-in-page.PNG)
 
 ### Data
@@ -133,6 +136,7 @@ Response:
 - Get character by id
 
 Parameters:
+- user_id: user's id
 - character_id: character's id as number
 - token:  JWT used to verify user
 
@@ -163,11 +167,11 @@ Response:
                 "intelligence": 60,
                 "education": 70,
                 "power": 70,
-                "build": 1,
-                "health": 7,
-                "movement": 60,
+                "build": 0,
+                "health": 9,
+                "movement": 8,
                 "sanity": 70,
-                "magic_points": 10,
+                "magic_points": 14,
                 "luck": 50
             }
     "skills": [
@@ -221,11 +225,11 @@ Response:
                 "intelligence": 60,
                 "education": 70,
                 "power": 70,
-                "build": 1,
-                "health": 7,
-                "movement": 60,
+                "build": 0,
+                "health": 9,
+                "movement": 8,
                 "sanity": 70,
-                "magic_points": 10,
+                "magic_points": 14,
                 "luck": 50
             }
     "skills": [
@@ -243,7 +247,7 @@ Response:
 }
 ```
 
-**POST /characters/:id**
+**PUT /characters/:id**
 
 - Logged in user can update a given character sheet
 
@@ -251,7 +255,7 @@ Parameters:
 - user_id: user's id
 - character_id: character id
 - token: JWT of the logged in user
-- rating: Number Rating out of 5 in 0.5 increments
+- character: character object containing all the character's data
 
 Response:
 ```
@@ -280,11 +284,11 @@ Response:
                 "intelligence": 60,
                 "education": 70,
                 "power": 70,
-                "build": 1,
-                "health": 7,
-                "movement": 60,
+                "build": 0,
+                "health": 9,
+                "movement": 8,
                 "sanity": 70,
-                "magic_points": 10,
+                "magic_points": 14,
                 "luck": 50
             }
     "skills": [
@@ -300,6 +304,82 @@ Response:
             ],
 
 }
+```
+**DELETE /characters/:id**
+
+- Get character Delete the character of the given id
+
+Parameters:
+- user_id: user's id
+- character_id: character's id as number
+- token:  JWT used to verify user
+
+Response:
+- response 204 with no object 
+
+**GET /backgrounds**
+
+- Get the list of backgrounds a user can choose for their character
+
+Parameters:
+none
+
+Response:
+```
+[
+    {
+        "background_id": 1,
+        "name": "Diletante",
+    },
+    ...
+]
+```
+
+**GET /backgrounds/:id**
+
+- Get the details of a specific background given the id
+
+Parameters:
+ - background_id: the background's id
+
+ Response:
+ ```
+    {
+        "background_id": 1,
+        "name": "Diletante",
+        "credit_rating_min": 50,
+        "credit_rating_max": 99,
+        "skill_point_calculation": "EDU*2 + APP*2",
+        skill_option_1: "Art",
+        skill_option_2: "45",
+        skill_option_3: "Language Other",
+        skill_option_4: "77",
+        skill_option_5: "Interpersonal",
+        skill_option_6: "Any",
+        skill_option_7: "Any",
+        skill_option_8: "Any"
+    }
+```
+
+
+**GET /skills**
+
+- Get the list of skills a user can choose for their character
+
+Parameters:
+none
+
+Response:
+```
+[
+    {
+        "skill_id": 1,
+        "name": "Appraise",
+        "base_value": 5, 
+        "category": "None"
+    },
+    ...
+]
 ```
 
 **POST /users/register**
@@ -349,11 +429,11 @@ Response:
 - Create server
     - express project with routing, with placeholder 200 responses
 
-- Gather list of open licence material that users will be able to select as details for their character
+- Gather list of open licence material that users will be able to select as details for their character (ie. backgrounds and skills)
 
 - Create databases (migrations)
 
-- Create seeds with sample character sheet data
+- Create seeds with the selection data(backgrounds and skills) and some sample character sheet data
 
 - Deploy client and server projects so all commits will be reflected in production
 
@@ -371,13 +451,12 @@ Response:
 - Feature: Add Character
     - Add form input to create a new character page
     - Create POST /character_sheets endpoint
-    - Create GET /professions endpoint
+    - Create GET /backgrounds endpoint
     - Create GET /skills endpoint
 
 - Feature: Edit character
     - Add form input to edit a character sheet
-    - Create PATCH /character_sheets/:id endpoint
-    - States for add & update ratings 
+    - Create PUT /character_sheets/:id endpoint
 
 - Feature: Delete Charcter
     - Add Delete button on character list items in List Page 
