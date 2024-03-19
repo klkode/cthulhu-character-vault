@@ -131,14 +131,14 @@ Response:
 ]
 ```
 
-**GET /characters/:id**
+**POST /characters/**
 
-- Get character by id
+- Logged in user can add a new character
 
 Parameters:
 - user_id: user's id
-- character_id: character's id as number
-- token:  JWT used to verify user
+- token: JWT of the logged in user
+- character: object containing character data
 
 Response:
 ```
@@ -151,13 +151,12 @@ Response:
     "residence": "Arkham",
     "special_people": "grandfather",
     "favoured_possession", "pocket watch",
-    "background": "Dilettante",
     "mania": "arachnaphobia",
     "traits": "auburn hair, green eyes, short",
     "injuries": "",
     "feats": "",
     "notes": "",
-    "background": "Dilettante",
+    "background": Dilettante,
     "stats": {               
                 "strength": 50,
                 "dexterity": 60,
@@ -189,14 +188,14 @@ Response:
 }
 ```
 
-**POST /characters/**
+**GET /characters/:id**
 
-- Logged in user can add a new character
+- Get character by id
 
 Parameters:
 - user_id: user's id
-- token: JWT of the logged in user
-- character: object containing character data
+- character_id: character's id as number
+- token:  JWT used to verify user
 
 Response:
 ```
@@ -209,7 +208,6 @@ Response:
     "residence": "Arkham",
     "special_people": "grandfather",
     "favoured_possession", "pocket watch",
-    "background": "Dilettante",
     "mania": "arachnaphobia",
     "traits": "auburn hair, green eyes, short",
     "injuries": "",
@@ -268,7 +266,6 @@ Response:
     "residence": "Arkham",
     "special_people": "grandfather",
     "favoured_possession", "pocket watch",
-    "background": "Dilettante",
     "mania": "arachnaphobia",
     "traits": "auburn hair, green eyes, short",
     "injuries": "",
@@ -329,7 +326,7 @@ Response:
 [
     {
         "background_id": 1,
-        "name": "Diletante",
+        "name": "Antiquarian",
     },
     ...
 ]
@@ -345,7 +342,7 @@ Parameters:
  Response:
  ```
     {
-        "background_id": 1,
+        "background_id": 4,
         "name": "Diletante",
         "credit_rating_min": 50,
         "credit_rating_max": 99,
@@ -442,25 +439,25 @@ Response:
 
 - Feature: List of user's characters
     - Implement list of characters page 
-    - Create GET /character_sheets endpoint
+    - Create GET /characters endpoint
 
 - Feature: View Character
     - Implement view character sheet page
-    - Create GET /character_sheets/:id endpoint
+    - Create GET /characters/:id endpoint
 
 - Feature: Add Character
     - Add form input to create a new character page
-    - Create POST /character_sheets endpoint
+    - Create POST /characters endpoint
     - Create GET /backgrounds endpoint
     - Create GET /skills endpoint
 
 - Feature: Edit character
     - Add form input to edit a character sheet
-    - Create PUT /character_sheets/:id endpoint
+    - Create PUT /characters/:id endpoint
 
 - Feature: Delete Charcter
     - Add Delete button on character list items in List Page 
-    - Create DELETE /character_sheets/:id endpoint
+    - Create DELETE /characters/:id endpoint
 
 - Feature: Create account
     - Implement register page + form
