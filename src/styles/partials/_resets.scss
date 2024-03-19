@@ -1,0 +1,11 @@
+// Set everything to border-box and get rid of any default margins or padding
+*, *::before, *::after{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+//Remove default bullet points from lists 
+ul{
+    list-style-type: none;
+}
