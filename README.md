@@ -19,12 +19,11 @@ Call of Cthulhu 7e Players:
 
 - As a user, I want to be able to create an account to make character sheets
 - As a user, I want to be able to login to my account to view my character sheets and make new ones
-
 - As a logged in user, I want to be able to create a new character sheet for the Call of Cthulhu 7e TTRPG
-- As a logged in user, I want to be able to see my character vault and its display a list of all the characters I have made to date
+- As a logged in user, I want to be able to see my character vault and its list of all the characters I have made to date
 - As a logged in user, I want to be able to see the details of a character in my vault
 - As a logged in user, I want to be able to update the details of my character sheets
-- As a logged in user, I want to be able to delete my character sheets that I no longer want to keep
+- As a logged in user, I want to be able to delete a character sheet that I no longer want to keep
 
 
 ## Implementation
@@ -68,37 +67,28 @@ List the pages of your app with brief descriptions. You can show this visually, 
 
 - Website mockups can be seen [here](https://excalidraw.com/#json=MXN65C4-Uzili1IYZQCzE,vSOA3uaeYO-W5h961yS5EA)
 
-Home Page
 ![](home-page.PNG)
 
-Lists Page
 ![](list-page.PNG)
 
-Add Page
 ![](add-character-page.PNG)
 
-Form States: 
-State 1(investigator):
-    ![](form-part-1.PNG)
-State 2(stats):
-    ![](form-part-2.PNG)
-State 3(background):
-    ![](form-part-3.PNG)
-State 4(skills):
-    ![](form-part-4.PNG)
-State 5(extra details):
-    ![](form-part-5.PNG)
+![](form-part-1.PNG)
 
-View Page
+![](form-part-2.PNG)
+
+![](form-part-3.PNG)
+
+![](form-part-4.PNG)
+
+![](form-part-5.PNG)
+
 ![](view-character-page.PNG)
 
-Edit Page
 ![](edit-character-page.PNG)
 
-Sign Up Page
 ![](sign-up-page.PNG)
 
-Log In Page
 ![](log-in-page.PNG)
 
 ### Data
