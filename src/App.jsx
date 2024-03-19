@@ -11,11 +11,14 @@ import AddCharacterPage from './pages/AddCharacterPage/AddCharacterPage.jsx';
 import EditCharacterPage from './pages/EditCharacterPage/EditCharacterPage.jsx';
 import CharacterSheetPage from './pages/CharacterSheetPage/CharacterSheetPage.jsx';
 import NotFoundPage from './pages/NotFoundPage/NotFoundPage.jsx';
+import Header from './components/Header/Header.jsx';
+import Footer from './components/Footer/Footer.jsx';
 
 function App() {
 
     return (
         <AuthProvider>
+            <Header />
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<HomePage />} />
@@ -28,6 +31,7 @@ function App() {
                     <Route path="*" element={<NotFoundPage />} />
                 </Routes>
             </BrowserRouter>
+            <Footer />
         </AuthProvider>
     );
 }
