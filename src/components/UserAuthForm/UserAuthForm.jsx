@@ -1,19 +1,85 @@
 import './UserAuthForm.scss';
 import { useRef, useState } from 'react';
 import ButtonLink from '../ButtonLink/ButtonLink';
+import axios from "axios";
+import { BASE_URL } from '../../constant-variables';
 
 function UserAuthForm({ isSignUp }) {
+    // Create error state variables
     const [usernameErrMsg, setUsernameErrMsg] = useState("");
     const [passwordErrMsg, setPasswordErrMsg] = useState("");
     const [confirmErrMsg, setConfirmErrMsg] = useState("");
 
+    // Create refs for the input fields
     const usernameRef = useRef();
     const passwordRef = useRef();
     const confirmRef = useRef();
 
+
     function submitHandler(event){
         // Stop page from reloading
         event.preventDefault();
+
+        // Get input field values
+        const username = usernameRef.current.value;
+        const password = passwordRef.current.value;
+
+        // Complete appropriate actions on whether this is for the RegisterPage or the LoginPage
+        // Register Page
+        if(isSignUp){
+            // Get confirmation field value 
+            const confirmPassword = confirmRef.current.value;
+
+            // TODO validation
+            if(true){
+                const registerUser = async(username, password) => {
+                    try{
+                        const response = await axios.post(`${BASE_URL}users/register`, 
+                            {
+                                username: username,
+                                password: password
+                            }
+                        );
+                        console.log(response.data);
+
+                    }catch(error){
+                        console.error(error);
+                        // TODO alert user of the inability to validate them
+                    }
+                }
+
+                registerUser(username, password);
+
+            }else{
+                // TODO set validation errors
+            }
+
+        // Login Page
+        }else{
+            // TODO validation
+            if(true){
+                const loginUser = async(username, password) => {
+                    try{
+                        const response = await axios.post(`${BASE_URL}users/login`, 
+                            {
+                                username: username,
+                                password: password
+                            }
+                        );
+                        console.log(response.data);
+
+                    }catch(error){
+                        console.error(error);
+                        // TODO alert user of the inability to validate them
+                    }
+                }
+
+                loginUser(username, password);
+
+            }else{
+                // TODO set validation errors
+            }
+        }
 
     }
 
