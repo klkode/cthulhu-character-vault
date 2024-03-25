@@ -3,6 +3,8 @@ import { useRef, useState } from 'react';
 import ButtonLink from '../ButtonLink/ButtonLink';
 import axios from "axios";
 import { BASE_URL } from '../../constant-variables';
+import { useNavigate } from "react-router-dom";
+// import { AuthContext } from '../../context/auth-context.js';
 
 function UserAuthForm({ isSignUp }) {
     // Create error state variables
@@ -15,6 +17,11 @@ function UserAuthForm({ isSignUp }) {
     const passwordRef = useRef();
     const confirmRef = useRef();
 
+    // Create navigate to leave page on successful form submission
+    const navigate = useNavigate();
+
+    // Used for creating session
+    // const { session, setSession } = useContext(AuthContext);
 
     function submitHandler(event){
         // Stop page from reloading
@@ -41,6 +48,12 @@ function UserAuthForm({ isSignUp }) {
                             }
                         );
                         console.log(response.data);
+                        // set the token in session storage
+                        sessionStorage.setItem("token", response.data.token);
+                        // mark that a session exists
+                        // setSession({token: response.data.token});
+                        // navigate back to the previous page
+                        navigate(-1);
 
                     }catch(error){
                         console.error(error);
@@ -67,6 +80,12 @@ function UserAuthForm({ isSignUp }) {
                             }
                         );
                         console.log(response.data);
+                        // set the token in session storage
+                        sessionStorage.setItem("token", response.data.token);
+                        // mark that a session exists
+                        // setSession({token: response.data.token});
+                        // navigate back to the previous page
+                        navigate(-1);
 
                     }catch(error){
                         console.error(error);

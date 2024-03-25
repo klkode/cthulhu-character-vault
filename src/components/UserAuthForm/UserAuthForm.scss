@@ -22,11 +22,22 @@
     &__text-box{
 
         &--error{
-            
+
         }
     }
 
     &__error{
 
+    }
+
+    &__btn-container{
+        @include flexRow();
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    &__nav-container{
+        @include flexRow();
+        justify-content: flex-start;
     }
 }
