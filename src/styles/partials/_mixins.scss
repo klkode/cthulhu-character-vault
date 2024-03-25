@@ -2,3 +2,15 @@
 @use './variables.scss' as *;
 @use './breakpoints.scss' as *;
 @use './font-styles.scss' as *;
+
+@mixin flexRow(){
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+@mixin flexCol(){
+    width: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+}

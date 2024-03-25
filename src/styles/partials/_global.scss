@@ -5,11 +5,12 @@
 @use './font-styles.scss' as *;
 
 body{
-
+    @include flexCol();
 }
 
 section{
-
+    @include flexCol();
+    margin: 0 2rem;
 }
 
 article{
@@ -50,4 +51,8 @@ button{
 
 input{
     
+}
+
+a{
+    text-decoration: none;
 }
