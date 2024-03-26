@@ -6,11 +6,14 @@ import CharacterVaultTable from '../../components/CharacterVaultTable/CharacterV
 
 function CharacterVaultPage() {
 
+  // State variables for the pages data and loading state
   const [characterList, setCharacterList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  // Get the session token
   const token = sessionStorage.getItem("token");
 
+  // Get the list of characters that the logged in user owns
   useEffect(() => {
     const populateVault = async(token) => {
       try{
