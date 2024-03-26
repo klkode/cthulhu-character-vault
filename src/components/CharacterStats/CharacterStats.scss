@@ -1,0 +1,31 @@
+@use '../../styles/partials/mixins.scss' as *;
+
+.character-stats{
+    @include flexCol();
+
+    &__heading{
+
+    }
+    
+    &__container{
+        @include flexCol();
+        
+        &--primary-stats{
+            @include flexRow();
+            justify-content: space-between;
+        }
+    }
+
+    &__rolled-grouping{
+        @include flexCol();
+    }
+
+    &__calculated-grouping{
+        @include flexRow();
+        justify-content: space-between;
+    }
+
+    &__stat{
+
+    }
+}

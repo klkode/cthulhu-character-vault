@@ -4,6 +4,10 @@
     @include flexCol();
     justify-content: flex-start;
 
+    &__heading{
+
+    }
+    
     &__container{
         @include flexRow();
         justify-content: space-between;
