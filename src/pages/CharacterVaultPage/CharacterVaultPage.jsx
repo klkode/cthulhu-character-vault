@@ -2,6 +2,7 @@ import './CharacterVaultPage.scss';
 import { useEffect, useState } from 'react';
 import { BASE_URL } from "../../constant-variables.js"
 import axios from "axios";
+import CharacterVaultTable from '../../components/CharacterVaultTable/CharacterVaultTable.jsx';
 
 function CharacterVaultPage() {
 
@@ -48,9 +49,9 @@ function CharacterVaultPage() {
 
   return (
     <section className="character-vault">
-      <h1>Character Vault</h1>
+      <h1 className="character-vault__heading">Character Vault</h1>
       <input className="character-vault__search" />
-
+      <CharacterVaultTable charactersList={characterList}/>
     </section>
   );
 }

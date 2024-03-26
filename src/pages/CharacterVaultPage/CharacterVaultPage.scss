@@ -1,0 +1,13 @@
+@use '../../styles/partials/mixins.scss' as *;
+
+.character-vault{
+    @include flexCol();
+    
+    &__heading{
+
+    }
+
+    &__search{
+
+    }
+}
