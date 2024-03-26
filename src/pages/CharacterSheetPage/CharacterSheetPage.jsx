@@ -68,10 +68,10 @@ function CharacterSheetPage() {
     return(
         <section className="character-sheet">
             <h1 className="character-sheet__heading">{`${characterSheet.character_name}'s Character Sheet`}</h1>
-            <CharacterDetails characterDetails={characterSheet} />
+            <CharacterDetails character={characterSheet} />
             <CharacterStats stats={characterSheet.stats} />
             <CharacterSkills skills={characterSheet.skills} />
-            <CharacterExtras characterDetails={characterSheet} />
+            <CharacterExtras character={characterSheet} />
         </section>
     );
 }

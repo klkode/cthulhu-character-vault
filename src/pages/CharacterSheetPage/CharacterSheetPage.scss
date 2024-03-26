@@ -1,0 +1,9 @@
+@use '../../styles/partials/mixins.scss' as *;
+
+.character-sheet{
+    @include flexCol();
+
+    &__heading{
+
+    }
+}

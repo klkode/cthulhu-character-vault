@@ -1,0 +1,28 @@
+@use '../../styles/partials/mixins.scss' as *;
+
+.character-details{
+    @include flexCol();
+    justify-content: flex-start;
+
+    &__container{
+        @include flexRow();
+        justify-content: space-between;
+    }
+
+    &__sub-container{
+        @include flexCol();
+        justify-content: flex-start;
+    }
+
+    &__name{
+
+    }
+
+    &__background{
+
+    }
+
+    &__detail-text{
+
+    }
+}
