@@ -137,7 +137,7 @@ function AddCharacterPage() {
             <article className="add-character__form-container">
                 {formState === 1 && 
                 <InvestigatorDetailsForm 
-                    updateHandler={updateCharacterDetails} previous={previousForm} next={nextForm} />
+                    updateHandler={updateCharacterDetails} next={nextForm} />
                 }
                 {formState === 2 && 
                 <InvestigatorStatsForm 

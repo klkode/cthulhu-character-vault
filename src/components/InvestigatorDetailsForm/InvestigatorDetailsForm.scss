@@ -1,0 +1,55 @@
+@use "../../styles/partials/mixins.scss" as *;
+
+.details-form{
+    @include flexCol();
+
+    &__heading{
+
+    }
+
+    &__instructions{
+
+    }
+
+    &__container{
+        @include flexCol();
+
+    }
+
+    &__field-container{
+        @include flexRow();
+    }
+
+    &__input-container{
+        @include flexCol();
+    }
+
+    &__label{
+
+    }
+
+    &__input{
+
+        &--error{
+
+        }
+    }
+
+    &__error{
+
+    }
+
+    &__btn-container{
+        @include flexRow();
+        justify-content: space-between;
+    }
+
+    &__btn{
+
+        &--cancel{
+
+        }
+    }
+
+
+}
