@@ -2,6 +2,11 @@
 
 .character-sheet{
     @include flexCol();
+    
+    &__heading-container{
+        @include flexRow();
+        justify-content: space-between;
+    }
 
     &__heading{
 

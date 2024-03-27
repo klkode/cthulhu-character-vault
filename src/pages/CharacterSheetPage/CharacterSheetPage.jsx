@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { BASE_URL } from "../../constant-variables.js"
 import axios from "axios";
+import ButtonLink from '../../components/ButtonLink/ButtonLink';
 import CharacterDetails from '../../components/CharacterDetails/CharacterDetails.jsx';
 import CharacterExtras from '../../components/CharacterExtras/CharacterExtras.jsx';
 import CharacterSkills from '../../components/CharacterSkills/CharacterSkills.jsx';
@@ -67,7 +68,10 @@ function CharacterSheetPage() {
 
     return(
         <section className="character-sheet">
-            <h1 className="character-sheet__heading">{`${characterSheet.character_name}'s Character Sheet`}</h1>
+            <div className="character-sheet__heading-container">
+                <h1 className="character-sheet__heading">{`${characterSheet.character_name}'s Character Sheet`}</h1>
+                <ButtonLink btnText={"EDIT"} navTo={`/characters/${id}/edit`} />
+            </div>
             <CharacterDetails character={characterSheet} />
             <CharacterStats stats={characterSheet.stats} />
             <CharacterSkills skills={characterSheet.skills} />
