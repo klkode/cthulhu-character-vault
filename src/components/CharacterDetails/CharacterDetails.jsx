@@ -9,7 +9,7 @@ function CharacterDetails({character}) {
       <h3 className="character-details__heading">Details</h3>
       <div className="character-details__container">
         <h4 className="character-details__name">{`Name: ${character.character_name}`}</h4>
-        <h4 className="character-details__background">{`Background: ${character.background_id}`}</h4> 
+        <h4 className="character-details__background">{`Background: ${character.background_name}`}</h4> 
       </div>
       <div className="character-details__container">
         <div className="character-details__sub-container">
