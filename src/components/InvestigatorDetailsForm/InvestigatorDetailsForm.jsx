@@ -18,6 +18,10 @@ function InvestigatorDetailsForm( {updateHandler, next} ) {
     next();
   }
 
+  function onChangeHandler(event){
+    updateHandler(event.target.name, event.target.value);
+  }
+
   return (
     <form className="details-form" id="add-details-form" name="add-details-form">
       <h2 className="details-form__heading" >Investigator Details</h2>
@@ -26,35 +30,35 @@ function InvestigatorDetailsForm( {updateHandler, next} ) {
         <div className="details-form__field-container">
           <label className="details-form__label" htmlFor="name">Name: </label>
           <div className="details-form__input-container">
-            <input className="details-form__input" id="name" name="name" onChange={updateHandler} />
+            <input className="details-form__input" id="name" name="name" onChange={onChangeHandler} type="text"/>
             <label className="details-form__error" htmlFor="name"></label>
           </div>
         </div>
         <div className="details-form__field-container">
           <label className="details-form__label" htmlFor="gender">Gender: </label>
           <div className="details-form__input-container">
-            <input className="details-form__input" id="gender" name="gender" onChange={updateHandler} />
+            <input className="details-form__input" id="gender" name="gender" onChange={onChangeHandler} type="text" />
             <label className="details-form__error" htmlFor="gender"></label>
           </div>
         </div>
         <div className="details-form__field-container">
           <label className="details-form__label" htmlFor="age">Age: </label>
           <div className="details-form__input-container">
-            <input className="details-form__input" id="age" name="age" onChange={updateHandler} />
+            <input className="details-form__input" id="age" name="age" onChange={onChangeHandler} type="text" />
             <label className="details-form__error" htmlFor="age"></label>
           </div>
         </div>
         <div className="details-form__field-container">
           <label className="details-form__label" htmlFor="birthplace">Birthplace: </label>
           <div className="details-form__input-container">
-            <input className="details-form__input" id="birthplace" name="birthplace" onChange={updateHandler} />
+            <input className="details-form__input" id="birthplace" name="birthplace" onChange={onChangeHandler} type="text" />
             <label className="details-form__error" htmlFor="birthplace"></label>
           </div>
         </div>
         <div className="details-form__field-container">
           <label className="details-form__label" htmlFor="residence">Residence: </label>
           <div className="details-form__input-container">
-            <input className="details-form__input" id="residence" name="residence" onChange={updateHandler} />
+            <input className="details-form__input" id="residence" name="residence" onChange={onChangeHandler} type="text" />
             <label className="details-form__error" htmlFor="residence"></label>
           </div>
         </div>

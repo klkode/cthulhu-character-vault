@@ -25,16 +25,18 @@ function CharacterStats({stats}) {
       </div>
       <div className="character-stats__container">
         <div className="character-stats__calculated-grouping">
-          <p className="character-stats__stat">{`Health: ${stats.health}`}</p>
-          <p className="character-stats__stat">{`Major Wound Threshold: ${Math.floor(stats.health/2)}`}</p>
-        </div>
-        <div className="character-stats__calculated-grouping">
           <p className="character-stats__stat">{`Sanity: ${stats.sanity}`}</p>
           <p className="character-stats__stat">{`Indefinite Insanity Threshold: ${Math.floor(stats.sanity/5)}`}</p>
         </div>
         <div className="character-stats__calculated-grouping">
+          <p className="character-stats__stat">{`Health: ${stats.health}`}</p>
+          <p className="character-stats__stat">{`Major Wound Threshold: ${Math.floor(stats.health/2)}`}</p>
+        </div>
+        <div className="character-stats__calculated-grouping">
           <p className="character-stats__stat">{`Magic Points: ${stats.magic_points}`}</p>
           <p className="character-stats__stat">{`Movement: ${stats.movement}`}</p>
+          <p className="character-stats__stat">{`Build: ${stats.build}`}</p>
+          {/* TODO dmage bonus */}
         </div>
       </div>
     </article>

@@ -1,0 +1,69 @@
+@use "../../styles/partials/mixins" as *;
+
+.stats-form{
+    @include flexCol();
+
+    &__heading{
+
+    }
+
+    &__instructions{
+
+    }
+
+    &__stats-container{
+        @include flexRow();
+        justify-content: space-between;
+    }
+
+    &__assigned-container{
+        @include flexCol();
+        flex-basis: 25%;
+    }
+
+    &__field-container{
+        @include flexRow();
+        justify-content: flex-start;
+    }
+
+    &__label{
+
+    }
+
+    &__input-container{
+        @include flexCol();
+        width: 66%;
+    }
+
+    &__text-box{
+
+        &--read-only{
+
+        }
+
+        &--error{
+
+        }
+    }
+
+    &__error{
+
+    }
+
+    &__calculated-container{
+        @include flexCol();
+        flex-basis: 25%;
+    }
+
+    &__btn-container{
+        @include flexRow();
+        justify-content: space-between;
+    }
+
+    &__btn{
+
+        &--cancel{
+
+        }
+    }
+}
