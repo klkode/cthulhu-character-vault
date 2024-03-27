@@ -4,10 +4,13 @@ import './CharacterExtras.scss';
 function CharacterExtras({character}) {
 
   const [selectState, setSelectState] = useState(null);
+  const [selectLabel, setSelectLabel] = useState(null);
 
   function selectionHandler(event){
     const keyName = event.target.value;
+    const displayName = keyName.replace("_", " ");
     setSelectState(character[keyName]);
+    setSelectLabel(displayName);
   }
     
   return (
@@ -16,7 +19,7 @@ function CharacterExtras({character}) {
       <div className="character-extras__container">
         <div className="dropdown character-extras__dropdown">
           <button className="btn btn-secondary dropdown-toggle character-extras__option character-extras__option--default" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Select Detail
+            {!selectLabel ? "Select Detail" : selectLabel }
           </button>
           <ul className="dropdown-menu character-extras__dropdown-menu">
             <li className="character-extras__option-container">

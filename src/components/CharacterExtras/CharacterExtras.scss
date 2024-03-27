@@ -1,0 +1,42 @@
+@use '../../styles/partials/mixins.scss' as *;
+
+.character-extras{
+    @include flexCol();
+
+    &__heading{
+
+    }
+
+    &__container{
+        @include flexRow();
+        justify-content: space-between;
+    }
+
+    &__dropdown{
+
+    }
+
+    &__dropdown-menu{
+
+    }
+
+    &__option-container{
+
+    }
+    
+    &__option{
+        text-transform: capitalize;
+
+        &--default{
+
+        }
+    }
+
+    &__value-container{
+
+    }
+
+    &__value{
+
+    }
+}
