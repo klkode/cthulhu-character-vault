@@ -1,0 +1,34 @@
+@use '../../styles/partials/mixins.scss' as *;
+
+.character-skills{
+    @include flexCol();
+
+    &__heading{
+
+    }
+
+    &__filter-container{
+        @include flexRow();
+
+        &--extras{
+            display: none;
+        }
+    }
+
+    &__search-bar{
+
+    }
+
+    &__filter-group{
+        @include flexRow();
+    }
+
+    &__filter-box{
+
+    }
+
+    &__filter-option{
+
+    }
+    
+}

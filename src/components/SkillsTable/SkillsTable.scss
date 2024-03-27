@@ -1,0 +1,40 @@
+@use '../../styles/partials/mixins.scss' as *;
+
+.skills-table{
+    @include flexCol();
+
+    &__headings-container{
+        @include flexRow();
+        justify-content: space-between;
+        
+    }
+
+    &__skill-container{
+        display: flex;
+        flex-basis: 20%;
+    }
+
+    &__base-container{
+        display: flex;
+        flex-basis: 20%;
+    }
+
+    &__hard-container{
+        display: flex;
+        flex-basis: 20%;
+    }
+
+    &__extreme-container{
+        display: flex;
+        flex-basis: 20%;
+    }
+
+    &__heading{
+
+    }
+
+    &__no-results{
+
+    }
+
+}
