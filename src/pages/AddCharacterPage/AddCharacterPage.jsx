@@ -59,10 +59,23 @@ function AddCharacterPage() {
         luck: ""
     }
 
+    // Make inital input state for character stats fields
+    const initialSkillsState = {
+        occupationalSkill1: "",
+        occupationalSkill2: "",
+        occupationalSkill3: "",
+        occupationalSkill4: "",
+        occupationalSkill5: "",
+        occupationalSkill6: "",
+        occupationalSkill7: "",
+        occupationalSkill8: "",
+        personalSkills: []
+    }
+
     // Create state variables for recording the user's inputs for their new character's data
     const [characterInputs, setCharacterInputs] = useState(initialCharacterState);
     const [statsInputs, setStatsInputs] = useState(initialStatsState);
-    const [skillsInputs, setSkillsInputs] = useState([]);
+    const [skillsInputs, setSkillsInputs] = useState(initialSkillsState);
     const [equipmentInputs, setEquipmentInputs] = useState([]);
 
     /**
@@ -87,6 +100,25 @@ function AddCharacterPage() {
     function updateStatsVaules(field, input){
         const updatedInput = {...statsInputs, [field]: input}
         setStatsInputs(updatedInput);
+    }
+
+    /**
+     * updateForm is a wrapper function that helps to set the updated formInputs state variable based on the change of only 1 of its key-value pairs. The field parameter is the key to be updated and the input parameter is the new value.
+     * 
+     * @param {string}      field
+     * @param {string}      input
+     * 
+     */
+    function updateSkillsVaules(field, input){
+        // if(field !== "personalSkills"){
+        //     const updatedInput = {...skillsInputs, [field]: input}
+        //     setSkillsInputs(updatedInput);
+        // }else{
+        //     const updatedInput = {...statsInputs, [field]: input}
+        //     setSkillsInputs(updatedInput);
+        // }
+        const updatedInput = {...skillsInputs, [field]: input}
+        setSkillsInputs(updatedInput);
     }
 
     /**
@@ -145,7 +177,7 @@ function AddCharacterPage() {
                 }
                 {formState === 3 && 
                 <InvestigatorSkillsForm 
-                    updateBackground={updateCharacterDetails} updateSkills={setSkillsInputs} previous={previousForm} next={nextForm} />
+                    backgroundValue={statsInputs.background_id} inputValues={skillsInputs} updateBackground={updateCharacterDetails} updateSkills={updateSkillsVaules} previous={previousForm} next={nextForm} />
                 }
                 {formState === 4 && 
                 <InvestigatorExtrasForm 
