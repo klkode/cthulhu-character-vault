@@ -1,0 +1,59 @@
+@use "../../styles/partials/mixins" as *;
+
+.extras-form{
+    @include flexCol();
+
+    &__heading{
+
+    }
+
+    &__instructions{
+
+    }
+
+    &__container{
+        @include flexRow();
+        flex-wrap: wrap;
+    }
+
+    &__field-container{
+        @include flexCol();
+        flex-basis: 50%;
+    }
+
+    &__label{
+
+    }
+
+    &__input-container{
+        @include flexCol();
+    }
+
+    &__input{
+
+        &--small{
+
+        }
+    }
+
+    &__error{
+
+    }
+
+    &__btn-container{
+        @include flexRow();
+        justify-content: space-around;
+
+    }
+
+    &__btn{
+
+        &--cancel{
+
+        }
+
+        &--submit{
+
+        }
+    }
+}

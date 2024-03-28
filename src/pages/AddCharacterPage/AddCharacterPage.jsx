@@ -38,7 +38,8 @@ function AddCharacterPage() {
         injuries: "",
         feats: "",
         spells: "",
-        notes: ""
+        notes: "", 
+        equipment: []
     }
 
     // Make inital input state for character stats fields
@@ -76,7 +77,6 @@ function AddCharacterPage() {
     const [characterInputs, setCharacterInputs] = useState(initialCharacterState);
     const [statsInputs, setStatsInputs] = useState(initialStatsState);
     const [skillsInputs, setSkillsInputs] = useState(initialSkillsState);
-    const [equipmentInputs, setEquipmentInputs] = useState([]);
 
     /**
      * updateForm is a wrapper function that helps to set the updated formInputs state variable based on the change of only 1 of its key-value pairs. The field parameter is the key to be updated and the input parameter is the new value.
@@ -150,7 +150,7 @@ function AddCharacterPage() {
         const characterData = characterInputs;
         characterData.stats = statsInputs;
         characterData.skills = skillsInputs;
-        characterData.equipment = equipmentInputs;
+        // characterData.equipment = equipmentInputs;
 
         // Post character to the server
         postCharacter(characterData, token);
@@ -181,7 +181,7 @@ function AddCharacterPage() {
                 }
                 {formState === 4 && 
                 <InvestigatorExtrasForm 
-                    updateHandler={updateCharacterDetails} updateEquipment={setEquipmentInputs} previous={previousForm} verifiedSubmit={createCharacter} />
+                    inputValues={characterInputs} updateHandler={updateCharacterDetails} previous={previousForm} verifiedSubmit={createCharacter} />
                 }
             </article>
         </section>
