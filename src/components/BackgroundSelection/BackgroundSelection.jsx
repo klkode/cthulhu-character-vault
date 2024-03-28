@@ -1,32 +1,20 @@
 import { useEffect, useState } from 'react';
 import './BackgroundSelection.scss';
-import axios from 'axios';
-import { BASE_URL } from '../../constant-variables';
+// import axios from 'axios';
+// import { BASE_URL } from '../../constant-variables';
 
-function BackgroundSelection( {selectedId, updateSelectedBackground} ) {
+function BackgroundSelection( {selectedId, updateSelectedBackground, backgroundList} ) {
    
-    const [backgroundList, setBackgroundList] = useState([]);
     const [selectedLabel, setSelectedLabel] = useState("");
 
     useEffect(() => {
-        const getBackgrounds = async () => {
-            try{
-                const response = await axios.get(`${BASE_URL}backgrounds`);
-                setBackgroundList(response.data);
-                // if(selectedId !== "" && response.data.length > 0){
-                //     const selectedBackground = response.data.find((background) => 
-                //         background.background_id === selectedId
-                //     );
-                //     setSelectedLabel(selectedBackground.name);
-                // }
-            }catch(error){
-                console.error(error);
-                // TODO: Do something about this?
-            }
+        if(selectedId !== ""){
+            const selectedBackground = backgroundList.find((background) => 
+                background.background_id === Number(selectedId)
+            );
+            setSelectedLabel(selectedBackground.name);
         }
-        getBackgrounds();
-        
-    }, []);
+    }, [selectedId, backgroundList]);
 
     function selectionHandler(event){
         const backgroundId = Number(event.target.value);

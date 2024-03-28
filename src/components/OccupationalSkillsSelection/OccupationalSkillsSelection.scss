@@ -1,0 +1,50 @@
+@use "../../styles/partials/mixins" as *;
+
+.occupation-skill{
+    @include flexRow();
+
+    &__selection-container{
+        @include flexRow();
+    
+    }
+
+    &__label{
+
+    }
+
+    &__choice-box{
+
+    }
+
+    &__dropdown{
+
+    }
+
+    &__option{
+
+        &--default{
+
+        }
+    }
+
+    &__dropdown-menu{
+
+    }
+
+    &__option-container{
+
+    }
+
+    &__input-container{
+        @include flexCol();
+        
+    }
+
+    &__points-box{
+        
+    }
+
+    &__error{
+
+    }
+}

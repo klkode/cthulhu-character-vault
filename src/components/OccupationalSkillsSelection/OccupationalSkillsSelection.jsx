@@ -1,10 +1,20 @@
 // import { useState } from 'react';
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import './OccupationalSkillsSelection.scss';
 
 function OccupationalSkillsSelection( {optionNumber, choices, selected, updateSkills} ) {
-
     const pointsRef = useRef();
+
+    // useEffect(() =>{
+    //     if(!selected &&){
+    //         if(!!selected.points){
+    //             setPoints(selected.points);
+    //         }else{
+    //             setPoints(selected.base_value);
+    //         }
+    //     }
+
+    // },[choices]);
 
     function selectionHandler(event){
         // Get the skill id
@@ -21,16 +31,24 @@ function OccupationalSkillsSelection( {optionNumber, choices, selected, updateSk
         // Assign the base value of this skill to the object and as the value of the points input field 
         pointsRef.current.value = skillSelected.base_value;
         skillSelected.points = skillSelected.base_value;
+        // setPoints(skillSelected.base_value)
         
         updateSkills(`occupationalSkill${optionNumber}`, skillSelected);
     }
 
     function changeHandler(event){
         const points = event.target.value;
-        selected.points = points;
-        updateSkills(`occupationalSkill${optionNumber}`, selected);
+
+        // Avoid error of having nothing selected (because there was no choice) by setting the skill to the only choice
+        let skill = selected;
+        if(!selected){
+            skill = choices[0];
+        }
+        skill.points = points;
+        // setPoints(points);
+        updateSkills(`occupationalSkill${optionNumber}`, skill);
     }
-    
+
     return (
         <div className="occupation-skill">
             <div className="occupation-skill__selection-container">
@@ -55,8 +73,8 @@ function OccupationalSkillsSelection( {optionNumber, choices, selected, updateSk
             </div>
             <div className="occupation-skill__selection-container">
                 <label className="occupation-skill__label" htmlFor="points">Points: </label>
-                <div>
-                    <input className="occupation-skill__value-box" name="points" id="points" type="number" min="1" max="99" step="1" value={!selected ? "" : selected.points} onChange={changeHandler} ref={pointsRef}/>
+                <div className="occupation-skill__input-container">
+                    <input className="occupation-skill__points-box" name="points" id="points" type="number" min="1" max="99" step="1" defaultValue={!selected ? ((choices.length === 1) ? choices[0].base_value : "") : selected.points } onChange={changeHandler} ref={pointsRef}/>
                     <label className="occupation-skill__error" htmlFor="points"></label>
                 </div>
             </div>

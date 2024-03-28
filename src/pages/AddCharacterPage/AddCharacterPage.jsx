@@ -4,7 +4,7 @@ import InvestigatorDetailsForm from '../../components/InvestigatorDetailsForm/In
 import InvestigatorExtrasForm from '../../components/InvestigatorExtrasForm/InvestigatorExtrasForm.jsx';
 import InvestigatorSkillsForm from '../../components/InvestigatorSkillsForm/InvestigatorSkillsForm.jsx';
 import InvestigatorStatsForm from '../../components/InvestigatorStatsForm/InvestigatorStatsForm.jsx';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { BASE_URL } from "../../constant-variables.js"
 import axios from "axios";
 
@@ -14,6 +14,10 @@ function AddCharacterPage() {
 
     // Create state variable for keeping track of the user's progress through adding a character
     const [formState, setFormState] = useState(1);
+
+    // Create state variables for game details from the server
+    const [backgroundList, setBackgroundList] = useState([]);
+    const [skillsList, setSkillsList] = useState([]);
 
     function nextForm(){
         setFormState(formState + 1);
@@ -121,6 +125,26 @@ function AddCharacterPage() {
         setSkillsInputs(updatedInput);
     }
 
+    const getSkills = async () => {
+        try{
+            const skillsresponse = await axios.get(`${BASE_URL}skills`);
+            setSkillsList(skillsresponse.data);    
+        }catch(error){
+            console.error(error);
+            // TODO: Do something about this?
+        }
+    }
+
+    const getBackgrounds = async () => {
+        try{
+            const backgroundsResponse = await axios.get(`${BASE_URL}backgrounds`);   
+            setBackgroundList(backgroundsResponse.data);
+        }catch(error){
+            console.error(error);
+            // TODO: Do something about this?
+        }
+    }
+
     /**
      * postCharacter is an asynchronous function that takes a validated character object and POSTs it to the server to add to the character database and other relational databases.
      * 
@@ -158,6 +182,12 @@ function AddCharacterPage() {
         // TODO notify user? navigate away? clear fields? something?
     }
 
+    useEffect(() => {
+        getBackgrounds();
+        getSkills();
+
+    }, []);
+
     // TODO look nicer
     if(!token){
         return <div>You must be logged in to create a new character.</div>
@@ -177,7 +207,7 @@ function AddCharacterPage() {
                 }
                 {formState === 3 && 
                 <InvestigatorSkillsForm 
-                    backgroundValue={statsInputs.background_id} inputValues={skillsInputs} updateBackground={updateCharacterDetails} updateSkills={updateSkillsVaules} previous={previousForm} next={nextForm} />
+                    backgroundValue={characterInputs.background_id} inputValues={skillsInputs} updateBackground={updateCharacterDetails} updateSkills={updateSkillsVaules} previous={previousForm} next={nextForm} skillsList={skillsList} backgroundList={backgroundList} />
                 }
                 {formState === 4 && 
                 <InvestigatorExtrasForm 

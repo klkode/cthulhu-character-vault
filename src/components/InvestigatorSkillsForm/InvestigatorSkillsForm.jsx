@@ -1,34 +1,58 @@
 import { useState, useEffect } from 'react';
 import BackgroundSelection from '../BackgroundSelection/BackgroundSelection';
-import axios from 'axios';
-import { BASE_URL } from '../../constant-variables';
+// import axios from 'axios';
+// import { BASE_URL } from '../../constant-variables';
 import './InvestigatorSkillsForm.scss';
 import OccupationalSkillsSelection from '../OccupationalSkillsSelection/OccupationalSkillsSelection';
 
-function InvestigatorSkillsForm({backgroundValue, inputValues, updateBackground, updateSkills, previous, next}) {
+function InvestigatorSkillsForm({backgroundValue, inputValues, updateBackground, updateSkills, previous, next, skillsList, backgroundList}) {
   
-  const [skillsList, setSkillsList] = useState([]);
   const [selectedBackground, setSelectedBackground] = useState(null);
+  const [personalDropdownsAmt, setPersonalDropdownsAmt] = useState(1);
+
+  function resetOccupationSkills(){
+    for (let i = 1; i < 8; i++){
+      updateSkills(`occupationalSkill${i}`, "");
+    }
+    
+  }
 
   function updateSelectedBackground(backgroundObject){
     updateBackground("background_id", backgroundObject.background_id);
     setSelectedBackground(backgroundObject);
+    resetOccupationSkills();
 
   }
 
+  // If a new background is selected, then the previous occupation skills with it need to be wiped
+  function updateSelectedBackgroundById(id){
+    const foundBackground = backgroundList.find((background) => background.background_id === Number(id));
+    updateBackground("background_id", id);
+    setSelectedBackground(foundBackground);
+    resetOccupationSkills();
+
+  }
+
+  function addPersonalDropdown(){
+    setPersonalDropdownsAmt(personalDropdownsAmt + 1);
+  }
+
+  function removePersonalDropdown(){
+    if(personalDropdownsAmt > 1){
+      setPersonalDropdownsAmt(personalDropdownsAmt - 1);
+    }else{
+      setPersonalDropdownsAmt(1);
+    }
+  }
+
   useEffect(() => {
-      const getSkills = async () => {
-          try{
-              const response = await axios.get(`${BASE_URL}skills`);
-              setSkillsList(response.data);
-          }catch(error){
-              console.error(error);
-              // TODO: Do something about this?
-          }
+      if(backgroundValue !== ""){
+        updateSelectedBackgroundById(backgroundValue);
+      }else{
+        setSelectedBackground(null);
       }
-      getSkills();
       
-  }, []);
+  }, [backgroundValue]);
 
   function getOptionSkills(backgroundOption){
     const optionFilter = backgroundOption.choices;
@@ -81,10 +105,12 @@ function InvestigatorSkillsForm({backgroundValue, inputValues, updateBackground,
     next();
   }
 
+  console.log(inputValues);
+
   return (
     <form className="skills-form" id="add-skills-form" name="add-skills-form">
       <h2 className="skills-form__heading" >Investigator Background and Skills</h2>
-        <BackgroundSelection selectedId={backgroundValue} updateSelectedBackground={updateSelectedBackground} />
+        <BackgroundSelection selectedId={backgroundValue} updateSelectedBackground={updateSelectedBackground} backgroundList={backgroundList}/>
       <fieldset className="skills-form__occupation-skills-container">
         <h3>Occupational Skills</h3>
         {!!selectedBackground &&
@@ -96,6 +122,7 @@ function InvestigatorSkillsForm({backgroundValue, inputValues, updateBackground,
       </fieldset>
       <fieldset className="skills-form__personal-skills-container">
         <h3>Personal Interest Skills</h3>
+        {}
         
       </fieldset>
       <div className="skills-form__btn-container">
