@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import './InvestigatorStatsForm.scss';
 
-function InvestigatorStatsForm({ updateHandler, previous, next }) {
+function InvestigatorStatsForm({ inputValues, updateHandler, previous, next }) {
 
   // Create useRefs for fields necessary in calculation
   const strRef = useRef();
@@ -67,6 +67,7 @@ function InvestigatorStatsForm({ updateHandler, previous, next }) {
 
     const health = Math.floor((con + size) / 10);
 
+    // console.log(`health: ${health}`);
     // Update the textbox and the input field
     hpRef.current.value = health;
     updateHandler("health", health);
@@ -89,12 +90,19 @@ function InvestigatorStatsForm({ updateHandler, previous, next }) {
   }
 
   function onChangeHandler(event) {
+    // console.log(`key:${event.target.name}`);
+    // console.log(`value:${event.target.value}`);
+    // console.log(`number:${parseInt(event.target.value, 10)}`);
     updateHandler(event.target.name, event.target.value);
+
   }
 
   function onCalcChangeHandler(event) {
     const fieldName = event.target.name;
     const fieldValue = event.target.value;
+    // console.log(`key:${fieldName}`);
+    // console.log(`value:${fieldValue}`);
+    // console.log(`number:${parseInt(fieldValue, 10)}`);
 
     if(fieldName === "power"){
       if(fieldValue !== ""){
@@ -103,8 +111,8 @@ function InvestigatorStatsForm({ updateHandler, previous, next }) {
 
       }else{
         // the input vaule is invalid/empty so reset the sanity and magic points to placeholders
-        updateHandler("sanity", -1);
-        updateHandler("magic_points", -1);
+        updateHandler("sanity", "");
+        updateHandler("magic_points", "");
 
       }
 
@@ -125,7 +133,7 @@ function InvestigatorStatsForm({ updateHandler, previous, next }) {
 
       }else{
         // one of the two required input vaules is invalid/empty so reset the health to placeholder
-        updateHandler("health", -1);
+        updateHandler("health", "");
       }
 
     }else if(fieldName === "size"){
@@ -144,12 +152,12 @@ function InvestigatorStatsForm({ updateHandler, previous, next }) {
 
       }else{
         // one of the two required input vaules is invalid/empty so reset the health to placeholder
-        updateHandler("health", -1);
+        updateHandler("health", "");
       }
     }
 
     // Update the input for the changed field
-    updateHandler(fieldName, parseInt(fieldValue, 10));
+    updateHandler(fieldName, fieldValue);
   }
 
   return (
@@ -162,63 +170,63 @@ function InvestigatorStatsForm({ updateHandler, previous, next }) {
           <div className="stats-form__field-container">
             <label className="stats-form__label" htmlFor="strength">{"Strength (STR): "}</label>
             <div className="stats-form__input-container">
-              <input className="stats-form__text-box" id="strength" name="strength" onChange={onCalcChangeHandler} type="number" min="1" max="99" step="1" ref={strRef} />
+              <input className="stats-form__text-box" id="strength" name="strength" onChange={onCalcChangeHandler} type="number" min="1" max="99" step="1" value={inputValues.strength} ref={strRef} />
               <label className="stats-form__error" htmlFor="strength"></label>
             </div>
           </div>
           <div className="stats-form__field-container">
             <label className="stats-form__label" htmlFor="dexterity">{"Dexterity (DEX): "}</label>
             <div className="stats-form__input-container">
-              <input className="stats-form__text-box" id="dexterity" name="dexterity" onChange={onChangeHandler} type="number" min="1" max="99" step="1" />
+              <input className="stats-form__text-box" id="dexterity" name="dexterity" onChange={onChangeHandler} type="number" min="1" max="99" step="1" value={inputValues.dexterity}/>
               <label className="stats-form__error" htmlFor="dexterity"></label>
             </div>
           </div>
           <div className="stats-form__field-container">
             <label className="stats-form__label" htmlFor="constitution">{"Constitution (CON): "}</label>
             <div className="stats-form__input-container">
-              <input className="stats-form__text-box" id="constitution" name="constitution" onChange={onCalcChangeHandler} type="number" min="1" max="99" step="1" ref={conRef} />
+              <input className="stats-form__text-box" id="constitution" name="constitution" onChange={onCalcChangeHandler} type="number" min="1" max="99" step="1" value={inputValues.constitution} ref={conRef} />
               <label className="stats-form__error" htmlFor="constitution"></label>
             </div>
           </div>
           <div className="stats-form__field-container">
             <label className="stats-form__label" htmlFor="size">{"Size (SIZE): "}</label>
             <div className="stats-form__input-container">
-              <input className="stats-form__text-box" id="size" name="size" onChange={onCalcChangeHandler} type="number" min="1" max="99" step="1" ref={sizeRef} />
+              <input className="stats-form__text-box" id="size" name="size" onChange={onCalcChangeHandler} type="number" min="1" max="99" step="1" value={inputValues.size} ref={sizeRef} />
               <label className="stats-form__error" htmlFor="size"></label>
             </div>
           </div>
           <div className="stats-form__field-container">
             <label className="stats-form__label" htmlFor="appearance">{"Appearance (APP): "}</label>
             <div className="stats-form__input-container">
-              <input className="stats-form__text-box" id="appearance" name="appearance" onChange={onChangeHandler} type="number" min="1" max="99" step="1" />
+              <input className="stats-form__text-box" id="appearance" name="appearance" onChange={onChangeHandler} type="number" min="1" max="99" step="1" value={inputValues.appearance} />
               <label className="stats-form__error" htmlFor="appearance"></label>
             </div>
           </div>
           <div className="stats-form__field-container">
             <label className="stats-form__label" htmlFor="intelligence">{"Intelligence (INT): "}</label>
             <div className="stats-form__input-container">
-              <input className="stats-form__text-box" id="intelligence" name="intelligence" onChange={onChangeHandler} type="number" min="1" max="99" step="1" />
+              <input className="stats-form__text-box" id="intelligence" name="intelligence" onChange={onChangeHandler} type="number" min="1" max="99" step="1" value={inputValues.intelligence} />
               <label className="stats-form__error" htmlFor="intelligence"></label>
             </div>
           </div>
           <div className="stats-form__field-container">
             <label className="stats-form__label" htmlFor="education">{"Education (EDU): "}</label>
             <div className="stats-form__input-container">
-              <input className="stats-form__text-box" id="education" name="education" onChange={onChangeHandler} type="number" min="1" max="99" step="1" />
+              <input className="stats-form__text-box" id="education" name="education" onChange={onChangeHandler} type="number" min="1" max="99" step="1" value={inputValues.education} />
               <label className="stats-form__error" htmlFor="education"></label>
             </div>
           </div>
           <div className="stats-form__field-container">
             <label className="stats-form__label" htmlFor="power">{"Power (POW): "}</label>
             <div className="stats-form__input-container">
-              <input className="stats-form__text-box" id="power" name="power" onChange={onCalcChangeHandler} type="number" min="1" max="99" step="1" ref={powRef} />
+              <input className="stats-form__text-box" id="power" name="power" onChange={onCalcChangeHandler} type="number" min="1" max="99" step="1" value={inputValues.power} ref={powRef} />
               <label className="stats-form__error" htmlFor="power"></label>
             </div>
           </div>
           <div className="stats-form__field-container">
             <label className="stats-form__label" htmlFor="luck">{"Luck (LUCK): "}</label>
             <div className="stats-form__input-container">
-              <input className="stats-form__text-box" id="luck" name="luck" onChange={onChangeHandler} type="number" min="1" max="99" step="1" placeholder={50} />
+              <input className="stats-form__text-box" id="luck" name="luck" onChange={onChangeHandler} type="number" min="1" max="99" step="1" placeholder={50} value={inputValues.luck} />
               <label className="stats-form__error" htmlFor="luck"></label>
             </div>
           </div>
@@ -227,35 +235,35 @@ function InvestigatorStatsForm({ updateHandler, previous, next }) {
           <div className="stats-form__field-container">
             <label className="stats-form__label" htmlFor="sanity">{"Sanity (SAN): "}</label>
             <div className="stats-form__input-container">
-              <input className="stats-form__text-box stats-form__text-box--read-only" id="sanity" name="sanity" type="number" min="1" max="99" step="1" readOnly={true} ref={sanRef} />
+              <input className="stats-form__text-box stats-form__text-box--read-only" id="sanity" name="sanity"  onChange={onChangeHandler} type="number" min="1" max="99" step="1" readOnly={true} ref={sanRef} />
               {/* <label className="stats-form__error" htmlFor="sanity"></label> */}
             </div>
           </div>
           <div className="stats-form__field-container">
             <label className="stats-form__label" htmlFor="health">{"Health (HP): "}</label>
             <div className="stats-form__input-container">
-              <input className="stats-form__text-box stats-form__text-box--read-only" id="health" name="health" type="number" min="1" max="50" step="1" readOnly={true} ref={hpRef} />
+              <input className="stats-form__text-box stats-form__text-box--read-only" id="health" name="health"  onChange={onChangeHandler} type="number" min="1" max="50" step="1" readOnly={true} ref={hpRef} />
               {/* <label className="stats-form__error" htmlFor="health"></label> */}
             </div>
           </div>
           <div className="stats-form__field-container">
             <label className="stats-form__label" htmlFor="magic_points">{"Magic Points (MP): "}</label>
             <div className="stats-form__input-container">
-              <input className="stats-form__text-box stats-form__text-box--read-only" id="magic_points" name="magic_points" type="number" min="1" max="50" step="1" readOnly={true} ref={mpRef} />
+              <input className="stats-form__text-box stats-form__text-box--read-only" id="magic_points" name="magic_points" onChange={onChangeHandler} type="number" min="1" max="50" step="1" readOnly={true} ref={mpRef} />
               {/* <label className="stats-form__error" htmlFor="magic_points"></label> */}
             </div>
           </div>
           <div className="stats-form__field-container">
             <label className="stats-form__label" htmlFor="movement">{"Movement: "}</label>
             <div className="stats-form__input-container">
-              <input className="stats-form__text-box stats-form__text-box--read-only" id="movement" name="movement" type="number" min="1" max="99" step="1" value={8} readOnly={true} />
+              <input className="stats-form__text-box stats-form__text-box--read-only" id="movement" name="movement"  onChange={onChangeHandler} type="number" min="1" max="99" step="1" value={inputValues.movement} readOnly={true} />
               {/* <label className="stats-form__error" htmlFor="movement"></label> */}
             </div>
           </div>
           <div className="stats-form__field-container">
             <label className="stats-form__label" htmlFor="build">{"Build: "}</label>
             <div className="stats-form__input-container">
-              <input className="stats-form__text-box stats-form__text-box--read-only" id="build" name="build" type="number" min="-2" max="2" step="1" defaultValue={-2} readOnly={true} ref={buildRef} />
+              <input className="stats-form__text-box stats-form__text-box--read-only" id="build" name="build"  onChange={onChangeHandler} type="number" min="-2" max="2" step="1" readOnly={true} ref={buildRef} />
               {/* <label className="stats-form__error" htmlFor="build"></label> */}
             </div>
           </div>

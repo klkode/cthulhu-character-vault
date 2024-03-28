@@ -27,10 +27,10 @@ function AddCharacterPage() {
     const initialCharacterState = {
         name: "",
         gender: "",
-        age: -1,
+        age: "",
         birthplace: "",
         residence: "",
-        background_id: -1,
+        background_id: "",
         special_people: "",
         favoured_possession: "",
         mania: "",
@@ -43,20 +43,20 @@ function AddCharacterPage() {
 
     // Make inital input state for character stats fields
     const initialStatsState = {
-        strength: -1,
-        dexterity: -1,
-        constitution: -1,
-        size: -1,
-        appearance: -1,
-        intelligence: -1,
-        education: -1,
-        power: -1,
-        build: 0,
-        health: -1,
+        strength: "",
+        dexterity: "",
+        constitution: "",
+        size: "",
+        appearance: "",
+        intelligence: "",
+        education: "",
+        power: "",
+        build: "",
+        health: "",
         movement: 8,
-        sanity: -1,
-        magic_points: -1,
-        luck: -1
+        sanity: "",
+        magic_points: "",
+        luck: ""
     }
 
     // Create state variables for recording the user's inputs for their new character's data
@@ -84,7 +84,7 @@ function AddCharacterPage() {
      * @param {string}      input
      * 
      */
-    function updateStatVaules(field, input){
+    function updateStatsVaules(field, input){
         const updatedInput = {...statsInputs, [field]: input}
         setStatsInputs(updatedInput);
     }
@@ -137,11 +137,11 @@ function AddCharacterPage() {
             <article className="add-character__form-container">
                 {formState === 1 && 
                 <InvestigatorDetailsForm 
-                    updateHandler={updateCharacterDetails} next={nextForm} />
+                    inputValues={characterInputs} updateHandler={updateCharacterDetails} next={nextForm} />
                 }
                 {formState === 2 && 
                 <InvestigatorStatsForm 
-                    updateHandler={updateStatVaules} previous={previousForm} next={nextForm} />
+                    inputValues={statsInputs} updateHandler={updateStatsVaules} previous={previousForm} next={nextForm} />
                 }
                 {formState === 3 && 
                 <InvestigatorSkillsForm 
