@@ -6,7 +6,7 @@ import { BASE_URL } from '../../constant-variables';
 import { useNavigate } from "react-router-dom";
 // import { AuthContext } from '../../context/auth-context.js';
 
-function UserAuthForm({ isSignUp }) {
+function UserAuthForm({ isSignUp, isLoggedIn, setIsLoggedIn} ) {
     // Create error state variables
     const [usernameErrMsg, setUsernameErrMsg] = useState("");
     const [passwordErrMsg, setPasswordErrMsg] = useState("");
@@ -50,6 +50,7 @@ function UserAuthForm({ isSignUp }) {
                         console.log(response.data);
                         // set the token in session storage
                         sessionStorage.setItem("token", response.data.token);
+                        setIsLoggedIn(true);
                         // mark that a session exists
                         // setSession({token: response.data.token});
                         // navigate back to the previous page
@@ -82,6 +83,7 @@ function UserAuthForm({ isSignUp }) {
                         console.log(response.data);
                         // set the token in session storage
                         sessionStorage.setItem("token", response.data.token);
+                        setIsLoggedIn(true);
                         // mark that a session exists
                         // setSession({token: response.data.token});
                         // navigate back to the previous page

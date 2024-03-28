@@ -4,10 +4,8 @@
     @include flexRow();
     justify-content: center;
     justify-self: flex-end;
-    position:absolute;
-    left:0;
-    bottom:0;
-    right:0;
+    position:relative;
+    border: 0;
     background-color: #272838;
 
     &__disclaimer{
