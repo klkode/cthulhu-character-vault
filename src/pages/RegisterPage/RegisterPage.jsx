@@ -4,7 +4,7 @@ import UserAuthForm from '../../components/UserAuthForm/UserAuthForm';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 
-function RegisterPage() {
+function RegisterPage( {isLoggedIn, setIsLoggedIn} ) {
   // Get session
   // const { session } = useGetSession();
 
@@ -23,7 +23,7 @@ function RegisterPage() {
   return (
     <section className="register">
       <h1 className="register__heading">Sign Up</h1>
-      <UserAuthForm isSignUp={true} />
+      <UserAuthForm isSignUp={true}  isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
     </section>
   );
 }

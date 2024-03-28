@@ -1,0 +1,49 @@
+@use "../../styles/partials/mixins.scss" as *;
+
+.header{
+    @include flexRow();
+    justify-content: flex-start;
+    background-color: #272838;
+
+    &__logo-container{
+        @include flexRow();
+        flex-basis: 15%;
+    }
+    &__logo-link{
+        font-weight: bold;
+        text-decoration: none;
+        margin: 0 0.5rem;
+        color:antiquewhite;
+        &:hover{
+            color: bisque;
+        }
+    }
+
+    &__site-nav{
+        @include flexRow();
+        flex-basis: 40%;
+    }
+
+    &__links-container{
+        @include flexRow();
+    }
+
+    &__nav-item{
+
+    }
+
+    &__link{
+        text-decoration: none;
+        margin: 0 0.5rem;
+        color:antiquewhite;
+        &:hover{
+            color: bisque;
+        }
+    }
+
+    &__user-nav{
+        @include flexRow();
+        flex-basis: 40%;
+        justify-content: flex-end;
+    }
+}
