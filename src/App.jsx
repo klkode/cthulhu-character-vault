@@ -17,22 +17,26 @@ import Footer from './components/Footer/Footer.jsx';
 function App() {
 
     return (
-        <AuthProvider>
-            <Header />
-            <BrowserRouter>
-                <Routes>
-                    <Route path="/" element={<HomePage />} />
-                    <Route path="/login" element={<LoginPage />} />
-                    <Route path="/signup" element={<RegisterPage />} />
-                    <Route path="/characters" element={<CharacterVaultPage />} />
-                    <Route path="/characters/add" element={<AddCharacterPage />} />
-                    <Route path="/characters/:id" element={<CharacterSheetPage />} />
-                    <Route path="/characters/:id/edit" element={<EditCharacterPage />} />
-                    <Route path="*" element={<NotFoundPage />} />
-                </Routes>
-            </BrowserRouter>
-            <Footer />
-        </AuthProvider>
+        <div className="app">
+            <AuthProvider>
+                <Header />
+                <div className="main">
+                    <BrowserRouter>
+                        <Routes>
+                            <Route path="/" element={<HomePage />} />
+                            <Route path="/login" element={<LoginPage />} />
+                            <Route path="/signup" element={<RegisterPage />} />
+                            <Route path="/characters" element={<CharacterVaultPage />} />
+                            <Route path="/characters/add" element={<AddCharacterPage />} />
+                            <Route path="/characters/:id" element={<CharacterSheetPage />} />
+                            <Route path="/characters/:id/edit" element={<EditCharacterPage />} />
+                            <Route path="*" element={<NotFoundPage />} />
+                        </Routes>
+                    </BrowserRouter>
+                </div>
+                <Footer />
+            </AuthProvider>
+        </div>
     );
 }
 
