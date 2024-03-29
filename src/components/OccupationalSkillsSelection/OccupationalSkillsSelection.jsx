@@ -6,15 +6,8 @@ function OccupationalSkillsSelection( {optionNumber, choices, selected, updateSk
     const pointsRef = useRef();
 
     // useEffect(() =>{
-    //     if(!selected &&){
-    //         if(!!selected.points){
-    //             setPoints(selected.points);
-    //         }else{
-    //             setPoints(selected.base_value);
-    //         }
-    //     }
-
-    // },[choices]);
+    //     console.log("ue", selected);
+    // },[selected]);
 
     function selectionHandler(event){
         // Get the skill id
@@ -33,7 +26,17 @@ function OccupationalSkillsSelection( {optionNumber, choices, selected, updateSk
         skillSelected.points = skillSelected.base_value;
         // setPoints(skillSelected.base_value)
         
-        updateSkills(`occupationalSkill${optionNumber}`, skillSelected);
+        // updateSkills(`occupationalSkill${optionNumber}`, skillSelected);
+        updateSkills(optionNumber, skillSelected);
+    }
+
+    function loadHandler(event){
+        const skill = choices[0];
+        if(!selected){
+            skill.points = skill.base_value;
+            // updateSkills(`occupationalSkill${optionNumber}`, skill);
+            updateSkills(optionNumber, skill);
+        }
     }
 
     function changeHandler(event){
@@ -46,7 +49,8 @@ function OccupationalSkillsSelection( {optionNumber, choices, selected, updateSk
         }
         skill.points = points;
         // setPoints(points);
-        updateSkills(`occupationalSkill${optionNumber}`, skill);
+        // updateSkills(`occupationalSkill${optionNumber}`, skill);
+        updateSkills(optionNumber, skill);
     }
 
     return (
@@ -54,7 +58,7 @@ function OccupationalSkillsSelection( {optionNumber, choices, selected, updateSk
             <div className="occupation-skill__selection-container">
                 <label className="occupation-skill__label">{`Skill ${optionNumber}`}</label>
                 {choices.length === 1
-                ? <p className="occupation-skill__choice-box">{choices[0].name}</p>
+                ? <p className="occupation-skill__choice-box" onLoad={loadHandler}>{choices[0].name}</p>
                 : <div className="dropdown occupation-skill__dropdown">
                     <button className="btn btn-secondary dropdown-toggle occupation-skill__option occupation-skill__option--default" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                     {!selected ? "Choose a Skill": selected.name}
