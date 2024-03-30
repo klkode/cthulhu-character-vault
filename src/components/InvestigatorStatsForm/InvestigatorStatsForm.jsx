@@ -1,8 +1,10 @@
 import { useRef } from 'react';
 import './InvestigatorStatsForm.scss';
 import CancelButton from '../CancelButton/CancelButton';
+import { calcBuild, calcHealth, calcMagicPoints, calcSanity, determineDodgeMin, determineLanguageOwnMin } from '../../utils/calculate-related-values';
+import { validateInvestigatorStats } from '../../utils/character-validation';
 
-function InvestigatorStatsForm({ inputValues, updateOne, updateMultiple, previous, next }) {
+function InvestigatorStatsForm({ inputValues, updateOne, updateMultiple, previous, next, setDodge, setLanguage }) {
 
   // Create useRefs for fields necessary in calculation
   const strRef = useRef();
@@ -34,65 +36,69 @@ function InvestigatorStatsForm({ inputValues, updateOne, updateMultiple, previou
     // Prevent form from submitting
     event.preventDefault();
 
-    // TODO validate the page inputs before continuing to next state
-
-    next();
-  }
-
-  // TODO make util file to hold calculations to reference rather than have functions here
-  function calcBuild(str, size) {
-    // Calculate the sum of strength and size
-    const sum = str + size;
-
-    // Calculate the build using the CoC 7e build calculation table values
-    let build;
-    if(sum <= 64){
-      build = -2;
-    }else if(sum >= 65 && sum <= 84){
-      build = -1;
-    }else if(sum >= 85 && sum <= 124){
-      build = 0;
-    }else if(sum >= 125 && sum <= 164){
-      build = 1;
+    // Validate the page inputs before continuing to next state
+    const errors = validateInvestigatorStats(inputValues);
+    if(errors.hasError){
+      // TODO show error messages
     }else{
-      build = 2;
+      next();
     }
-
-    // Update the textbox and the input field
-    buildRef.current.value = build;
-    return build;
-    // updateOne("build", build);
-
   }
 
-  function calcHealth(con, size) {
+  // // TODO make util file to hold calculations to reference rather than have functions here
+  // function calcBuild(str, size) {
+  //   // Calculate the sum of strength and size
+  //   const sum = str + size;
 
-    const health = Math.floor((con + size) / 10);
+  //   // Calculate the build using the CoC 7e build calculation table values
+  //   let build;
+  //   if(sum <= 64){
+  //     build = -2;
+  //   }else if(sum >= 65 && sum <= 84){
+  //     build = -1;
+  //   }else if(sum >= 85 && sum <= 124){
+  //     build = 0;
+  //   }else if(sum >= 125 && sum <= 164){
+  //     build = 1;
+  //   }else{
+  //     build = 2;
+  //   }
 
-    // console.log(`health: ${health}`);
-    // Update the textbox and the input field
-    hpRef.current.value = health;
-    return health;
-    // updateOne("health", health);
-  }
+  //   // Update the textbox and the input field
+  //   buildRef.current.value = build;
+  //   return build;
+  //   // updateOne("build", build);
 
-  function calcMagicPoints(power) {
-    // Calculate themagic points using CoC 7e rules, which is 1/5 of POWER
-    const mp = Math.floor(power / 5);
+  // }
 
-    // Update the textbox and the input field
-    mpRef.current.value = mp;
-    return mp;
-    // updateOne("magic_points", mp);
-  }
+  // function calcHealth(con, size) {
 
-  function calcSanity(power) {
-    // No calculation needed as CoC 7e rules is that initial SAN = POW
-    // Update the textbox and the input field
-    sanRef.current.value = power;
-    return power;
-    // updateOne("sanity", power);
-  }
+  //   const health = Math.floor((con + size) / 10);
+
+  //   // console.log(`health: ${health}`);
+  //   // Update the textbox and the input field
+  //   hpRef.current.value = health;
+  //   return health;
+  //   // updateOne("health", health);
+  // }
+
+  // function calcMagicPoints(power) {
+  //   // Calculate themagic points using CoC 7e rules, which is 1/5 of POWER
+  //   const mp = Math.floor(power / 5);
+
+  //   // Update the textbox and the input field
+  //   mpRef.current.value = mp;
+  //   return mp;
+  //   // updateOne("magic_points", mp);
+  // }
+
+  // function calcSanity(power) {
+  //   // No calculation needed as CoC 7e rules is that initial SAN = POW
+  //   // Update the textbox and the input field
+  //   sanRef.current.value = power;
+  //   return power;
+  //   // updateOne("sanity", power);
+  // }
 
   function onChangeHandler(event) {
     // console.log(`key:${event.target.name}`);
@@ -100,6 +106,21 @@ function InvestigatorStatsForm({ inputValues, updateOne, updateMultiple, previou
     // console.log(`number:${parseInt(event.target.value, 10)}`);
     updateOne(event.target.name, event.target.value);
 
+  }
+
+  function onSkillEffectChangeHandler(event){
+    const fieldName = event.target.name;
+    const fieldValue = event.target.value;
+
+    if(fieldName === "dexterity"){
+      const dodgeBase = determineDodgeMin(parseInt(fieldValue, 10));
+      setDodge(dodgeBase);
+    }
+    if(fieldName === "education"){
+      const languageBase = determineLanguageOwnMin(parseInt(fieldValue, 10));
+      setLanguage(languageBase);
+    }
+    updateOne(event.target.name, event.target.value);
   }
 
   function onCalcChangeHandler(event) {
@@ -191,7 +212,7 @@ function InvestigatorStatsForm({ inputValues, updateOne, updateMultiple, previou
           <div className="stats-form__field-container">
             <label className="stats-form__label" htmlFor="dexterity">{"Dexterity (DEX): "}</label>
             <div className="stats-form__input-container">
-              <input className="stats-form__text-box" id="dexterity" name="dexterity" onChange={onChangeHandler} type="number" min="1" max="99" step="1" value={inputValues.dexterity}/>
+              <input className="stats-form__text-box" id="dexterity" name="dexterity" onChange={onSkillEffectChangeHandler} type="number" min="1" max="99" step="1" value={inputValues.dexterity}/>
               <label className="stats-form__error" htmlFor="dexterity"></label>
             </div>
           </div>
@@ -226,7 +247,7 @@ function InvestigatorStatsForm({ inputValues, updateOne, updateMultiple, previou
           <div className="stats-form__field-container">
             <label className="stats-form__label" htmlFor="education">{"Education (EDU): "}</label>
             <div className="stats-form__input-container">
-              <input className="stats-form__text-box" id="education" name="education" onChange={onChangeHandler} type="number" min="1" max="99" step="1" value={inputValues.education} />
+              <input className="stats-form__text-box" id="education" name="education" onChange={onSkillEffectChangeHandler} type="number" min="1" max="99" step="1" value={inputValues.education} />
               <label className="stats-form__error" htmlFor="education"></label>
             </div>
           </div>
@@ -240,7 +261,7 @@ function InvestigatorStatsForm({ inputValues, updateOne, updateMultiple, previou
           <div className="stats-form__field-container">
             <label className="stats-form__label" htmlFor="luck">{"Luck (LUCK): "}</label>
             <div className="stats-form__input-container">
-              <input className="stats-form__text-box" id="luck" name="luck" onChange={onChangeHandler} type="number" min="1" max="99" step="1" placeholder={50} value={inputValues.luck} />
+              <input className="stats-form__text-box" id="luck" name="luck" onChange={onChangeHandler} type="number" min="0" max="99" step="1" placeholder={50} value={inputValues.luck} />
               <label className="stats-form__error" htmlFor="luck"></label>
             </div>
           </div>
@@ -249,7 +270,7 @@ function InvestigatorStatsForm({ inputValues, updateOne, updateMultiple, previou
           <div className="stats-form__field-container">
             <label className="stats-form__label" htmlFor="sanity">{"Sanity (SAN): "}</label>
             <div className="stats-form__input-container">
-              <input className="stats-form__text-box stats-form__text-box--read-only" id="sanity" name="sanity" value={inputValues.sanity}  onChange={onChangeHandler} type="number" min="1" max="99" step="1" readOnly={true} ref={sanRef} />
+              <input className="stats-form__text-box stats-form__text-box--read-only" id="sanity" name="sanity" value={inputValues.sanity}  onChange={onChangeHandler} type="number" min="0" max="99" step="1" readOnly={true} ref={sanRef} />
               {/* <label className="stats-form__error" htmlFor="sanity"></label> */}
             </div>
           </div>

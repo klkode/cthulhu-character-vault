@@ -1,3 +1,4 @@
+import { validateInvestigatorDetails } from '../../utils/character-validation';
 import CancelButton from '../CancelButton/CancelButton';
 import './InvestigatorDetailsForm.scss';
 
@@ -14,9 +15,14 @@ function InvestigatorDetailsForm( {inputValues, updateHandler, next} ) {
     // Prevent form from submitting
     event.preventDefault();
 
-    // TODO validate the page inputs before continuing to next state
+    // Validate the page inputs before continuing to next state
+    const errors = validateInvestigatorDetails(inputValues);
+    if(errors.hasError){
+      // TODO show error messages
+    }else{
+      next();
+    }
 
-    next();
   }
 
   function onChangeHandler(event){

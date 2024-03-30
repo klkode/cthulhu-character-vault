@@ -5,7 +5,7 @@ import InvestigatorExtrasForm from '../../components/InvestigatorExtrasForm/Inve
 import InvestigatorSkillsForm from '../../components/InvestigatorSkillsForm/InvestigatorSkillsForm.jsx';
 import InvestigatorStatsForm from '../../components/InvestigatorStatsForm/InvestigatorStatsForm.jsx';
 import { useState, useEffect } from 'react';
-import { BASE_URL } from "../../constant-variables.js"
+import { BASE_URL, CREDIT_SKILL_ID, DEFAULT_MOVEMENT_SCORE, DODGE_SKILL_ID, LANGUAGE_OWN_SKILL_ID } from "../../constant-variables.js"
 import axios from "axios";
 
 function AddCharacterPage() {
@@ -20,11 +20,17 @@ function AddCharacterPage() {
     const [skillsList, setSkillsList] = useState([]);
 
     function nextForm(){
-        setFormState(formState + 1);
+        // Include safeguard that the state does not go beyond the number of forms
+        if(formState < 4){
+            setFormState(formState + 1);
+        }
     }
 
     function previousForm(){
-        setFormState(formState - 1);
+        // Include safeguard that the state does not go under the first index
+        if(formState > 1){
+            setFormState(formState - 1);
+        }  
     }
 
     // Make inital input state for character detail fields
@@ -58,7 +64,7 @@ function AddCharacterPage() {
         power: "",
         build: "",
         health: "",
-        movement: 8,
+        movement: DEFAULT_MOVEMENT_SCORE,
         sanity: "",
         magic_points: "",
         luck: ""
@@ -77,7 +83,7 @@ function AddCharacterPage() {
             emptySkill, emptySkill, emptySkill, emptySkill, emptySkill, emptySkill, emptySkill, emptySkill
         ],
         personalSkills: [{
-            skill_id: 28,
+            skill_id: CREDIT_SKILL_ID,
             name: "Credit Rating",
             base_value: "",
             points: ""
@@ -188,6 +194,46 @@ function AddCharacterPage() {
 
     }, []);
 
+    function updateDodgeBase(value){
+        const dodgeIndex = skillsList.findIndex((skill) => skill.skill_id === DODGE_SKILL_ID);
+        const updateSkills = [...skillsList];
+        updateSkills[dodgeIndex].base_value = value;
+        updateSkillInputsById(DODGE_SKILL_ID, value);
+        setSkillsList(updateSkills);
+    }
+
+    function updateLanguageOwnBase(value){
+        const languageIndex = skillsList.findIndex((skill) => skill.skill_id === LANGUAGE_OWN_SKILL_ID);
+        const updateSkills = [...skillsList];
+        updateSkills[languageIndex].base_value = value;
+        updateSkillInputsById(LANGUAGE_OWN_SKILL_ID, value);
+        setSkillsList(updateSkills);
+    }
+
+    function updateSkillInputsById(id, value){
+        const occupationIndex = skillsInputs.occupationalSkills.findIndex((skill) => skill.skill_id === id);
+        const occupationSkills = [...skillsInputs.occupationalSkills];
+        if(occupationIndex !== -1){
+            occupationSkills[occupationIndex].base_value = value;
+            occupationSkills[occupationIndex].points = value;
+        }
+
+        const personalIndex = skillsInputs.personalSkills.findIndex((skill) => skill.skill_id === id);
+        const personalSkills = [...skillsInputs.personalSkills];
+
+        if(personalIndex !== -1){
+            personalSkills[personalIndex].base_value = value;
+            personalSkills[personalIndex].points = value;
+        }
+        if(occupationIndex !== -1 || personalIndex !== -1){
+            const adjustedSkills = {
+                occupationalSkills: occupationSkills,
+                personalSkills: personalSkills
+            }
+            setSkillsInputs(adjustedSkills);
+        }
+    }
+
     // TODO look nicer
     if(!token){
         return <div>You must be logged in to create a new character.</div>
@@ -203,7 +249,7 @@ function AddCharacterPage() {
                 }
                 {formState === 2 && 
                 <InvestigatorStatsForm 
-                    inputValues={statsInputs} updateOne={updateStatsVaules} updateMultiple={setStatsInputs} previous={previousForm} next={nextForm} />
+                    inputValues={statsInputs} updateOne={updateStatsVaules} updateMultiple={setStatsInputs} previous={previousForm} next={nextForm} setDodge={updateDodgeBase} setLanguage={updateLanguageOwnBase}/>
                 }
                 {formState === 3 && 
                 <InvestigatorSkillsForm 

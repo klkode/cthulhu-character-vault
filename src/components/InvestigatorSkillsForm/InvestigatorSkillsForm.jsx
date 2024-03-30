@@ -4,6 +4,7 @@ import './InvestigatorSkillsForm.scss';
 import PersonalSkillsSubform from '../PersonalSkillsSubform/PersonalSkillsSubform';
 import OccupationSkillsSubform from '../OccupationSkillsSubform/OccupationSkillsSubform';
 import CancelButton from '../CancelButton/CancelButton';
+import { validateInvestigatorSkills } from '../../utils/character-validation';
 
 function InvestigatorSkillsForm({backgroundValue, inputValues, updateBackground, updateSkills, previous, next, skillsList, backgroundList}) {
   
@@ -182,9 +183,15 @@ function InvestigatorSkillsForm({backgroundValue, inputValues, updateBackground,
     // Prevent form from submitting
     event.preventDefault();
 
-    // TODO validate the page inputs before continuing to next state
-    updateAllSkills();
-    next();
+    // Validate the page inputs before continuing to next state
+    const errors = validateInvestigatorSkills(selectedBackground, occupationalSkillsList, personalSkillsList)
+    if(errors.hasError){
+      // TODO show errors
+    }else{
+      updateAllSkills();
+      next();
+    }
+
   }
 
   return (

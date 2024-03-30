@@ -1,3 +1,4 @@
+import { validateInvestigatorExtras } from '../../utils/character-validation';
 import CancelButton from '../CancelButton/CancelButton';
 import './InvestigatorExtrasForm.scss';
 
@@ -22,13 +23,21 @@ function InvestigatorExtrasForm( {inputValues, updateHandler, previous, verified
     // Prevent form from submitting
     event.preventDefault();
 
-    // TODO validate the page inputs before signmaling for an axios post request
-    // verifiedSubmit();
+    // Validate the page inputs before signaling for an axios post request
+    const errors = validateInvestigatorExtras(inputValues);
+    if(errors.hasError){
+      // TODO show errors
+    }else{
+      // verifiedSubmit();
+    }
+   
   }
 
   function onChangeHandler(event){
     updateHandler(event.target.name, event.target.value);
   }
+
+  // TODO (likely next sprint): Adding Character Equipment
 
   return (
     <form className="extras-form" id="add-extras-form" name="add-extras-form">
