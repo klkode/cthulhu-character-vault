@@ -70,7 +70,7 @@ function PersonalSkillsSubform({skills, personalSkillsList, setPersonalSkillsLis
                                 </ul>
                             </div>}
                             <div className="personal-skills__points-container">
-                                <input className="personal-skills__points-box" name="points" defaultValue={!singleSkill.points ? (!singleSkill.base_value ? "" : singleSkill.base_value) : singleSkill.points} onChange={(event) => onChangeHandler(event, index)} type="number" min="1" max="99" step="1" />
+                                <input className="personal-skills__points-box" name="points" value={!singleSkill.points ? (!singleSkill.base_value ? "" : singleSkill.base_value) : singleSkill.points} onChange={(event) => onChangeHandler(event, index)} type="number" min="1" max="99" step="1" />
                             </div>
                             {(personalSkillsList.length > 1 && index !== 0) &&
                             <button className="personal-skills__delete-btn" onClick={(event)=>removeBtnHandler(event, index)}>Remove</button>

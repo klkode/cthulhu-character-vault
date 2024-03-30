@@ -64,16 +64,18 @@ function AddCharacterPage() {
         luck: ""
     }
 
+    const emptySkill = {
+        skill_id: "",
+        name: "",
+        base_value: "",
+        points: ""
+    }
+
     // Make inital input state for character stats fields
     const initialSkillsState = {
-        occupationalSkill1: "",
-        occupationalSkill2: "",
-        occupationalSkill3: "",
-        occupationalSkill4: "",
-        occupationalSkill5: "",
-        occupationalSkill6: "",
-        occupationalSkill7: "",
-        occupationalSkill8: "",
+        occupationalSkills: [
+            emptySkill, emptySkill, emptySkill, emptySkill, emptySkill, emptySkill, emptySkill, emptySkill
+        ],
         personalSkills: [{
             skill_id: 28,
             name: "Credit Rating",

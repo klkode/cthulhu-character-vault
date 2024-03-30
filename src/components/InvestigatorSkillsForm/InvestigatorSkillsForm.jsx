@@ -1,105 +1,122 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import BackgroundSelection from '../BackgroundSelection/BackgroundSelection';
-// import axios from 'axios';
-// import { BASE_URL } from '../../constant-variables';
 import './InvestigatorSkillsForm.scss';
-import OccupationalSkillsSelection from '../OccupationalSkillsSelection/OccupationalSkillsSelection';
 import PersonalSkillsSubform from '../PersonalSkillsSubform/PersonalSkillsSubform';
+import OccupationSkillsSubform from '../OccupationSkillsSubform/OccupationSkillsSubform';
 
 function InvestigatorSkillsForm({backgroundValue, inputValues, updateBackground, updateSkills, previous, next, skillsList, backgroundList}) {
   
+  // Create state variables for the selected background, an array of selected occupation skills, and awwary of selected personal skills, and an array for the options available for occupation skills
   const [selectedBackground, setSelectedBackground] = useState(null);
+  const [bgChoicesList, setBGChoicesList] = useState([[], [], [], [], [], [], [], []]);
+  const [occupationalSkillsList, setOccupationalSkillsList] = useState(inputValues.occupationalSkills);
   const [personalSkillsList, setPersonalSkillsList] = useState(inputValues.personalSkills);
 
-  const [selectedOccupationSkill1, setSelectedOccupationSkill1] = useState(inputValues.occupationalSkill1);
-  const [selectedOccupationSkill2, setSelectedOccupationSkill2] = useState(inputValues.occupationalSkill2);
-  const [selectedOccupationSkill3, setSelectedOccupationSkill3] = useState(inputValues.occupationalSkill3);
-  const [selectedOccupationSkill4, setSelectedOccupationSkill4] = useState(inputValues.occupationalSkill4);
-  const [selectedOccupationSkill5, setSelectedOccupationSkill5] = useState(inputValues.occupationalSkill5);
-  const [selectedOccupationSkill6, setSelectedOccupationSkill6] = useState(inputValues.occupationalSkill6);
-  const [selectedOccupationSkill7, setSelectedOccupationSkill7] = useState(inputValues.occupationalSkill7);
-  const [selectedOccupationSkill8, setSelectedOccupationSkill8] = useState(inputValues.occupationalSkill8);
-
-  function setOccupationSkill(optionNum, value){
-    switch(optionNum){
-      case(1):
-        selectedOccupationSkill1(value);
-        break;
-      case(2):
-        selectedOccupationSkill2(value);
-        break;
-      case(3):
-        selectedOccupationSkill3(value);
-        break;
-      case(4):
-        selectedOccupationSkill4(value);
-        break;
-      case(5):
-        selectedOccupationSkill5(value);
-        break;
-      case(6):
-        selectedOccupationSkill6(value);
-        break;
-      case(7):
-        selectedOccupationSkill7(value);
-        break;
-      case(8):
-        selectedOccupationSkill8(value);
-        break;
-    }
+  // An empty skill object to use for reseting a skill value
+  const emptySkill = {
+    skill_id: "",
+    name: "",
+    base_value: "",
+    points: ""
   }
 
+  // An array of (8) empty skill objects for when all occupation skills need to be reset (such as when switching backgounds)
+  const defaultOccupationalSkills = [
+    emptySkill, emptySkill, emptySkill, emptySkill, emptySkill, emptySkill, emptySkill, emptySkill
+  ];
+
+  // Remove all data from the occupation skills list
   function resetOccupationSkills(){
-    const resetSkills = {
-      occupationalSkill1: "",
-      occupationalSkill2: "",
-      occupationalSkill3: "",
-      occupationalSkill4: "",
-      occupationalSkill5: "",
-      occupationalSkill6: "",
-      occupationalSkill7: "",
-      occupationalSkill8: ""
+    const resetSkills ={
+      occupationalSkills: defaultOccupationalSkills,
+      personalSkills: personalSkillsList
     }
-
-    // Changing background should not reset the personal skills so append them after the fact
-    resetSkills.personalSkills = inputValues.personalSkills;
-
+    setOccupationalSkillsList(defaultOccupationalSkills);
     updateSkills(resetSkills);
+
   }
 
+  // update the parent state variable with the current occupation and personal skills lists
   function updateAllSkills(){
+   
     const updatedSkills = {
-      occupationalSkill1: selectedOccupationSkill1,
-      occupationalSkill2: selectedOccupationSkill2,
-      occupationalSkill3: selectedOccupationSkill3,
-      occupationalSkill4: selectedOccupationSkill4,
-      occupationalSkill5: selectedOccupationSkill5,
-      occupationalSkill6: selectedOccupationSkill6,
-      occupationalSkill7: selectedOccupationSkill7,
-      occupationalSkill8: selectedOccupationSkill8
+      occupationalSkills: occupationalSkillsList,
+      personalSkills: personalSkillsList
     }
-
-    // Grab the personal skills
-    updatedSkills.personalSkills = inputValues.personalSkills;
 
     updateSkills(updatedSkills);
   }
-  
 
+  function updateOccupationChoicesOnly(backgroundObject){
+    const backgroundChoices = [[], [], [], [], [], [], [], []];
+    for(let i = 0; i < backgroundObject.options.length; i++){
+      backgroundChoices[i] = getOptionSkills(backgroundObject.options[i]);
+    }
+    setBGChoicesList(backgroundChoices);
+  }
+
+  // 
+  function updateOccupationSkills(backgroundObject){
+    const backgroundChoices = [[], [], [], [], [], [], [], []];
+    for(let i = 0; i < backgroundObject.options.length; i++){
+      backgroundChoices[i] = getOptionSkills(backgroundObject.options[i]);
+    }
+    
+    const occupationSkills = defaultOccupationalSkills;
+    for(let i = 0; i < backgroundChoices.length; i++){
+      if(backgroundChoices[i].length === 1){
+        const onlyChoice = {
+          skill_id: backgroundChoices[i][0].skill_id,
+          name: backgroundChoices[i][0].name,
+          base_value: backgroundChoices[i][0].base_value,
+          points: backgroundChoices[i][0].base_value
+        }
+        occupationSkills[i] = onlyChoice;
+      }
+    }
+    setBGChoicesList(backgroundChoices);
+    setOccupationalSkillsList(occupationSkills);
+  }
+  
+  // When a background object is changed, the occupational skills should be updated accordingly or reset completely if no background object exists
   function updateSelectedBackground(backgroundObject){
     updateBackground("background_id", backgroundObject.background_id);
     setSelectedBackground(backgroundObject);
-    resetOccupationSkills();
+    if(!!backgroundObject){
+      updateOccupationSkills(backgroundObject);
+    }else{
+      resetOccupationSkills();
+    }
+    
   }
 
-  // If a new background is selected, then the previous occupation skills with it need to be wiped
+   // When a background object is changed, the occupational skills should be updated accordingly or reset completely if no background object exists
   function updateSelectedBackgroundById(id){
     const foundBackground = backgroundList.find((background) => background.background_id === Number(id));
     updateBackground("background_id", id);
     setSelectedBackground(foundBackground);
-    resetOccupationSkills();
+    if(!!foundBackground){
+      updateOccupationChoicesOnly(foundBackground);
+    }else{
+      resetOccupationSkills();
+    }
 
   }
+
+//   const updateBGbyId = useCallback((id) => {
+// const foundBackground = backgroundList.find((background) => background.background_id === Number(id));
+//     updateBackground("background_id", id);
+//     setSelectedBackground(foundBackground);
+//     if(!!foundBackground){
+//       updateOccupationSkills(foundBackground);
+//     }else{
+//       resetOccupationSkills();
+//     }
+//   },[]);
+
+  // useEffect(()=>{
+  //   updateBGbyId(backgroundValue)
+  // }, [backgroundValue, updateBGbyId]);
 
   useEffect(() => {
     if(backgroundValue !== ""){
@@ -166,16 +183,15 @@ function InvestigatorSkillsForm({backgroundValue, inputValues, updateBackground,
   return (
     <form className="skills-form" id="add-skills-form" name="add-skills-form">
       <h2 className="skills-form__heading" >Investigator Background and Skills</h2>
-        <BackgroundSelection selectedId={backgroundValue} updateSelectedBackground={updateSelectedBackground} backgroundList={backgroundList}/>
-      <fieldset className="skills-form__occupation-skills-container">
-        <h3>Occupational Skills</h3>
-        {!!selectedBackground &&
-          selectedBackground.options.map((option) => {
-            return <OccupationalSkillsSelection key={option.option} optionNumber={option.option} choices={getOptionSkills(option)} selected={inputValues[`occupationalSkill${option.option}`]} updateSkills={setOccupationSkill}/>
-          })
-        }
-        
-      </fieldset>
+        <BackgroundSelection 
+          selectedId={backgroundValue} 
+          updateSelectedBackground={updateSelectedBackground} 
+          backgroundList={backgroundList}/>
+        <OccupationSkillsSubform 
+          chosenBackground={selectedBackground} 
+          choicesLists={bgChoicesList} 
+          occupationalSkillsList={occupationalSkillsList} 
+          setOccupationalSkillsList={setOccupationalSkillsList} />
       <PersonalSkillsSubform 
         skills={skillsList.filter((skill) => !(skill.name === "Credit Rating" || skill.name === "Cthulhu Mythos"))}  personalSkillsList={personalSkillsList} 
         setPersonalSkillsList={setPersonalSkillsList} />
