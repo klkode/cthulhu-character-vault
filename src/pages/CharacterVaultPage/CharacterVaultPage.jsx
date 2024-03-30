@@ -22,7 +22,6 @@ function CharacterVaultPage() {
             Authorization: "Bearer " + token,
           },
         });
-        console.log(response.data);
         setCharacterList(response.data);
         setIsLoading(false);
 
@@ -54,7 +53,7 @@ function CharacterVaultPage() {
     <section className="character-vault">
       <h1 className="character-vault__heading">Character Vault</h1>
       <input className="character-vault__search" />
-      <CharacterVaultTable charactersList={characterList}/>
+      <CharacterVaultTable charactersList={characterList} setCharacterList={setCharacterList}/>
     </section>
   );
 }

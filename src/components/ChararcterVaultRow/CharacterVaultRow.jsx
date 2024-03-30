@@ -1,7 +1,11 @@
 import './CharacterVaultRow.scss';
 import { Link, useNavigate } from 'react-router-dom';
+import DeleteCharacterModal from '../DeleteCharacterModal/DeleteCharacterModal';
+import { useState } from 'react';
 
-function CharacterVaultRow({ id, name, background }) {
+function CharacterVaultRow({ id, name, background, setCharacterList }) {
+
+    const [hideModal, setHideModal] = useState(true);
 
     // Make navigate to got to edit page on button click
     const navigate = useNavigate();
@@ -12,8 +16,7 @@ function CharacterVaultRow({ id, name, background }) {
     }
 
     function deleteClickHandler(event){
-        // TODO
-        console.log(`Verify deleting character with id: ${id}.`)
+        setHideModal(false);
     }
 
     return (
@@ -28,6 +31,9 @@ function CharacterVaultRow({ id, name, background }) {
                 <button className="vault-row__action-btn" onClick={editClickHandler}>EDIT</button>
                 <button className="vault-row__action-btn" onClick={deleteClickHandler}>DELETE</button>
             </div>
+            {!hideModal &&
+            <DeleteCharacterModal id={id} name={name} closeModal={setHideModal} setCharacterList={setCharacterList} userToken={sessionStorage.getItem("token")} />}
+            {/* {TODO: SHOW SUCCESS MODAL} */}
         </div>
     );
 }

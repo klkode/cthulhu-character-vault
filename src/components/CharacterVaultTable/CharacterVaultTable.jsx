@@ -1,7 +1,7 @@
 import CharacterVaultRow from '../ChararcterVaultRow/CharacterVaultRow';
 import './CharacterVaultTable.scss';
 
-function CharacterVaultTable({charactersList}) {
+function CharacterVaultTable({charactersList, setCharacterList}) {
     
   return (
     <article className="vault-table">
@@ -17,7 +17,7 @@ function CharacterVaultTable({charactersList}) {
         {charactersList.length === 0
             ? <div className="vault-table__no-results">Currently no characters in this vault</div> //TODO make nicer
             : charactersList.map((character) => {
-                return <CharacterVaultRow key={character.character_id} id={character.character_id} name={character.character_name} background={character.background_name} />
+                return <CharacterVaultRow key={character.character_id} id={character.character_id} name={character.character_name} background={character.background_name} setCharacterList={setCharacterList} />
             })}
     </article>
   );

@@ -1,0 +1,60 @@
+@use "../../styles/partials/mixins" as *;
+
+.delete-character{
+    width: 100vw;
+    z-index: 3;
+    position: fixed;
+    height: 100vh;
+    left: 50%;
+    top: 0%;
+    transform: translate(-50%, 0);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.8);
+
+    &__card{
+        @include flexCol();
+        justify-content: space-between;
+        background-color: white;
+        height: 35%;
+        width: 50%;
+    }
+
+    &__top-container{
+        @include flexRow();
+        justify-content: space-between;
+    }
+
+    &__header{
+
+    }
+
+    &__top-close-btn{
+
+    }
+
+    &__body-container{
+       
+    }
+
+    &__body{
+
+    }
+
+    &__bottom-container{
+        @include flexRow();
+        justify-content: flex-end;
+    }
+    
+    &__btn{
+
+        &--cancel{
+
+        }
+
+        &--delete{
+
+        }
+    }
+}
