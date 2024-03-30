@@ -18,13 +18,6 @@ function InvestigatorStatsForm({ inputValues, updateOne, updateMultiple, previou
   const mpRef = useRef();
   const buildRef = useRef();
 
-  // function cancelClickHandler(event) {
-  //   // Prevent form from submitting
-  //   event.preventDefault();
-
-  //   // TODO navigate back to home or previous page?
-  // }
-
   function previousClickHandler(event) {
     // Prevent form from submitting
     event.preventDefault();
@@ -45,65 +38,7 @@ function InvestigatorStatsForm({ inputValues, updateOne, updateMultiple, previou
     }
   }
 
-  // // TODO make util file to hold calculations to reference rather than have functions here
-  // function calcBuild(str, size) {
-  //   // Calculate the sum of strength and size
-  //   const sum = str + size;
-
-  //   // Calculate the build using the CoC 7e build calculation table values
-  //   let build;
-  //   if(sum <= 64){
-  //     build = -2;
-  //   }else if(sum >= 65 && sum <= 84){
-  //     build = -1;
-  //   }else if(sum >= 85 && sum <= 124){
-  //     build = 0;
-  //   }else if(sum >= 125 && sum <= 164){
-  //     build = 1;
-  //   }else{
-  //     build = 2;
-  //   }
-
-  //   // Update the textbox and the input field
-  //   buildRef.current.value = build;
-  //   return build;
-  //   // updateOne("build", build);
-
-  // }
-
-  // function calcHealth(con, size) {
-
-  //   const health = Math.floor((con + size) / 10);
-
-  //   // console.log(`health: ${health}`);
-  //   // Update the textbox and the input field
-  //   hpRef.current.value = health;
-  //   return health;
-  //   // updateOne("health", health);
-  // }
-
-  // function calcMagicPoints(power) {
-  //   // Calculate themagic points using CoC 7e rules, which is 1/5 of POWER
-  //   const mp = Math.floor(power / 5);
-
-  //   // Update the textbox and the input field
-  //   mpRef.current.value = mp;
-  //   return mp;
-  //   // updateOne("magic_points", mp);
-  // }
-
-  // function calcSanity(power) {
-  //   // No calculation needed as CoC 7e rules is that initial SAN = POW
-  //   // Update the textbox and the input field
-  //   sanRef.current.value = power;
-  //   return power;
-  //   // updateOne("sanity", power);
-  // }
-
   function onChangeHandler(event) {
-    // console.log(`key:${event.target.name}`);
-    // console.log(`value:${event.target.value}`);
-    // console.log(`number:${parseInt(event.target.value, 10)}`);
     updateOne(event.target.name, event.target.value);
 
   }
@@ -126,10 +61,6 @@ function InvestigatorStatsForm({ inputValues, updateOne, updateMultiple, previou
   function onCalcChangeHandler(event) {
     const fieldName = event.target.name;
     const fieldValue = event.target.value;
-    // console.log(`key:${fieldName}`);
-    // console.log(`value:${fieldValue}`);
-    // console.log(`number:${parseInt(fieldValue, 10)}`);
-
     const stats = {...inputValues};
 
     if(fieldName === "power"){
@@ -139,8 +70,6 @@ function InvestigatorStatsForm({ inputValues, updateOne, updateMultiple, previou
 
       }else{
         // the input vaule is invalid/empty so reset the sanity and magic points to placeholders
-        // updateOne("sanity", "");
-        // updateOne("magic_points", "");
         stats.sanity = "";
         stats.magic_points = "";
 
@@ -153,7 +82,6 @@ function InvestigatorStatsForm({ inputValues, updateOne, updateMultiple, previou
         
       }else{
         // one of the two required input vaules is invalid/empty so reset the build to placeholder
-        // updateOne("build", "");
         stats.build = "";
       }
 
@@ -164,7 +92,6 @@ function InvestigatorStatsForm({ inputValues, updateOne, updateMultiple, previou
 
       }else{
         // one of the two required input vaules is invalid/empty so reset the health to placeholder
-        // updateOne("health", "");
         stats.health = "";
       }
 
@@ -175,7 +102,6 @@ function InvestigatorStatsForm({ inputValues, updateOne, updateMultiple, previou
 
       }else{
         // one of the two required input vaules is invalid/empty so reset the build to placeholder
-        // updateOne("build", "");
         stats.build = "";
       }
 
@@ -185,13 +111,11 @@ function InvestigatorStatsForm({ inputValues, updateOne, updateMultiple, previou
 
       }else{
         // one of the two required input vaules is invalid/empty so reset the health to placeholder
-        // updateOne("health", "");
         stats.health = "";
       }
     }
     stats[fieldName] = fieldValue;
-    // Update the input for the changed field
-    // updateOne(fieldName, fieldValue);
+    // Update the input for the changed fields
     updateMultiple(stats);
   }
 

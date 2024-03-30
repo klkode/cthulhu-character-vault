@@ -28,7 +28,7 @@ function InvestigatorExtrasForm( {inputValues, updateHandler, previous, verified
     if(errors.hasError){
       // TODO show errors
     }else{
-      // verifiedSubmit();
+      verifiedSubmit();
     }
    
   }

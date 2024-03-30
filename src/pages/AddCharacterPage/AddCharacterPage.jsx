@@ -1,5 +1,4 @@
 import './AddCharacterPage.scss';
-// import InvestigatorBackgroundForm from '../../components/InvestigatorBackgroundForm/InvestigatorBackgroundForm.jsx';
 import InvestigatorDetailsForm from '../../components/InvestigatorDetailsForm/InvestigatorDetailsForm.jsx';
 import InvestigatorExtrasForm from '../../components/InvestigatorExtrasForm/InvestigatorExtrasForm.jsx';
 import InvestigatorSkillsForm from '../../components/InvestigatorSkillsForm/InvestigatorSkillsForm.jsx';
@@ -7,6 +6,8 @@ import InvestigatorStatsForm from '../../components/InvestigatorStatsForm/Invest
 import { useState, useEffect } from 'react';
 import { BASE_URL, CREDIT_SKILL_ID, DEFAULT_MOVEMENT_SCORE, DODGE_SKILL_ID, LANGUAGE_OWN_SKILL_ID } from "../../constant-variables.js"
 import axios from "axios";
+import { createCharacterToPost } from '../../utils/create-character.js';
+import { useNavigate } from 'react-router-dom';
 
 function AddCharacterPage() {
     // Get the session token
@@ -18,6 +19,8 @@ function AddCharacterPage() {
     // Create state variables for game details from the server
     const [backgroundList, setBackgroundList] = useState([]);
     const [skillsList, setSkillsList] = useState([]);
+
+    const navigate = useNavigate();
 
     function nextForm(){
         // Include safeguard that the state does not go beyond the number of forms
@@ -160,6 +163,7 @@ function AddCharacterPage() {
      */
     const postCharacter = async(characterObject, token) =>{
         try{
+            console.log("post", characterObject);
             const response = await axios.post(`${BASE_URL}characters`, characterObject, {
                 headers: {
                     Authorization: "Bearer " + token,
@@ -167,6 +171,7 @@ function AddCharacterPage() {
             });
             if(!!response.data){
                 // TODO success message?
+                navigate("/characters");
             }
 
         }catch(error){
@@ -177,10 +182,7 @@ function AddCharacterPage() {
 
     function createCharacter(){
         //Create character object to send to the server
-        const characterData = characterInputs;
-        characterData.stats = statsInputs;
-        characterData.skills = skillsInputs;
-        // characterData.equipment = equipmentInputs;
+        const characterData = createCharacterToPost(characterInputs, statsInputs, skillsInputs, skillsList);
 
         // Post character to the server
         postCharacter(characterData, token);
