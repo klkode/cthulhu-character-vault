@@ -1,8 +1,8 @@
 import { useRef } from 'react';
 import './InvestigatorStatsForm.scss';
 
-function InvestigatorStatsForm({ inputValues, updateHandler, previous, next }) {
-
+function InvestigatorStatsForm({ inputValues, updateOne, updateMultiple, previous, next }) {
+  console.log(inputValues);
   // Create useRefs for fields necessary in calculation
   const strRef = useRef();
   const sizeRef = useRef();
@@ -59,7 +59,8 @@ function InvestigatorStatsForm({ inputValues, updateHandler, previous, next }) {
 
     // Update the textbox and the input field
     buildRef.current.value = build;
-    updateHandler("build", build);
+    return build;
+    // updateOne("build", build);
 
   }
 
@@ -70,7 +71,8 @@ function InvestigatorStatsForm({ inputValues, updateHandler, previous, next }) {
     // console.log(`health: ${health}`);
     // Update the textbox and the input field
     hpRef.current.value = health;
-    updateHandler("health", health);
+    return health;
+    // updateOne("health", health);
   }
 
   function calcMagicPoints(power) {
@@ -79,21 +81,23 @@ function InvestigatorStatsForm({ inputValues, updateHandler, previous, next }) {
 
     // Update the textbox and the input field
     mpRef.current.value = mp;
-    updateHandler("magic_points", mp);
+    return mp;
+    // updateOne("magic_points", mp);
   }
 
   function calcSanity(power) {
     // No calculation needed as CoC 7e rules is that initial SAN = POW
     // Update the textbox and the input field
     sanRef.current.value = power;
-    updateHandler("sanity", power);
+    return power;
+    // updateOne("sanity", power);
   }
 
   function onChangeHandler(event) {
     // console.log(`key:${event.target.name}`);
     // console.log(`value:${event.target.value}`);
     // console.log(`number:${parseInt(event.target.value, 10)}`);
-    updateHandler(event.target.name, event.target.value);
+    updateOne(event.target.name, event.target.value);
 
   }
 
@@ -104,60 +108,69 @@ function InvestigatorStatsForm({ inputValues, updateHandler, previous, next }) {
     // console.log(`value:${fieldValue}`);
     // console.log(`number:${parseInt(fieldValue, 10)}`);
 
+    const stats = {...inputValues};
+
     if(fieldName === "power"){
       if(fieldValue !== ""){
-        calcSanity(parseInt(fieldValue, 10));
-        calcMagicPoints(parseInt(fieldValue, 10));
+        stats.sanity = calcSanity(parseInt(fieldValue, 10));
+        stats.magic_points = calcMagicPoints(parseInt(fieldValue, 10));
 
       }else{
         // the input vaule is invalid/empty so reset the sanity and magic points to placeholders
-        updateHandler("sanity", "");
-        updateHandler("magic_points", "");
+        // updateOne("sanity", "");
+        // updateOne("magic_points", "");
+        stats.sanity = "";
+        stats.magic_points = "";
 
       }
 
     }else if(fieldName === "strength"){
       const size = sizeRef.current.value;
       if(fieldValue !== "" && size !== ""){
-        calcBuild(parseInt(fieldValue, 10), parseInt(size, 10));
+        stats.build = calcBuild(parseInt(fieldValue, 10), parseInt(size, 10));
         
       }else{
         // one of the two required input vaules is invalid/empty so reset the build to placeholder
-        updateHandler("build", "");
+        // updateOne("build", "");
+        stats.build = "";
       }
 
     }else if(fieldName === "constitution"){
       const size = sizeRef.current.value;
       if(fieldValue !== "" && size !== ""){
-        calcHealth(parseInt(fieldValue, 10), parseInt(size, 10));
+        stats.health = calcHealth(parseInt(fieldValue, 10), parseInt(size, 10));
 
       }else{
         // one of the two required input vaules is invalid/empty so reset the health to placeholder
-        updateHandler("health", "");
+        // updateOne("health", "");
+        stats.health = "";
       }
 
     }else if(fieldName === "size"){
       const str = strRef.current.value;
       if(fieldValue !== "" && str !== ""){
-        calcBuild(parseInt(str, 10), parseInt(fieldValue, 10));
+        stats.build = calcBuild(parseInt(str, 10), parseInt(fieldValue, 10));
 
       }else{
         // one of the two required input vaules is invalid/empty so reset the build to placeholder
-        updateHandler("build", "");
+        // updateOne("build", "");
+        stats.build = "";
       }
 
       const con = conRef.current.value;
       if(fieldValue !== "" && con !== ""){
-        calcHealth(parseInt(con, 10), parseInt(fieldValue, 10));
+        stats.health = calcHealth(parseInt(con, 10), parseInt(fieldValue, 10));
 
       }else{
         // one of the two required input vaules is invalid/empty so reset the health to placeholder
-        updateHandler("health", "");
+        // updateOne("health", "");
+        stats.health = "";
       }
     }
-
+    stats[fieldName] = fieldValue;
     // Update the input for the changed field
-    updateHandler(fieldName, fieldValue);
+    // updateOne(fieldName, fieldValue);
+    updateMultiple(stats);
   }
 
   return (
@@ -235,21 +248,21 @@ function InvestigatorStatsForm({ inputValues, updateHandler, previous, next }) {
           <div className="stats-form__field-container">
             <label className="stats-form__label" htmlFor="sanity">{"Sanity (SAN): "}</label>
             <div className="stats-form__input-container">
-              <input className="stats-form__text-box stats-form__text-box--read-only" id="sanity" name="sanity"  onChange={onChangeHandler} type="number" min="1" max="99" step="1" readOnly={true} ref={sanRef} />
+              <input className="stats-form__text-box stats-form__text-box--read-only" id="sanity" name="sanity" value={inputValues.sanity}  onChange={onChangeHandler} type="number" min="1" max="99" step="1" readOnly={true} ref={sanRef} />
               {/* <label className="stats-form__error" htmlFor="sanity"></label> */}
             </div>
           </div>
           <div className="stats-form__field-container">
             <label className="stats-form__label" htmlFor="health">{"Health (HP): "}</label>
             <div className="stats-form__input-container">
-              <input className="stats-form__text-box stats-form__text-box--read-only" id="health" name="health"  onChange={onChangeHandler} type="number" min="1" max="50" step="1" readOnly={true} ref={hpRef} />
+              <input className="stats-form__text-box stats-form__text-box--read-only" id="health" name="health"  onChange={onChangeHandler} type="number" min="1" max="50" step="1" value={inputValues.health} readOnly={true} ref={hpRef} />
               {/* <label className="stats-form__error" htmlFor="health"></label> */}
             </div>
           </div>
           <div className="stats-form__field-container">
             <label className="stats-form__label" htmlFor="magic_points">{"Magic Points (MP): "}</label>
             <div className="stats-form__input-container">
-              <input className="stats-form__text-box stats-form__text-box--read-only" id="magic_points" name="magic_points" onChange={onChangeHandler} type="number" min="1" max="50" step="1" readOnly={true} ref={mpRef} />
+              <input className="stats-form__text-box stats-form__text-box--read-only" id="magic_points" name="magic_points" value={inputValues.magic_points} onChange={onChangeHandler} type="number" min="1" max="50" step="1" readOnly={true} ref={mpRef} />
               {/* <label className="stats-form__error" htmlFor="magic_points"></label> */}
             </div>
           </div>
@@ -263,7 +276,7 @@ function InvestigatorStatsForm({ inputValues, updateHandler, previous, next }) {
           <div className="stats-form__field-container">
             <label className="stats-form__label" htmlFor="build">{"Build: "}</label>
             <div className="stats-form__input-container">
-              <input className="stats-form__text-box stats-form__text-box--read-only" id="build" name="build"  onChange={onChangeHandler} type="number" min="-2" max="2" step="1" readOnly={true} ref={buildRef} />
+              <input className="stats-form__text-box stats-form__text-box--read-only" id="build" name="build"  onChange={onChangeHandler} type="number" min="-2" max="2" step="1" readOnly={true} value={inputValues.build} ref={buildRef} />
               {/* <label className="stats-form__error" htmlFor="build"></label> */}
             </div>
           </div>

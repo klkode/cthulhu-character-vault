@@ -203,7 +203,7 @@ function AddCharacterPage() {
                 }
                 {formState === 2 && 
                 <InvestigatorStatsForm 
-                    inputValues={statsInputs} updateHandler={updateStatsVaules} previous={previousForm} next={nextForm} />
+                    inputValues={statsInputs} updateOne={updateStatsVaules} updateMultiple={setStatsInputs} previous={previousForm} next={nextForm} />
                 }
                 {formState === 3 && 
                 <InvestigatorSkillsForm 
