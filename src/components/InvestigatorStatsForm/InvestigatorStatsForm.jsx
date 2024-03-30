@@ -2,7 +2,7 @@ import { useRef } from 'react';
 import './InvestigatorStatsForm.scss';
 
 function InvestigatorStatsForm({ inputValues, updateOne, updateMultiple, previous, next }) {
-  console.log(inputValues);
+
   // Create useRefs for fields necessary in calculation
   const strRef = useRef();
   const sizeRef = useRef();

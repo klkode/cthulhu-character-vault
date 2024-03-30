@@ -74,8 +74,14 @@ function InvestigatorSkillsForm({backgroundValue, inputValues, updateBackground,
         occupationSkills[i] = onlyChoice;
       }
     }
+    // Set the credit rating skill points to the minimum credit rating when loading new background
+    const creditUpdate = [...personalSkillsList];
+    creditUpdate[0].base_value = backgroundObject.credit_rating_min;
+    creditUpdate[0].points = backgroundObject.credit_rating_min;
+
     setBGChoicesList(backgroundChoices);
     setOccupationalSkillsList(occupationSkills);
+    setPersonalSkillsList(creditUpdate);
   }
   
   // When a background object is changed, the occupational skills should be updated accordingly or reset completely if no background object exists
@@ -183,10 +189,14 @@ function InvestigatorSkillsForm({backgroundValue, inputValues, updateBackground,
   return (
     <form className="skills-form" id="add-skills-form" name="add-skills-form">
       <h2 className="skills-form__heading" >Investigator Background and Skills</h2>
-        <BackgroundSelection 
-          selectedId={backgroundValue} 
-          updateSelectedBackground={updateSelectedBackground} 
-          backgroundList={backgroundList}/>
+        <fieldset className="skills-form__background-container" form="add-skills-form">
+          <BackgroundSelection 
+            selectedId={backgroundValue} 
+            updateSelectedBackground={updateSelectedBackground} 
+            backgroundList={backgroundList}/>
+            {!!selectedBackground &&
+              <p className="skills-form__credit-rating">{`Recommended Credit Rating: ${selectedBackground.credit_rating_min} - ${selectedBackground.credit_rating_max}`}</p>}
+        </fieldset>
         <OccupationSkillsSubform 
           chosenBackground={selectedBackground} 
           choicesLists={bgChoicesList} 

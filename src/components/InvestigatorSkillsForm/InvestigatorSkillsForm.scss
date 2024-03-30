@@ -6,6 +6,10 @@
     &__heading{
 
     }
+    
+    &__background-container{
+
+    }
 
     &__btn-container{
         @include flexRow();
