@@ -54,7 +54,7 @@ function PersonalSkillsSubform({skills, personalSkillsList, setPersonalSkillsLis
                     <div className="personal-skills__selections-container" key={index}>
                         <div className="personal-skills__row-container">
                             {index === 0 
-                            ? <p className="personal-skills__option">{singleSkill.name}</p>
+                            ? <p className="personal-skills__option personal-skills__option--only">{singleSkill.name}</p>
                             :<div className="dropdown personal-skills__dropdown">
                                 <button className="btn btn-secondary dropdown-toggle personal-skills__option personal-skills__option--default" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     {!singleSkill.name ? "Choose a Skill": singleSkill.name}

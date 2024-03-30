@@ -1,0 +1,21 @@
+@use "../../styles/partials/mixins.scss" as *;
+
+.skills-form{
+    @include flexCol();
+
+    &__heading{
+
+    }
+
+    &__btn-container{
+        @include flexRow();
+        justify-content: space-between;
+    }
+
+    &__btn{
+
+        &--cancel{
+
+        }
+    }
+}

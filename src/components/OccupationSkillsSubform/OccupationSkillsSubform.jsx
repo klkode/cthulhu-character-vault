@@ -27,7 +27,7 @@ function OccupationSkillsSubform( {chosenBackground, choicesLists, occupationalS
                     return ( 
                     <div className="occupation-skills__selections-container" key={index}>
                         {choicesLists[index].length === 1
-                        ?<p className="occupation-skills__option">
+                        ?<p className="occupation-skills__option occupation-skills__option--only">
                             {!singleSkill.name ? choicesLists[index][0].name : singleSkill.name}
                         </p>
                         :<div className="dropdown occupation-skills__dropdown">

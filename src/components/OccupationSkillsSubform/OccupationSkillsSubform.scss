@@ -1,0 +1,50 @@
+@use "../../styles/partials/mixins.scss" as *;
+
+.occupation-skills{
+    @include flexCol();
+
+    &__heading{
+
+    }
+
+    &__container{
+        @include flexCol();
+    }
+
+    &__selections-container{
+        @include flexRow();
+    }
+
+    &__option{
+
+        &--only{
+
+        }
+
+        &--default{
+
+        }
+    }
+
+    &__dropdown{
+
+
+    }
+
+    &__dropdown-menu{
+
+    }
+
+    &__option-container{
+
+    }
+
+    &__points-container{
+        @include flexCol();
+    }
+
+    &__points-box{
+
+    }
+
+}
