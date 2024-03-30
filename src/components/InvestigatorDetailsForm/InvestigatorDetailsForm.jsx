@@ -1,13 +1,14 @@
+import CancelButton from '../CancelButton/CancelButton';
 import './InvestigatorDetailsForm.scss';
 
 function InvestigatorDetailsForm( {inputValues, updateHandler, next} ) {
   
-  function cancelClickHandler(event){
-    // Prevent form from submitting
-    event.preventDefault();
+  // function cancelClickHandler(event){
+  //   // Prevent form from submitting
+  //   event.preventDefault();
 
-    // TODO navigate back to home or previous page?
-  }
+  //   // TODO navigate back to home or previous page?
+  // }
 
   function nextClickHandler(event){
     // Prevent form from submitting
@@ -64,7 +65,8 @@ function InvestigatorDetailsForm( {inputValues, updateHandler, next} ) {
         </div>
       </fieldset>
       <div className="details-form__btn-container">
-        <button className="details-form__btn details-form__btn--cancel" onClick={cancelClickHandler} >Cancel</button>
+        {/* <button className="details-form__btn details-form__btn--cancel" onClick={cancelClickHandler} >Cancel</button> */}
+        <CancelButton />
         <button className="details-form__btn" onClick={nextClickHandler}>Next</button>
       </div>
     </form>

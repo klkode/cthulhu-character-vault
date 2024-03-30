@@ -4,6 +4,7 @@ import ButtonLink from '../ButtonLink/ButtonLink';
 import axios from "axios";
 import { BASE_URL } from '../../constant-variables';
 import { useNavigate } from "react-router-dom";
+import CancelButton from '../CancelButton/CancelButton';
 // import { AuthContext } from '../../context/auth-context.js';
 
 function UserAuthForm({ isSignUp, isLoggedIn, setIsLoggedIn} ) {
@@ -136,7 +137,8 @@ function UserAuthForm({ isSignUp, isLoggedIn, setIsLoggedIn} ) {
             </fieldset>
             <div className="userAuthForm__btn-container">
                 <div className="userAuthForm__nav-container">
-                    <ButtonLink btnText={"Cancel"} navTo={"/"} />
+                    {/* <ButtonLink btnText={"Cancel"} navTo={"/"} /> */}
+                    <CancelButton />
                     {isSignUp ? 
                         <ButtonLink btnText={"Log In"} navTo={"/login"} /> : 
                         <ButtonLink btnText={"Sign Up"} navTo={"/signup"} />

@@ -3,6 +3,7 @@ import BackgroundSelection from '../BackgroundSelection/BackgroundSelection';
 import './InvestigatorSkillsForm.scss';
 import PersonalSkillsSubform from '../PersonalSkillsSubform/PersonalSkillsSubform';
 import OccupationSkillsSubform from '../OccupationSkillsSubform/OccupationSkillsSubform';
+import CancelButton from '../CancelButton/CancelButton';
 
 function InvestigatorSkillsForm({backgroundValue, inputValues, updateBackground, updateSkills, previous, next, skillsList, backgroundList}) {
   
@@ -162,12 +163,12 @@ function InvestigatorSkillsForm({backgroundValue, inputValues, updateBackground,
 
   }
 
-  function cancelClickHandler(event) {
-    // Prevent form from submitting
-    event.preventDefault();
+  // function cancelClickHandler(event) {
+  //   // Prevent form from submitting
+  //   event.preventDefault();
 
-    // TODO navigate back to home or previous page?
-  }
+  //   // TODO navigate back to home or previous page?
+  // }
 
   function previousClickHandler(event) {
     // Prevent form from submitting
@@ -207,7 +208,8 @@ function InvestigatorSkillsForm({backgroundValue, inputValues, updateBackground,
         setPersonalSkillsList={setPersonalSkillsList} />
       <div className="skills-form__btn-container">
         <button className="skills-form__btn" onClick={previousClickHandler}>Previous</button>
-        <button className="skills-form__btn skills-form__btn--cancel" onClick={cancelClickHandler} >Cancel</button>
+        {/* <button className="skills-form__btn skills-form__btn--cancel" onClick={cancelClickHandler} >Cancel</button> */}
+        <CancelButton />
         <button className="skills-form__btn" onClick={nextClickHandler}>Next</button>
       </div>
     </form>

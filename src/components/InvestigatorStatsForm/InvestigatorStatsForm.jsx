@@ -1,5 +1,6 @@
 import { useRef } from 'react';
 import './InvestigatorStatsForm.scss';
+import CancelButton from '../CancelButton/CancelButton';
 
 function InvestigatorStatsForm({ inputValues, updateOne, updateMultiple, previous, next }) {
 
@@ -15,12 +16,12 @@ function InvestigatorStatsForm({ inputValues, updateOne, updateMultiple, previou
   const mpRef = useRef();
   const buildRef = useRef();
 
-  function cancelClickHandler(event) {
-    // Prevent form from submitting
-    event.preventDefault();
+  // function cancelClickHandler(event) {
+  //   // Prevent form from submitting
+  //   event.preventDefault();
 
-    // TODO navigate back to home or previous page?
-  }
+  //   // TODO navigate back to home or previous page?
+  // }
 
   function previousClickHandler(event) {
     // Prevent form from submitting
@@ -285,7 +286,8 @@ function InvestigatorStatsForm({ inputValues, updateOne, updateMultiple, previou
       </div>
       <div className="stats-form__btn-container">
         <button className="stats-form__btn" onClick={previousClickHandler}>Previous</button>
-        <button className="stats-form__btn stats-form__btn--cancel" onClick={cancelClickHandler} >Cancel</button>
+        {/* <button className="stats-form__btn stats-form__btn--cancel" onClick={cancelClickHandler} >Cancel</button> */}
+        <CancelButton />
         <button className="stats-form__btn" onClick={nextClickHandler}>Next</button>
       </div>
     </form>
