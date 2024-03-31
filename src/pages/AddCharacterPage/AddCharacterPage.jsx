@@ -13,28 +13,8 @@ function AddCharacterPage() {
     // Get the session token
     const token = sessionStorage.getItem("token");
 
-    // Create state variable for keeping track of the user's progress through adding a character
-    const [formState, setFormState] = useState(1);
-
-    // Create state variables for game details from the server
-    const [backgroundList, setBackgroundList] = useState([]);
-    const [skillsList, setSkillsList] = useState([]);
-
+    // Make navigate for handling leaving the page
     const navigate = useNavigate();
-
-    function nextForm(){
-        // Include safeguard that the state does not go beyond the number of forms
-        if(formState < 4){
-            setFormState(formState + 1);
-        }
-    }
-
-    function previousForm(){
-        // Include safeguard that the state does not go under the first index
-        if(formState > 1){
-            setFormState(formState - 1);
-        }  
-    }
 
     // Make inital input state for character detail fields
     const initialCharacterState = {
@@ -93,10 +73,38 @@ function AddCharacterPage() {
         }, ]
     }
 
+    // Create state variable for keeping track of the user's progress through adding a character
+    const [formState, setFormState] = useState(1);
+
+    // Create state variables for game details from the server
+    const [backgroundList, setBackgroundList] = useState([]);
+    const [skillsList, setSkillsList] = useState([]);
+
     // Create state variables for recording the user's inputs for their new character's data
     const [characterInputs, setCharacterInputs] = useState(initialCharacterState);
     const [statsInputs, setStatsInputs] = useState(initialStatsState);
     const [skillsInputs, setSkillsInputs] = useState(initialSkillsState);
+
+
+    useEffect(() => {
+        getBackgrounds();
+        getSkills();
+
+    }, []);
+
+    function nextForm(){
+        // Include safeguard that the state does not go beyond the number of forms
+        if(formState < 4){
+            setFormState(formState + 1);
+        }
+    }
+
+    function previousForm(){
+        // Include safeguard that the state does not go under the first index
+        if(formState > 1){
+            setFormState(formState - 1);
+        }  
+    }
 
     /**
      * updateForm is a wrapper function that helps to set the updated formInputs state variable based on the change of only 1 of its key-value pairs. The field parameter is the key to be updated and the input parameter is the new value.
@@ -122,80 +130,7 @@ function AddCharacterPage() {
         setStatsInputs(updatedInput);
     }
 
-    // /**
-    //  * updateForm is a wrapper function that helps to set the updated formInputs state variable based on the change of only 1 of its key-value pairs. The field parameter is the key to be updated and the input parameter is the new value.
-    //  * 
-    //  * @param {string}      field
-    //  * @param {string}      input
-    //  * 
-    //  */
-    // function updateSkillsVaules(field, input){
-    //     const updatedInput = {...skillsInputs, [field]: input}
-    //     setSkillsInputs(updatedInput);
-    // }
-
-    const getSkills = async () => {
-        try{
-            const skillsresponse = await axios.get(`${BASE_URL}skills`);
-            setSkillsList(skillsresponse.data);    
-        }catch(error){
-            console.error(error);
-            // TODO: Do something about this?
-        }
-    }
-
-    const getBackgrounds = async () => {
-        try{
-            const backgroundsResponse = await axios.get(`${BASE_URL}backgrounds`);   
-            setBackgroundList(backgroundsResponse.data);
-        }catch(error){
-            console.error(error);
-            // TODO: Do something about this?
-        }
-    }
-
-    /**
-     * postCharacter is an asynchronous function that takes a validated character object and POSTs it to the server to add to the character database and other relational databases.
-     * 
-     * @param {Object}      characterObject 
-     * @param {string}      token 
-     * 
-     */
-    const postCharacter = async(characterObject, token) =>{
-        try{
-            console.log("post", characterObject);
-            const response = await axios.post(`${BASE_URL}characters`, characterObject, {
-                headers: {
-                    Authorization: "Bearer " + token,
-                },
-            });
-            if(!!response.data){
-                // TODO success message?
-                navigate("/characters");
-            }
-
-        }catch(error){
-            console.log(error);
-            // TODO error notification for user?
-        }
-    };
-
-    function createCharacter(){
-        //Create character object to send to the server
-        const characterData = createCharacterToPost(characterInputs, statsInputs, skillsInputs, skillsList);
-
-        // Post character to the server
-        postCharacter(characterData, token);
-
-        // TODO notify user? navigate away? clear fields? something?
-    }
-
-    useEffect(() => {
-        getBackgrounds();
-        getSkills();
-
-    }, []);
-
+    
     function updateDodgeBase(value){
         const dodgeIndex = skillsList.findIndex((skill) => skill.skill_id === DODGE_SKILL_ID);
         const updateSkills = [...skillsList];
@@ -236,6 +171,61 @@ function AddCharacterPage() {
         }
     }
 
+    const getSkills = async () => {
+        try{
+            const skillsresponse = await axios.get(`${BASE_URL}skills`);
+            setSkillsList(skillsresponse.data);    
+        }catch(error){
+            console.error(error);
+            // TODO: Do something about this?
+        }
+    }
+
+    const getBackgrounds = async () => {
+        try{
+            const backgroundsResponse = await axios.get(`${BASE_URL}backgrounds`);   
+            setBackgroundList(backgroundsResponse.data);
+        }catch(error){
+            console.error(error);
+            // TODO: Do something about this?
+        }
+    }
+
+    /**
+     * postCharacter is an asynchronous function that takes a validated character object and POSTs it to the server to add to the character database and other relational databases.
+     * 
+     * @param {Object}      characterObject 
+     * @param {string}      token 
+     * 
+     */
+    const postCharacter = async(characterObject, token) =>{
+        try{
+            const response = await axios.post(`${BASE_URL}characters`, characterObject, {
+                headers: {
+                    Authorization: "Bearer " + token,
+                },
+            });
+            if(!!response.data){
+                // TODO success message?
+                navigate("/characters");
+            }
+
+        }catch(error){
+            console.log(error);
+            // TODO error notification for user?
+        }
+    };
+
+    function createCharacter(){
+        //Create character object to send to the server
+        const characterData = createCharacterToPost(characterInputs, statsInputs, skillsInputs, skillsList);
+
+        // Post character to the server
+        postCharacter(characterData, token);
+
+        // TODO notify user? navigate away? clear fields? something?
+    }
+
     // TODO look nicer
     if(!token){
         return <div>You must be logged in to create a new character.</div>
@@ -259,11 +249,11 @@ function AddCharacterPage() {
                 }
                 {formState === 4 && 
                 <InvestigatorExtrasForm 
-                    inputValues={characterInputs} updateHandler={updateCharacterDetails} previous={previousForm} verifiedSubmit={createCharacter} />
+                    inputValues={characterInputs} updateHandler={updateCharacterDetails} previous={previousForm} verifiedSubmit={createCharacter} submitText={"Create"}/>
                 }
             </article>
         </section>
     );
-    }
+}
 
 export default AddCharacterPage;

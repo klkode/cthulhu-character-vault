@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react';
 import './BackgroundSelection.scss';
-// import axios from 'axios';
-// import { BASE_URL } from '../../constant-variables';
 
 function BackgroundSelection( {selectedId, updateSelectedBackground, backgroundList} ) {
    

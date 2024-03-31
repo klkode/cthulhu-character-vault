@@ -2,14 +2,7 @@ import { validateInvestigatorExtras } from '../../utils/character-validation';
 import CancelButton from '../CancelButton/CancelButton';
 import './InvestigatorExtrasForm.scss';
 
-function InvestigatorExtrasForm( {inputValues, updateHandler, previous, verifiedSubmit } ) {
-
-  // function cancelClickHandler(event){
-  //   // Prevent form from submitting
-  //   event.preventDefault();
-
-  //   // TODO navigate back to home or previous page?
-  // }
+function InvestigatorExtrasForm( {inputValues, updateHandler, previous, verifiedSubmit, submitText } ) {
 
   function previousClickHandler(event){
     // Prevent form from submitting
@@ -104,9 +97,8 @@ function InvestigatorExtrasForm( {inputValues, updateHandler, previous, verified
       </fieldset>
       <div className="extras-form__btn-container">
         <button className="extras-form__btn" onClick={previousClickHandler}>Previous</button>
-        {/* <button className="extras-form__btn extras-form__btn--cancel" onClick={cancelClickHandler} >Cancel</button> */}
         <CancelButton />
-        <button className="extras-form__btn extras-form__btn--submit" onClick={submitHandler}>Create</button>
+        <button className="extras-form__btn extras-form__btn--submit" onClick={submitHandler}>{submitText}</button>
       </div>
     </form>
   );

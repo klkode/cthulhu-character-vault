@@ -51,3 +51,13 @@ export function createCharacterToPost(characterDetails, characterStats, characte
     return characterObject;
 
 }
+
+export function filterAssignedSkills(characterSkills, skillsList, backgroundOptions){
+    const occupationalSkills = [{}, {}, {}, {}, {}, {}, {}, {}];
+    const personalSkills = [];
+
+    return {
+        occupationalSkills: occupationalSkills,
+        personalSkills: personalSkills
+    }
+}

@@ -52,6 +52,37 @@ export function validateInvestigatorStats(characterStats){
     return errMsgs;
 }
 
+export function validateUpdatedStats(characterStats){
+    const {strength, dexterity, consitution, size, appearance, intelligence, education, power, luck, sanity, health, build, movement, magic_points} = characterStats;
+    const errMsgs = {
+        hasError: false,
+        strengthErr: "",
+        dexterityErr: "",
+        consitutionErr: "", 
+        sizeErr: "",
+        appearanceErr: "",
+        intelligenceErr: "",
+        educationErr: "",
+        powerErr: "", 
+        luckErr: "",
+        sanityErr: "",
+        healthErr: "",
+        magicPointsErr: "",
+        movementErr: "",
+        buildErr: ""
+    }
+
+    /*This website only supports making "human" characters so a maximum of 99 is imposed on character statistics.
+    Similarily, a minimum score of 1 is imposed on all statistics except Luck, Sanity, Health, Magic Points, and Build.
+    All stats are required.
+    All stats must be integer numbers.
+    */
+
+
+    // Return the errMsgs object to give a report on what the validation check discovered
+    return errMsgs;
+}
+
 export function validateInvestigatorSkills(background, occupationalSkills, personalSkills){
     const errMsgs = {
         hasError: false,
@@ -72,6 +103,21 @@ export function validateInvestigatorSkills(background, occupationalSkills, perso
 
     return errMsgs;
 
+}
+
+export function validateUpdatedSkills(characterSkills){
+    const errMsgs = { hasError: false, skillErrs: [] };
+    /* Make sure all skills have a value
+    That value is an unsigned integer
+    That value is greater or equal to its base value
+    That value is less than 100 
+    */
+
+    for(let index = 0; index < characterSkills.length; index++){
+        
+    }
+
+    return errMsgs;
 }
 
 export function validateInvestigatorExtras(characterExtras){
