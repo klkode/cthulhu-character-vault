@@ -18,7 +18,7 @@ function EditSkillsForm( {backgroundId, backgrounds, updateBackground, skillInpu
 
     useEffect(() => {
         setSkillsDetails(skills, skillInputs);
-    }, [skillInputs])
+    }, [skills, skillInputs])
 
     function previousClickHandler(event){
         event.preventDefault();

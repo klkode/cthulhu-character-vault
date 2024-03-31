@@ -52,12 +52,29 @@ export function createCharacterToPost(characterDetails, characterStats, characte
 
 }
 
-export function filterAssignedSkills(characterSkills, skillsList, backgroundOptions){
-    const occupationalSkills = [{}, {}, {}, {}, {}, {}, {}, {}];
-    const personalSkills = [];
+export function createCharacterToUpdate(characterDetails, characterStats, characterSkills){
+    // Append all the data into one object
+    const characterObject = {...characterDetails};
+    characterObject.age = Number(characterObject.age);
+    characterObject.background_id = Number(characterObject.background_id);
+    
+    characterObject.stats = statsAsInt(characterStats);
 
-    return {
-        occupationalSkills: occupationalSkills,
-        personalSkills: personalSkills
-    }
+    const skillBasics = characterSkills.reduce((reduction, skill) =>{
+        reduction.push({ skill_id: skill.skill_id, points: Number(skill.points)});
+        return reduction;
+    }, []);
+    characterObject.skills = skillBasics;
+
+    return characterObject;
 }
+
+// export function filterAssignedSkills(characterSkills, skillsList, backgroundOptions){
+//     const occupationalSkills = [{}, {}, {}, {}, {}, {}, {}, {}];
+//     const personalSkills = [];
+
+//     return {
+//         occupationalSkills: occupationalSkills,
+//         personalSkills: personalSkills
+//     }
+// }

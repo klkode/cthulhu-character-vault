@@ -1,13 +1,13 @@
 import './EditCharacterPage.scss';
 import InvestigatorDetailsForm from '../../components/InvestigatorDetailsForm/InvestigatorDetailsForm.jsx';
 import InvestigatorExtrasForm from '../../components/InvestigatorExtrasForm/InvestigatorExtrasForm.jsx';
+import EditStatsForm from '../../components/EditStatsForm/EditStatsForm.jsx';
+import EditSkillsForm from '../../components/EditSkillsForm/EditSkillsForm.jsx';
 import { useState, useEffect } from 'react';
 import { BASE_URL } from "../../constant-variables.js"
 import axios from "axios";
-import { createCharacterToPost } from '../../utils/create-character.js';
+import { createCharacterToUpdate } from '../../utils/create-character.js';
 import { useNavigate, useParams } from 'react-router-dom';
-import EditStatsForm from '../../components/EditStatsForm/EditStatsForm.jsx';
-import EditSkillsForm from '../../components/EditSkillsForm/EditSkillsForm.jsx';
 
 function EditCharacterPage() {
     // Get the session token
@@ -141,7 +141,7 @@ function EditCharacterPage() {
 
     function editCharacter(){
         //Create character object to send to the server
-        const characterData = createCharacterToPost(characterInputs, statsInputs, skillsInputs, skillsList);
+        const characterData = createCharacterToUpdate(characterInputs, statsInputs, skillsInputs);
 
         // Post character to the server
         updateCharacter(characterData, id, token);
@@ -178,6 +178,11 @@ function EditCharacterPage() {
     }
 
     // TODO look nicer
+    if(!token){
+        return <div>You must be logged in to edit a character.</div>
+    }
+
+    // TODO look nicer
     if (isLoading) {
       return <div>Loading...</div>
     }
@@ -187,11 +192,6 @@ function EditCharacterPage() {
       return <div>No character data found</div>
     }
 
-    // TODO look nicer
-    if(!token){
-        return <div>You must be logged in to edit a character.</div>
-    }
-    
     return (
         <section className="edit-character">
             <h1 className="edit-character__heading">Update Character</h1>
