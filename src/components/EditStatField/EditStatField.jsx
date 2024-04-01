@@ -9,11 +9,11 @@ function EditStatField( {fieldName, label, value, error, updateValue} ){
 
     return(
         <div className="stat-field">
-            <label className="stat-field__label" htmlFor={fieldName}>{label}</label>
             <div className="stat-field__input-container">
+                <label className="stat-field__label" htmlFor={fieldName}>{label}</label>
                 <input className={!error ? "stat-field__text-box" : "stat-field__text-box stat-field__text-box--error"} id={fieldName} name={fieldName} onChange={onChangeHandler} type="number" min="-2" max="99" step="1" value={value} />
-                <label className="stat-field__error" htmlFor={fieldName}>{error}</label>
             </div>
+            <label className="stat-field__error" htmlFor={fieldName}>{error}</label>
         </div>
     );
 }

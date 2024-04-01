@@ -128,9 +128,11 @@ function InvestigatorExtrasForm( {inputValues, updateHandler, previous, verified
         </div>
       </fieldset>
       <div className="extras-form__btn-container">
-        <button className="extras-form__btn" onClick={previousClickHandler}>Previous</button>
-        <CancelButton />
-        <button className="extras-form__btn extras-form__btn--submit" onClick={submitHandler}>{submitText}</button>
+        <div className="extras-form__nav-btn-container">
+          <button className="extras-form__btn" onClick={previousClickHandler}>Previous</button>
+          <button className="extras-form__btn extras-form__btn--submit" onClick={submitHandler}>{submitText}</button>
+        </div>
+        <div className="extras-form__cancel-container extras-form__cancel-container--mobile"><CancelButton /></div>
       </div>
     </form>
   );

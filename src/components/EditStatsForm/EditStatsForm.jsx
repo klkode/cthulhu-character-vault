@@ -99,10 +99,12 @@ function EditStatsForm( {inputValues, updateInput, previous, next} ){
                 </fieldset>
             </div>
             <div className="edit-stats-form__btn-container">
-                <button className="edit-stats-form__btn" onClick={previousClickHandler}>Previous</button>
-                <CancelButton />
-                <button className="edit-stats-form__btn" onClick={nextClickHandler}>Next</button>
-            </div>
+                <div className="edit-stats-form__nav-btn-container">
+                    <button className="edit-stats-form__btn" onClick={previousClickHandler}>Previous</button>
+                    <button className="edit-stats-form__btn" onClick={nextClickHandler}>Next</button>
+                </div>
+                <div className="edit-stats-form__cancel-container edit-stats-form__cancel-container--mobile"><CancelButton /></div>
+                </div>
         </form>
     );
 }

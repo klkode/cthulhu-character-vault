@@ -1,10 +1,14 @@
 @use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/font-styles.scss" as *;
+@use "../../styles/partials/colours.scss" as *;
+@use "../../styles/partials/breakpoints.scss" as *;
+@use "../../styles/partials/variables.scss" as *;
 
 .extras-form{
     @include flexCol();
 
     &__heading{
-
+        @include sectionHeadingStyle();
     }
 
     &__instructions{
@@ -14,11 +18,17 @@
     &__container{
         @include flexRow();
         flex-wrap: wrap;
+        justify-content: space-between;
     }
 
     &__field-container{
         @include flexCol();
-        flex-basis: 50%;
+        flex-basis: 47.5%;
+        margin-bottom: $mobileSpacingBelowComponent;
+
+        @include tablet(){
+            margin-bottom: $spacingBelowComponent;
+        }
     }
 
     &__label{
@@ -30,30 +40,38 @@
     }
 
     &__input{
-
+        @include largeTextInputStyle();
         &--small{
+            height: 5rem;
 
+            @include tablet(){
+                height: 6.5rem;
+            }
         }
     }
 
     &__error{
-
+        color: $errorColour;
     }
 
     &__btn-container{
-        @include flexRow();
-        justify-content: space-around;
+        @include flexCol();
+    }
 
+    &__nav-btn-container{
+        @include flexRow();
+        justify-content: space-between;
     }
 
     &__btn{
+        @include buttonStyle();
+    }
 
-        &--cancel{
-
-        }
-
-        &--submit{
-
+    &__cancel-container{
+        width: 100%;
+        display: none;
+        &--mobile{
+            display: flex;
         }
     }
 }

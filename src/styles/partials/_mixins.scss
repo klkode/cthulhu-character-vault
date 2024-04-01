@@ -18,6 +18,7 @@
 @mixin linkOfButtonStyle(){
     display: flex;
     text-decoration: none;
+    width: 100%;
 }
 
 @mixin buttonStyle(){
@@ -57,4 +58,47 @@
 
 @mixin errorInputStyle(){
     border: $errorColour solid 0.0625rem;
+}
+
+@mixin numberInputStyle(){
+    min-width: 3.25rem;
+    min-height: 1.75rem;
+    max-width: 3.25rem;
+    width: 3.25rem;
+    height: 1.75rem;
+
+    padding: 0.25rem;
+    border-radius: 0.25rem; 
+    border: $darkBackground solid 0.0625rem;
+
+    &:active, &:focus, &:focus-within{
+        outline: none;
+        border: $accentColour solid 0.125rem;
+    }
+
+    @include tablet(){
+        min-height: 2rem;
+        height: 2rem;
+    }
+}
+
+@mixin largeTextInputStyle(){
+    min-width: 8rem;
+    min-height: 4rem;
+    max-width: 100%;
+    width: 100%;
+    height: 6.5rem;
+
+    padding: 0.25rem;
+    border-radius: 0.25rem; 
+    border: $darkBackground solid 0.0625rem;
+
+    &:active, &:focus, &:focus-within{
+        outline: none;
+        border: $accentColour solid 0.125rem;
+    }
+
+    @include tablet(){
+        height: 8rem;
+    }
 }

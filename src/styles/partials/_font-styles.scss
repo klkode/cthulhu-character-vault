@@ -15,8 +15,8 @@ $pageHeaderLineHeight: 2.75rem;
 $pageHeaderFontWeight: 700;
 
 // -Section Header-
-$sectionHeaderTextSize: 0.75rem;        
-$sectionHeaderLineHeight: 1.25rem;     
+$sectionHeaderTextSize: 1.75rem;        
+$sectionHeaderLineHeight: 2.125rem;     
 $sectionHeaderFontWeight: 700;
 
 // -Subheader-
@@ -47,8 +47,8 @@ $pageHeaderMobileTextSize: 1.75rem;
 $pageHeaderMobileLineHeight: 2rem;            
 
 // -Section Header-
-$sectionHeaderMobileTextSize: 0.75rem;        
-$sectionHeaderMobileLineHeight: 1.25rem;      
+$sectionHeaderMobileTextSize: 1.25rem;        
+$sectionHeaderMobileLineHeight: 1.75rem;      
 
 // -Subheader-
 $subHeaderMobileTextSize: 1.125rem;         
@@ -88,14 +88,13 @@ $labelsMobileLineHeight: 1rem;
     line-height: $sectionHeaderMobileLineHeight;
     font-weight: $sectionHeaderFontWeight;
 
-    margin-top: $mobileSpacingAboveComponent;
+    font-style: italic;
     margin-bottom: $mobileSpacingBelowComponent;
 
     @include tablet(){
         font-size: $sectionHeaderTextSize;
         line-height: $sectionHeaderLineHeight;
 
-        margin-top: $spacingAboveComponent;
         margin-bottom: $spacingBelowComponent;
     }
 }

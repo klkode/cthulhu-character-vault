@@ -1,10 +1,14 @@
 @use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/font-styles.scss" as *;
+@use "../../styles/partials/colours.scss" as *;
+@use "../../styles/partials/breakpoints.scss" as *;
+@use "../../styles/partials/variables.scss" as *;
 
 .stats-form{
     @include flexCol();
 
     &__heading{
-
+        @include sectionHeadingStyle();
     }
 
     &__instructions{
@@ -12,58 +16,81 @@
     }
 
     &__stats-container{
-        @include flexRow();
-        justify-content: space-between;
+        @include flexCol();
+        justify-content: flex-start;
+
+        @include tablet(){
+            @include flexRow();
+            justify-content: space-between;
+        }
+       
     }
 
     &__assigned-container{
         @include flexCol();
-        flex-basis: 25%;
+        flex-basis: 50%;
     }
 
     &__field-container{
-        @include flexRow();
-        justify-content: flex-start;
+        @include flexCol();
+        margin-bottom: $mobileSpacingBelowComponent;
+
+        @include tablet(){
+            margin-bottom: $spacingBelowComponent;
+        }
     }
 
     &__label{
-
+        margin-right: 0.5rem;
     }
 
     &__input-container{
-        @include flexCol();
-        width: 66%;
+        @include flexRow();
+        justify-content: space-between;
+        align-items: flex-start;
+
     }
 
     &__text-box{
-
+        @include numberInputStyle();
+        align-self: flex-end;
         &--read-only{
 
         }
 
         &--error{
-
+            @include errorInputStyle();
         }
     }
 
     &__error{
-
+        color: $errorColour;
+        text-align: right;
     }
 
     &__calculated-container{
         @include flexCol();
-        flex-basis: 25%;
+        flex-basis: 47.5%;
     }
 
     &__btn-container{
+        @include flexCol();
+    }
+
+    &__nav-btn-container{
         @include flexRow();
         justify-content: space-between;
     }
 
     &__btn{
+        @include buttonStyle();
+    }
 
-        &--cancel{
-
+    &__cancel-container{
+        width: 100%;
+        display: none;
+        &--mobile{
+            display: flex;
         }
     }
 }

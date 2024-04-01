@@ -1,0 +1,64 @@
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/font-styles.scss" as *;
+@use "../../styles/partials/colours.scss" as *;
+@use "../../styles/partials/breakpoints.scss" as *;
+@use "../../styles/partials/variables.scss" as *;
+
+.edit-stats-form{
+
+    &__heading{
+        @include sectionHeadingStyle();
+    }
+    
+    &__instructions{
+
+    }
+
+    &__stats-container{
+        @include flexCol();
+        justify-content: flex-start;
+
+        @include tablet(){
+            @include flexRow();
+            justify-content: space-between;
+        }
+        
+    }
+
+    &__rolled-container{
+        @include flexCol();
+        @include tablet(){
+            flex-basis: 40%;
+        }
+    }
+
+    &__calculated-container{
+        @include flexCol();
+
+        @include tablet(){
+            flex-basis: 40%;
+        }
+    }
+
+    &__btn-container{
+        @include flexCol();
+    }
+
+    &__nav-btn-container{
+        @include flexRow();
+        justify-content: space-between;
+    }
+
+    &__btn{
+        @include buttonStyle();
+    }
+
+    &__cancel-container{
+        width: 100%;
+        display: none;
+        &--mobile{
+            display: flex;
+        }
+    }
+
+}

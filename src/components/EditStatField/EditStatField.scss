@@ -1,0 +1,34 @@
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/font-styles.scss" as *;
+@use "../../styles/partials/colours.scss" as *;
+@use "../../styles/partials/breakpoints.scss" as *;
+@use "../../styles/partials/variables.scss" as *;
+
+.stat-field{
+    @include flexCol();
+    margin-bottom: $mobileSpacingBelowComponent;
+
+    @include tablet(){
+        margin-bottom: $spacingBelowComponent;
+    }
+
+    &__label{
+        margin-right: 0.5rem;
+    }
+    &__input-container{
+        @include flexRow();
+        justify-content: space-between;
+    }
+
+    &__text-box{
+        @include numberInputStyle();
+        &--error{
+            @include errorInputStyle();
+        }
+    }
+
+    &__error{
+        color: $errorColour;
+        align-self: flex-end;
+    }
+}
