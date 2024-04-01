@@ -11,50 +11,50 @@ export function validateInvestigatorDetails(characterDetails){
     const {name, age, gender, birthplace, residence} = characterDetails;
     const errMsgs = {
         hasError: false,
-        nameErr: "",
-        ageErr: "",
-        genderErr: "",
-        birthplaceErr: "",
-        residenceErr: ""
+        nameError: "",
+        ageError: "",
+        genderError: "",
+        birthplaceError: "",
+        residenceError: ""
     }
 
     // Name is required, is a string, and is limited to "Large" characters
     if(!name){
-        errMsgs.nameErr = "Name field is required";
-    }else if(name.length < LARGE_CHAR_MAX){
-        errMsgs.nameErr = "The input exceeds its maximum number of characters";
+        errMsgs.nameError = "Name field is required";
+    }else if(name.length > LARGE_CHAR_MAX){
+        errMsgs.nameError = "The input exceeds its maximum number of characters";
     }
 
     // Age is required, is a number, integer above 0
     if(!age){
-        errMsgs.ageErr = "Age field is required";
+        errMsgs.ageError = "Age field is required";
     }else if(isNaN(age)){
-        errMsgs.ageErr = "Age must be a number";
+        errMsgs.ageError = "Age must be a number";
     }else if(!Number.isInteger((Number(age)))){
-        errMsgs.ageErr = "Age must be an integer number";
+        errMsgs.ageError = "Age must be an integer number";
     }else if(Number(age) < 0){
-        errMsgs.ageErr = "Age must be greater than 0";
+        errMsgs.ageError = "Age must be greater than 0";
     }
 
     // Gender is required, is a string, and is limited to "Small" characters
     if(!gender){
-        errMsgs.genderErr = "Gender field is required";
-    }else if(gender.length < SMALL_CHAR_MAX){
-        errMsgs.genderErr = "The input exceeds its maximum number of characters";
+        errMsgs.genderError = "Gender field is required";
+    }else if(gender.length > SMALL_CHAR_MAX){
+        errMsgs.genderError = "The input exceeds its maximum number of characters";
     }
 
     // Birthplace is a string and is limited to "Medium" characters
-    if(birthplace.length < MEDIUM_CHAR_MAX){
-        errMsgs.birthplaceErr = "The input exceeds its maximum number of characters";
+    if(birthplace.length > MEDIUM_CHAR_MAX){
+        errMsgs.birthplaceError = "The input exceeds its maximum number of characters";
     }
 
     // Residence is a string and is limited to "Medium" characters
-    if(residence.length < MEDIUM_CHAR_MAX){
-        errMsgs.residenceErr = "The input exceeds its maximum number of characters";
+    if(residence.length > MEDIUM_CHAR_MAX){
+        errMsgs.residenceError = "The input exceeds its maximum number of characters";
     }
 
     // If any field has an error, then haError is true
-    if(!!errMsgs.nameErr || !!errMsgs.ageErr || !!errMsgs.genderErr || !!errMsgs.birthplaceErr || !!errMsgs.residenceErr){
+    if(!!errMsgs.nameError || !!errMsgs.ageError || !!errMsgs.genderError || !!errMsgs.birthplaceError || !!errMsgs.residenceError){
         errMsgs.hasError = true;
     }
 
@@ -71,7 +71,7 @@ export function validateInvestigatorDetails(characterDetails){
  * @returns {Object}
  */
 export function validateInvestigatorStats(characterStats){
-    const {strength, dexterity, consitution, size, appearance, intelligence, education, power, luck} = characterStats;
+    const {strength, dexterity, constitution, size, appearance, intelligence, education, power, luck} = characterStats;
     const errMsgs = {
         hasError: false,
         strError: "",
@@ -93,7 +93,7 @@ export function validateInvestigatorStats(characterStats){
     */
     errMsgs.strError = isProperNumberValue(strength, 1, 99);
     errMsgs.dexError = isProperNumberValue(dexterity, 1, 99);
-    errMsgs.conError = isProperNumberValue(consitution, 1, 99);
+    errMsgs.conError = isProperNumberValue(constitution, 1, 99);
     errMsgs.sizeError = isProperNumberValue(size, 1, 99);
     errMsgs.appError = isProperNumberValue(appearance, 1, 99);
     errMsgs.eduError = isProperNumberValue(education, 1, 99);
@@ -119,12 +119,12 @@ export function validateInvestigatorStats(characterStats){
  * @returns {Object}
  */
 export function validateUpdatedStats(characterStats){
-    const {strength, dexterity, consitution, size, appearance, intelligence, education, power, luck, sanity, health, build, movement, magic_points} = characterStats;
+    const {strength, dexterity, constitution, size, appearance, intelligence, education, power, luck, sanity, health, build, movement, magic_points} = characterStats;
     const errMsgs = {
         hasError: false,
         strengthErr: "",
         dexterityErr: "",
-        consitutionErr: "", 
+        constitutionErr: "", 
         sizeErr: "",
         appearanceErr: "",
         intelligenceErr: "",
@@ -145,7 +145,7 @@ export function validateUpdatedStats(characterStats){
     */
     errMsgs.strengthErr = isProperNumberValue(strength, 1, 99);
     errMsgs.dexterityErr = isProperNumberValue(dexterity, 1, 99);
-    errMsgs.consitutionErr = isProperNumberValue(consitution, 1, 99);
+    errMsgs.constitutionErr = isProperNumberValue(constitution, 1, 99);
     errMsgs.sizeErr = isProperNumberValue(size, 1, 99);
     errMsgs.appearanceErr = isProperNumberValue(appearance, 1, 99);
     errMsgs.educationErr = isProperNumberValue(education, 1, 99);
@@ -160,7 +160,7 @@ export function validateUpdatedStats(characterStats){
     errMsgs.buildErr = isProperNumberValue(build, -2, 2);
     
     // If any field has an error, then haError is true
-    if(!!errMsgs.strengthErr || !!errMsgs.dexterityErr || !!errMsgs.consitutionErr || !!errMsgs.sizeErr
+    if(!!errMsgs.strengthErr || !!errMsgs.dexterityErr || !!errMsgs.constitutionErr || !!errMsgs.sizeErr
     || !!errMsgs.appearanceErr || !!errMsgs.educationErr || !!errMsgs.intelligenceErr || !!errMsgs.powerErr 
     || !!errMsgs.luckErr || !!errMsgs.sanityErr || !!errMsgs.healthErr || !!errMsgs.magicPointsErr
     || !!errMsgs.movementErr || !!errMsgs.buildErr){
@@ -244,13 +244,13 @@ export function validateInvestigatorExtras(characterExtras){
     // TODO (later sprint) protect against injections
 
     // Special Person is a string and is limited to "Large" characters
-    if(special_people.length < LARGE_CHAR_MAX){
+    if(special_people.length > LARGE_CHAR_MAX){
         errMsgs.favPeopleErr = "The input exceeds its maximum number of characters";
         errMsgs.hasError = true;
     }
 
     // Favoured Possession is a string and is limited to "Large" characters
-    if(favoured_possession.length < LARGE_CHAR_MAX){
+    if(favoured_possession.length > LARGE_CHAR_MAX){
         errMsgs.favPosseionErr = "The input exceeds its maximum number of characters";
         errMsgs.hasError = true;
     }
@@ -269,7 +269,7 @@ export function validateInvestigatorExtras(characterExtras){
  * @returns {string}
  */
 function isProperNumberValue(num, min, max){
-    if(!num){
+    if(!num && (num !== 0)){
         return "Required field missing";
     }else if(isNaN(Number(num))){
         return "Must be a number";

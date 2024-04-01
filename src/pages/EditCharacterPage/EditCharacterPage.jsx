@@ -122,7 +122,6 @@ function EditCharacterPage() {
      */
     const updateCharacter = async(characterObject, id, token) =>{
         try{
-            console.log("post", characterObject);
             const response = await axios.put(`${BASE_URL}characters/${id}`, characterObject, {
                 headers: {
                     Authorization: "Bearer " + token,
@@ -135,7 +134,7 @@ function EditCharacterPage() {
             }
 
         }catch(error){
-            console.log(error);
+            console.error(error);
             setServerErrMsg(error.response.data.error);
         }
     };

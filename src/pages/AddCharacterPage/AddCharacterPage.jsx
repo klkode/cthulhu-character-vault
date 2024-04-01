@@ -247,7 +247,7 @@ function AddCharacterPage() {
             }
 
         }catch(error){
-            console.log(error);
+            console.error(error);
             setServerErrMsg(error.response.data.error);
         }
     };
