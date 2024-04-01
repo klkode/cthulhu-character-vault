@@ -1,10 +1,11 @@
 @use '../../styles/partials/mixins.scss' as *;
+@use "../../styles/partials/font-styles.scss" as *;
 
 .add-character{
     @include flexCol();
 
     &__heading{
-
+        @include pageHeadingStyle();
     }
 
     &__form-container{

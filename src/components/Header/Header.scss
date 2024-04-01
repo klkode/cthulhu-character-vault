@@ -1,9 +1,10 @@
 @use "../../styles/partials/mixins.scss" as *;
+@use "../../styles/partials/colours" as *;
 
 .header{
     @include flexRow();
     justify-content: flex-start;
-    background-color: #272838;
+    background-color: $darkBackground;
 
     &__logo-container{
         @include flexRow();
@@ -13,9 +14,9 @@
         font-weight: bold;
         text-decoration: none;
         margin: 0 0.5rem;
-        color:antiquewhite;
+        color: $lightText;
         &:hover{
-            color: bisque;
+            color: $accentColour;
         }
     }
 
@@ -35,9 +36,9 @@
     &__link{
         text-decoration: none;
         margin: 0 0.5rem;
-        color:antiquewhite;
+        color:$lightText;
         &:hover{
-            color: bisque;
+            color: $accentColour;
         }
     }
 

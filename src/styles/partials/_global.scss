@@ -6,11 +6,33 @@
 
 body{
     @include flexCol();
+    font-family: $font;
 }
 
 section{
     @include flexCol();
-    padding: 0 2rem;
+    font-family: $font;
+
+    background-color: $lightBackground;
+    padding: 1rem;
+    margin: 1rem 0;
+    max-width: 100vw;
+   
+
+    @include tablet(){
+        max-width: calc(100vw - 3rem);
+        padding: 2rem;
+        margin: 1.5rem;
+        border-radius: 0.314rem;
+        box-shadow: 0 0.125rem 0.314rem 0 $darkBackground;
+
+    }
+
+    @include desktop(){
+        width: 80%;
+        max-width: 64rem;
+        margin: 1.5rem auto;
+    }
 }
 
 article{
@@ -18,19 +40,22 @@ article{
 }
 
 header{
-
+    font-family: $font;
 }
 
 footer{
-
+    
 }
 
 h1{
+    margin: 0;
+    @include pageHeadingStyle();
 
 }
 
 h2{
-
+    margin: 0;
+    @include sectionHeadingStyle();
 }
 
 h3{
@@ -38,7 +63,7 @@ h3{
 }
 
 p{
-
+    @include bodyTextStyle();
 }
 
 label{

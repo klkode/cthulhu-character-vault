@@ -1,12 +1,15 @@
 @use './styles/partials/resets.scss' as *;
 @use './styles/partials/global.scss' as *;
+@use './styles/partials/colours.scss' as *;
 
 .app {
     display: flex;
     flex-flow: column nowrap;
     min-height: 100vh; /* or the minimum height of your content */
+    background-color: $primaryColour;
   }
   
   .main {
     flex-grow: 1;
+    background-color: $primaryColour;
   }

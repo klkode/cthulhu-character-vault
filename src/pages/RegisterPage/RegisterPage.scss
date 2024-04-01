@@ -1,6 +1,8 @@
+@use "../../styles/partials/font-styles.scss" as *;
+
 .register{
     
     &__heading{
-
+        @include pageHeadingStyle();
     }
 }

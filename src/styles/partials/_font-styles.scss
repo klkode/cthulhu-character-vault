@@ -2,3 +2,107 @@
 @use './colours.scss' as *;
 @use './variables.scss' as *;
 @use './breakpoints.scss' as *;
+
+// -----TEXT-STYLE VARIABLES-----
+
+$font: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+
+// ---TABLET & DESKTOP STYLING---
+
+// -Page Header-
+$pageHeaderTextSize: 2.5rem;         
+$pageHeaderLineHeight: 2.75rem;         
+$pageHeaderFontWeight: 700;
+
+// -Section Header-
+$sectionHeaderTextSize: 0.75rem;        
+$sectionHeaderLineHeight: 1.25rem;     
+$sectionHeaderFontWeight: 700;
+
+// -Subheader-
+$subheaderTextSize: 0.875rem;           
+$subheaderLineHeight: 1.375rem;        
+$subheaderFontWeight: 700;
+
+// -Body Text-
+$bodyTextSize: 1.34rem;               
+$bodyLineHeight: 1.8rem;              
+$bodyFontWeight: 400;
+
+// -Labels & Buttons Text-
+$labelsAndButtonsTextSize: 0.675rem;     
+$labelsAndButtonsLineHeight: 1rem;   
+$labelsAndButtonsFontWeight: 400;
+
+// ---END OF TABLET & DESKTOP STYLING---
+
+// ---MOBILE STYLING---
+
+// -Page Header-
+$pageHeaderMobileTextSize: 1.75rem;            
+$pageHeaderMobileLineHeight: 2rem;            
+
+// -Section Header-
+$sectionHeaderMobileTextSize: 0.75rem;        
+$sectionHeaderMobileLineHeight: 1.25rem;      
+
+// -Subheader-
+$subheaderMobileTextSize: 0.8125rem;         
+$subheaderMobileLineHeight: 1.125rem;         
+
+// -Body Text-
+$bodyMobileTextSize: 1rem;               
+$bodyMobileLineHeight: 1.5rem;              
+
+// -Labels & Buttons Text-
+$labelsAndButtonsMobileTextSize: 0.75rem;    
+$labelsAndButtonsMobileLineHeight: 1rem;   
+
+// ---END OF MOBILE STYLING---
+
+@mixin pageHeadingStyle(){
+    font-family: $font;
+    font-size: $pageHeaderMobileTextSize;
+    line-height: $pageHeaderMobileLineHeight;
+    font-weight: $pageHeaderFontWeight;
+
+    margin-bottom: $mobileSpacingBelowComponent;
+
+    @include tablet(){
+        font-size: $pageHeaderTextSize;
+        line-height: $pageHeaderLineHeight;
+
+        margin-bottom: $spacingBelowComponent;
+    }
+}
+
+@mixin sectionHeadingStyle(){
+    font-family: $font;
+    font-size: $sectionHeaderMobileTextSize;
+    line-height: $sectionHeaderMobileLineHeight;
+    font-weight: $sectionHeaderFontWeight;
+
+    margin-top: $mobileSpacingAboveComponent;
+    margin-bottom: $mobileSpacingBelowComponent;
+
+    @include tablet(){
+        font-size: $sectionHeaderTextSize;
+        line-height: $sectionHeaderLineHeight;
+
+        margin-top: $spacingAboveComponent;
+        margin-bottom: $spacingBelowComponent;
+    }
+}
+
+@mixin bodyTextStyle(){
+    font-family: $font;
+    font-size: $bodyMobileTextSize;
+    line-height: $bodyMobileLineHeight;
+    font-weight: $bodyFontWeight;
+
+    @include tablet(){
+        font-size: $bodyTextSize;
+        line-height: $bodyLineHeight;
+    }
+}
+

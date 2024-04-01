@@ -1,7 +1,9 @@
+@use "../../styles/partials/font-styles.scss" as *;
+
 .homepage{
 
     &__heading{
-
+        @include pageHeadingStyle();
     }
     
     &__container{
