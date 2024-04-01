@@ -40,4 +40,13 @@
         @include flexRow();
         justify-content: flex-start;
     }
+
+    &__server-err-container{
+        @include flexRow();
+        justify-content: center;
+    }
+
+    &__server-error{
+
+    }
 }

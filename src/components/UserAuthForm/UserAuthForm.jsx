@@ -5,13 +5,14 @@ import axios from "axios";
 import { BASE_URL } from '../../constant-variables';
 import { useNavigate } from "react-router-dom";
 import CancelButton from '../CancelButton/CancelButton';
-// import { AuthContext } from '../../context/auth-context.js';
+import { validateUserLogin, validateUserRegistration } from '../../utils/user-validation';
 
-function UserAuthForm({ isSignUp, isLoggedIn, setIsLoggedIn} ) {
+function UserAuthForm({ isSignUp, setIsLoggedIn} ) {
     // Create error state variables
     const [usernameErrMsg, setUsernameErrMsg] = useState("");
     const [passwordErrMsg, setPasswordErrMsg] = useState("");
     const [confirmErrMsg, setConfirmErrMsg] = useState("");
+    const [serverErrMsg, setServerErrMsg] = useState("");
 
     // Create refs for the input fields
     const usernameRef = useRef();
@@ -21,9 +22,12 @@ function UserAuthForm({ isSignUp, isLoggedIn, setIsLoggedIn} ) {
     // Create navigate to leave page on successful form submission
     const navigate = useNavigate();
 
-    // Used for creating session
-    // const { session, setSession } = useContext(AuthContext);
-
+    /**
+     * submitHandler is a function that when the form is submitted, then it proceeds to validate the input fields. On a successful validation, it makes a post to the server (registration or login appropriately). If it is successful, a sessionStorage item is created to save the validation token and set the state varaible of being logged in to true. 
+     * 
+     * @param {Object}      event 
+     * 
+     */
     function submitHandler(event){
         // Stop page from reloading
         event.preventDefault();
@@ -38,8 +42,11 @@ function UserAuthForm({ isSignUp, isLoggedIn, setIsLoggedIn} ) {
             // Get confirmation field value 
             const confirmPassword = confirmRef.current.value;
 
-            // TODO validation
-            if(true){
+            // Validate input
+            const errors = validateUserRegistration(username, password, confirmPassword);
+
+            // If no errors, post to the server to register user
+            if(!errors.hasErrors){
                 const registerUser = async(username, password) => {
                     try{
                         const response = await axios.post(`${BASE_URL}users/register`, 
@@ -48,31 +55,38 @@ function UserAuthForm({ isSignUp, isLoggedIn, setIsLoggedIn} ) {
                                 password: password
                             }
                         );
-                        console.log(response.data);
-                        // set the token in session storage
+
+                        // set the token in session storage and update the stateVariable for login
                         sessionStorage.setItem("token", response.data.token);
                         setIsLoggedIn(true);
-                        // mark that a session exists
-                        // setSession({token: response.data.token});
-                        // navigate back to the previous page
+                        
+                        //Return to previous page 
                         navigate(-1);
 
                     }catch(error){
                         console.error(error);
-                        // TODO alert user of the inability to validate them
+                        // Alert user of the inability to validate them
+                        setServerErrMsg(error.response.data.error);
                     }
                 }
 
                 registerUser(username, password);
 
             }else{
-                // TODO set validation errors
+                // Set validation errors
+                setUsernameErrMsg(errors.usernameErr);
+                setPasswordErrMsg(errors.passwordErr);
+                setConfirmErrMsg(errors.confirmErr);
+
             }
 
         // Login Page
         }else{
-            // TODO validation
-            if(true){
+            // Validate input
+            const errors = validateUserLogin(username, password);
+
+            // If there are no errors then make the log in request
+            if(!errors.hasErrors){
                 const loginUser = async(username, password) => {
                     try{
                         const response = await axios.post(`${BASE_URL}users/login`, 
@@ -81,28 +95,30 @@ function UserAuthForm({ isSignUp, isLoggedIn, setIsLoggedIn} ) {
                                 password: password
                             }
                         );
-                        console.log(response.data);
-                        // set the token in session storage
+
+                        // Set the token in session storage and update the state variable for log in
                         sessionStorage.setItem("token", response.data.token);
                         setIsLoggedIn(true);
-                        // mark that a session exists
-                        // setSession({token: response.data.token});
-                        // navigate back to the previous page
+  
+                        // Navigate back to the previous page
                         navigate(-1);
 
                     }catch(error){
                         console.error(error);
-                        // TODO alert user of the inability to validate them
+                        // Alert user of the inability to validate them
+                        setServerErrMsg(error.response.data.error);
                     }
                 }
 
                 loginUser(username, password);
 
             }else{
-                // TODO set validation errors
+                // Set validation errors
+                setUsernameErrMsg(errors.usernameErr);
+                setPasswordErrMsg(errors.passwordErr);
+                setConfirmErrMsg(errors.confirmErr);
             }
         }
-
     }
 
     return (
@@ -135,13 +151,16 @@ function UserAuthForm({ isSignUp, isLoggedIn, setIsLoggedIn} ) {
                 </div>
                 }
             </fieldset>
+            {!!serverErrMsg && 
+            <div className="userAuthForm__server-err-container">
+                <p className="userAuthForm__server-error">{serverErrMsg}</p>
+            </div>}
             <div className="userAuthForm__btn-container">
                 <div className="userAuthForm__nav-container">
-                    {/* <ButtonLink btnText={"Cancel"} navTo={"/"} /> */}
                     <CancelButton />
-                    {isSignUp ? 
-                        <ButtonLink btnText={"Log In"} navTo={"/login"} /> : 
-                        <ButtonLink btnText={"Sign Up"} navTo={"/signup"} />
+                    {isSignUp 
+                    ? <ButtonLink btnText={"Log In"} navTo={"/login"} /> 
+                    : <ButtonLink btnText={"Sign Up"} navTo={"/signup"} />
                     }
                 </div>
                 <button className="userAuthForm__submit-btn">{isSignUp ? "Register" : "Log In"}</button>
