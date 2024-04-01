@@ -30,9 +30,13 @@ $bodyLineHeight: 1.8rem;
 $bodyFontWeight: 400;
 
 // -Labels & Buttons Text-
-$labelsAndButtonsTextSize: 0.675rem;     
-$labelsAndButtonsLineHeight: 1rem;   
-$labelsAndButtonsFontWeight: 400;
+$buttonsTextSize: 1.25rem;     
+$buttonsLineHeight: 1.75rem;   
+$buttonsFontWeight: 400;
+
+$labelsTextSize: 0.675rem;     
+$labelsLineHeight: 1rem;   
+$labelsFontWeight: 400;
 
 // ---END OF TABLET & DESKTOP STYLING---
 
@@ -55,8 +59,10 @@ $bodyMobileTextSize: 1rem;
 $bodyMobileLineHeight: 1.5rem;              
 
 // -Labels & Buttons Text-
-$labelsAndButtonsMobileTextSize: 0.75rem;    
-$labelsAndButtonsMobileLineHeight: 1rem;   
+$buttonsMobileTextSize: 1rem;    
+$buttonsMobileLineHeight: 1.5rem;
+$labelsMobileTextSize: 0.75rem;    
+$labelsMobileLineHeight: 1rem;   
 
 // ---END OF MOBILE STYLING---
 
@@ -106,3 +112,15 @@ $labelsAndButtonsMobileLineHeight: 1rem;
     }
 }
 
+
+@mixin buttonTextStyle(){
+    font-family: $font;
+    font-size: $buttonsMobileTextSize;
+    line-height:  $buttonsMobileLineHeight;
+    font-weight: $buttonsFontWeight;
+
+    @include tablet(){
+        font-size: $buttonsTextSize;
+        line-height: $buttonsLineHeight;
+    }
+}

@@ -1,8 +1,9 @@
 @use "../../styles/partials/mixins.scss" as *;
 
 .buttonLink{
-
+    @include linkOfButtonStyle();
+    
     &__btn{
-
+        @include buttonLinkStyle()
     }
 }

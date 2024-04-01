@@ -8,8 +8,10 @@
     position:relative;
     border: 0;
     background-color: $darkBackground;
+    padding: 0 1rem;
 
     &__disclaimer{
+        max-width: calc(100vw - 2rem);
         color: $lightText;
         margin: 1rem 0;
     }

@@ -14,3 +14,21 @@
     display: flex;
     flex-flow: column nowrap;
 }
+
+@mixin linkOfButtonStyle(){
+    display: flex;
+    text-decoration: none;
+}
+
+@mixin buttonLinkStyle(){
+    min-width: 7.5rem;
+    width: 100%;
+    padding: 0.25rem 0.5rem;
+    margin: 1rem 0.5rem;
+
+    @include buttonTextStyle();
+
+    @include tablet(){
+        width: 7.5rem;
+    }
+}
