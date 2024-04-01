@@ -8,6 +8,13 @@ import { validateInvestigatorSkills } from '../../utils/character-validation';
 
 function InvestigatorSkillsForm({backgroundValue, inputValues, updateBackground, updateSkills, previous, next, skillsList, backgroundList}) {
   
+  // Create state variable for tracking errors
+  const defaultErrorMessages = {
+    hasError: false,
+    backgroundErr: "",
+  };
+  const [errorMessages, setErrorMessages] = useState(defaultErrorMessages);
+
   // Create state variables for the selected background, an array of selected occupation skills, and awwary of selected personal skills, and an array for the options available for occupation skills
   const [selectedBackground, setSelectedBackground] = useState(null);
   const [bgChoicesList, setBGChoicesList] = useState([[], [], [], [], [], [], [], []]);
@@ -164,30 +171,41 @@ function InvestigatorSkillsForm({backgroundValue, inputValues, updateBackground,
 
   }
 
-  // function cancelClickHandler(event) {
-  //   // Prevent form from submitting
-  //   event.preventDefault();
-
-  //   // TODO navigate back to home or previous page?
-  // }
-
+  /**
+   * previousClickHandler is a function to handle when the "previous" button is clicked. It uses the function passed down as a props to change the form component displayed to the form before this one in the page's progression. Validation is not required to move backwards.
+   * 
+   * @param {Object}      event
+   * 
+   */
   function previousClickHandler(event) {
     // Prevent form from submitting
     event.preventDefault();
     
+    // Save the current selections to state and go back to previous form
     updateAllSkills();
     previous();
   }
 
+  /**
+   * nextClickHandler is a function to handle when the "next" button is clicked. It uses the function passed down as a props to change the form component displayed, if the inputs are successfully validated. Otherwise it will trigger the display of error messages.
+   * 
+   * @param {Object}      event
+   * 
+   */
   function nextClickHandler(event) {
     // Prevent form from submitting
     event.preventDefault();
 
     // Validate the page inputs before continuing to next state
     const errors = validateInvestigatorSkills(selectedBackground, occupationalSkillsList, personalSkillsList)
+    
+    // Show errors if there are any
     if(errors.hasError){
-      // TODO show errors
+      setErrorMessages(errors);
+
     }else{
+      // Save input selection to state variable and proceed to next form
+      setErrorMessages(defaultErrorMessages);
       updateAllSkills();
       next();
     }
@@ -197,25 +215,24 @@ function InvestigatorSkillsForm({backgroundValue, inputValues, updateBackground,
   return (
     <form className="skills-form" id="add-skills-form" name="add-skills-form">
       <h2 className="skills-form__heading" >Investigator Background and Skills</h2>
-        <fieldset className="skills-form__background-container" form="add-skills-form">
-          <BackgroundSelection 
-            selectedId={backgroundValue} 
-            updateSelectedBackground={updateSelectedBackground} 
-            backgroundList={backgroundList}/>
-            {!!selectedBackground &&
-              <p className="skills-form__credit-rating">{`Recommended Credit Rating: ${selectedBackground.credit_rating_min} - ${selectedBackground.credit_rating_max}`}</p>}
-        </fieldset>
-        <OccupationSkillsSubform 
-          chosenBackground={selectedBackground} 
-          choicesLists={bgChoicesList} 
-          occupationalSkillsList={occupationalSkillsList} 
-          setOccupationalSkillsList={setOccupationalSkillsList} />
+      <fieldset className="skills-form__background-container" form="add-skills-form">
+        <BackgroundSelection 
+          selectedId={backgroundValue} 
+          updateSelectedBackground={updateSelectedBackground} 
+          backgroundList={backgroundList}/>
+          {!!selectedBackground &&
+            <p className="skills-form__credit-rating">{`Recommended Credit Rating: ${selectedBackground.credit_rating_min} - ${selectedBackground.credit_rating_max}`}</p>}
+      </fieldset>
+      <OccupationSkillsSubform 
+        chosenBackground={selectedBackground} 
+        choicesLists={bgChoicesList} 
+        occupationalSkillsList={occupationalSkillsList} 
+        setOccupationalSkillsList={setOccupationalSkillsList} />
       <PersonalSkillsSubform 
         skills={skillsList.filter((skill) => !(skill.name === "Credit Rating" || skill.name === "Cthulhu Mythos"))}  personalSkillsList={personalSkillsList} 
         setPersonalSkillsList={setPersonalSkillsList} />
       <div className="skills-form__btn-container">
         <button className="skills-form__btn" onClick={previousClickHandler}>Previous</button>
-        {/* <button className="skills-form__btn skills-form__btn--cancel" onClick={cancelClickHandler} >Cancel</button> */}
         <CancelButton />
         <button className="skills-form__btn" onClick={nextClickHandler}>Next</button>
       </div>

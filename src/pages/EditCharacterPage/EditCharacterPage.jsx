@@ -21,6 +21,7 @@ function EditCharacterPage() {
 
     // Create state variable for keeping track of the user's progress through adding a character
     const [formState, setFormState] = useState(1);
+    const [serverErrMsg, setServerErrMsg] = useState("");
     const [isLoading, setIsLoading] = useState(true);
 
     // Create state variables for game details from the server
@@ -98,7 +99,7 @@ function EditCharacterPage() {
             setSkillsList(skillsResponse.data);    
         }catch(error){
             console.error(error);
-            // TODO: Do something about this?
+            setServerErrMsg(error.response.data.error);
         }
     }
 
@@ -108,7 +109,7 @@ function EditCharacterPage() {
             setBackgroundList(backgroundsResponse.data);
         }catch(error){
             console.error(error);
-            // TODO: Do something about this?
+            setServerErrMsg(error.response.data.error);
         }
     }
 
@@ -135,7 +136,7 @@ function EditCharacterPage() {
 
         }catch(error){
             console.log(error);
-            // TODO error notification for user?
+            setServerErrMsg(error.response.data.error);
         }
     };
 
@@ -146,7 +147,7 @@ function EditCharacterPage() {
         // Post character to the server
         updateCharacter(characterData, id, token);
 
-        // TODO notify user? navigate away? clear fields? something?
+        // TODO notify user? clear fields? something?
     }
 
     const populateCharacterData = async (token, characterId) => {
@@ -174,6 +175,7 @@ function EditCharacterPage() {
           setStatsInputs(null);
           setSkillsInputs(null);
           setIsLoading(false);
+          setServerErrMsg(error.response.data.error);
       }
     }
 
@@ -195,7 +197,11 @@ function EditCharacterPage() {
     return (
         <section className="edit-character">
             <h1 className="edit-character__heading">Update Character</h1>
-            <article className="edit-character__form-container">
+            {!!serverErrMsg 
+            ?<div className="edit-character__server-err-container">
+                <p className="edit-character__server-error">{serverErrMsg}</p>
+            </div>
+            :<article className="edit-character__form-container">
                 {formState === 1 && 
                 <InvestigatorDetailsForm 
                     inputValues={characterInputs} updateHandler={updateCharacterDetails} next={nextForm} />
@@ -212,7 +218,7 @@ function EditCharacterPage() {
                 <InvestigatorExtrasForm 
                     inputValues={characterInputs} updateHandler={updateCharacterDetails} previous={previousForm} verifiedSubmit={editCharacter} submitText={"Save"} />
                 }
-            </article>
+            </article>}
         </section>
     );
 }

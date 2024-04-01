@@ -53,6 +53,7 @@ function AddCharacterPage() {
         luck: ""
     }
 
+    // Make a default empty skill
     const emptySkill = {
         skill_id: "",
         name: "",
@@ -75,6 +76,7 @@ function AddCharacterPage() {
 
     // Create state variable for keeping track of the user's progress through adding a character
     const [formState, setFormState] = useState(1);
+    const [serverErrMsg, setServerErrMsg] = useState("");
 
     // Create state variables for game details from the server
     const [backgroundList, setBackgroundList] = useState([]);
@@ -85,13 +87,17 @@ function AddCharacterPage() {
     const [statsInputs, setStatsInputs] = useState(initialStatsState);
     const [skillsInputs, setSkillsInputs] = useState(initialSkillsState);
 
-
+    // Get the background and skill lists from the server
     useEffect(() => {
         getBackgrounds();
         getSkills();
 
     }, []);
 
+    /**
+     * nextForm is function to be passed down as a props to change the form state to the next form in the page when the "next" button is clicked.
+     * 
+     */
     function nextForm(){
         // Include safeguard that the state does not go beyond the number of forms
         if(formState < 4){
@@ -99,6 +105,10 @@ function AddCharacterPage() {
         }
     }
 
+    /**
+     * previousForm is function to be passed down as a props to change the form state to the previous form in the page when the "previous" button is clicked.
+     * 
+     */
     function previousForm(){
         // Include safeguard that the state does not go under the first index
         if(formState > 1){
@@ -107,7 +117,7 @@ function AddCharacterPage() {
     }
 
     /**
-     * updateForm is a wrapper function that helps to set the updated formInputs state variable based on the change of only 1 of its key-value pairs. The field parameter is the key to be updated and the input parameter is the new value.
+     * updateForm is a wrapper function that helps to set the updated formInputs state variable based on the change of only one of its key-value pairs. The field parameter is the key to be updated and the input parameter is the new value.
      * 
      * @param {string}      field
      * @param {string}      input
@@ -119,10 +129,10 @@ function AddCharacterPage() {
     }
 
     /**
-     * updateForm is a wrapper function that helps to set the updated formInputs state variable based on the change of only 1 of its key-value pairs. The field parameter is the key to be updated and the input parameter is the new value.
+     * updateForm is a wrapper function that helps to set the updated formInputs state variable based on the change of only one of its key-value pairs. The field parameter is the key to be updated and the input parameter is the new value.
      * 
      * @param {string}      field
-     * @param {string}      input
+     * @param {string || number}      input
      * 
      */
     function updateStatsVaules(field, input){
@@ -130,7 +140,12 @@ function AddCharacterPage() {
         setStatsInputs(updatedInput);
     }
 
-    
+    /**
+     * updateDodgeBase is a helper function that will update the skill list's base value for the Dodge skill, as this is a skill that has a dynamic base_value based on the investigator's DEX stat rather than a static value.
+     * 
+     * @param {string || number}      value
+     * 
+     */
     function updateDodgeBase(value){
         const dodgeIndex = skillsList.findIndex((skill) => skill.skill_id === DODGE_SKILL_ID);
         const updateSkills = [...skillsList];
@@ -139,6 +154,12 @@ function AddCharacterPage() {
         setSkillsList(updateSkills);
     }
 
+    /**
+     * updateLanguageOwnBase is a helper function that will update the skill list's base value for the Laguange (Own) skill, as this is a skill that has a dynamic base_value based on the investigator's EDU stat rather than a static value.
+     * 
+     * @param {string || number}      value
+     * 
+     */
     function updateLanguageOwnBase(value){
         const languageIndex = skillsList.findIndex((skill) => skill.skill_id === LANGUAGE_OWN_SKILL_ID);
         const updateSkills = [...skillsList];
@@ -147,6 +168,13 @@ function AddCharacterPage() {
         setSkillsList(updateSkills);
     }
 
+    /**
+     * updateSkillInputsById is a helper function that will update one of the character's skills by finding the given id and setting the skills base value and points to the given value.
+     * 
+     * @param {string || number}      id
+     * @param {string || number}      value
+     * 
+     */
     function updateSkillInputsById(id, value){
         const occupationIndex = skillsInputs.occupationalSkills.findIndex((skill) => skill.skill_id === id);
         const occupationSkills = [...skillsInputs.occupationalSkills];
@@ -171,23 +199,31 @@ function AddCharacterPage() {
         }
     }
 
+    /**
+     * getSkills is an asynchronous function that will get a list of all the skills stored in the server.
+     * 
+     */
     const getSkills = async () => {
         try{
             const skillsresponse = await axios.get(`${BASE_URL}skills`);
             setSkillsList(skillsresponse.data);    
         }catch(error){
             console.error(error);
-            // TODO: Do something about this?
+            setServerErrMsg(error.response.data.error);
         }
     }
 
+    /**
+     * getBackgrounds is an asynchronous function that will get a list of all the backgrounds stored in the server.
+     * 
+     */
     const getBackgrounds = async () => {
         try{
             const backgroundsResponse = await axios.get(`${BASE_URL}backgrounds`);   
             setBackgroundList(backgroundsResponse.data);
         }catch(error){
             console.error(error);
-            // TODO: Do something about this?
+            setServerErrMsg(error.response.data.error);
         }
     }
 
@@ -212,10 +248,14 @@ function AddCharacterPage() {
 
         }catch(error){
             console.log(error);
-            // TODO error notification for user?
+            setServerErrMsg(error.response.data.error);
         }
     };
 
+    /**
+     * createCharacter is a function that will be called after the user has progressed through all the forms and had their inputs validated. It will amalgamate the data into an object that the server expects and is able to parse and post it to create a new character.
+     * 
+     */
     function createCharacter(){
         //Create character object to send to the server
         const characterData = createCharacterToPost(characterInputs, statsInputs, skillsInputs, skillsList);
@@ -223,7 +263,7 @@ function AddCharacterPage() {
         // Post character to the server
         postCharacter(characterData, token);
 
-        // TODO notify user? navigate away? clear fields? something?
+        // TODO notify user? clear fields? something?
     }
 
     // TODO look nicer
@@ -234,7 +274,11 @@ function AddCharacterPage() {
     return (
         <section className="add-character">
             <h1 className="add-character__heading">Create a New Character</h1>
-            <article className="add-character__form-container">
+            {!!serverErrMsg 
+            ?<div className="add-character__server-err-container">
+                <p className="add-character__server-error">{serverErrMsg}</p>
+            </div>
+            :<article className="add-character__form-container">
                 {formState === 1 && 
                 <InvestigatorDetailsForm 
                     inputValues={characterInputs} updateHandler={updateCharacterDetails} next={nextForm} />
@@ -251,7 +295,7 @@ function AddCharacterPage() {
                 <InvestigatorExtrasForm 
                     inputValues={characterInputs} updateHandler={updateCharacterDetails} previous={previousForm} verifiedSubmit={createCharacter} submitText={"Create"}/>
                 }
-            </article>
+            </article>}
         </section>
     );
 }

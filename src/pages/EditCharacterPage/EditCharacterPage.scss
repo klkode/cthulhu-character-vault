@@ -1,0 +1,22 @@
+@use '../../styles/partials/mixins.scss' as *;
+
+.edit-character{
+    @include flexCol();
+
+    &__heading{
+
+    }
+
+    &__form-container{
+        @include flexCol();
+        
+    }
+
+    &__server-err-container{
+
+    }
+
+    &__server-error{
+
+    }
+}

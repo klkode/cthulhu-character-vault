@@ -1,36 +1,68 @@
+import { useState } from 'react';
 import { validateInvestigatorExtras } from '../../utils/character-validation';
 import CancelButton from '../CancelButton/CancelButton';
 import './InvestigatorExtrasForm.scss';
 
 function InvestigatorExtrasForm( {inputValues, updateHandler, previous, verifiedSubmit, submitText } ) {
+  
+  // Create state variable for displaying error messages
+  const defaultErrorMessages = {
+    hasError: false,
+    favPeopleErr: "",
+    favPosseionErr: ""
+  };
+  const [errorMessages, setErrorMessages] = useState(defaultErrorMessages);
 
+  /**
+   * previousClickHandler is a function to handle when the "previous" button is clicked. It uses the function passed down as a props to change the form component displayed to the form before this one in the page's progression. Validation is not required to move backwards.
+   * 
+   * @param {Object}      event
+   * 
+   */
   function previousClickHandler(event){
     // Prevent form from submitting
     event.preventDefault();
 
-    // TODO validate the page inputs before continuing to next state
+    // Go back to previous state
     previous();
   }
 
+  /**
+   * submitHandler is a function to handle when the "submission" button is clicked. It validates the input fields and if there are errors displays them. Else it uses the function passed down as a props to make a call to the server. 
+   * 
+   * @param {Object}      event
+   * 
+   */
   function submitHandler(event){
     // Prevent form from submitting
     event.preventDefault();
 
-    // Validate the page inputs before signaling for an axios post request
+    // Validate the page inputs before signaling for an axios post/put request
     const errors = validateInvestigatorExtras(inputValues);
+
+    // If there is errors than display them
     if(errors.hasError){
-      // TODO show errors
+      setErrorMessages(errors);
+
     }else{
+      // If there are no errors than clear any previous ones and proceed to make a server request.
+      setErrorMessages(defaultErrorMessages);
       verifiedSubmit();
     }
    
   }
-
+  
+  /**
+   * onChangeHandler is a function to handle updating the state variable tracking the user's inputs when the input fields have their value changed.
+   * 
+   * @param {Object}      event
+   * 
+   */
   function onChangeHandler(event){
     updateHandler(event.target.name, event.target.value);
   }
 
-  // TODO (likely next sprint): Adding Character Equipment
+  // TODO (next sprint): Adding Character Equipment
 
   return (
     <form className="extras-form" id="add-extras-form" name="add-extras-form">
@@ -40,15 +72,15 @@ function InvestigatorExtrasForm( {inputValues, updateHandler, previous, verified
         <div className="extras-form__field-container">
           <label className="extras-form__label" htmlFor="special_people">{"Important Person(s): "}</label>
           <div className="extras-form__input-container">
-            <textarea className="extras-form__input extras-form__input--small" id="special_people" name="special_people" onChange={onChangeHandler} value={inputValues.special_people} rows="2" />
-            <label className="extras-form__error" htmlFor="special_people"></label>
+            <textarea className={!errorMessages.favPeopleErr ? "extras-form__input extras-form__input--small" : "extras-form__input extras-form__input--small extras-form__input--error"}  id="special_people" name="special_people" onChange={onChangeHandler} value={inputValues.special_people} rows="2" />
+            <label className="extras-form__error" htmlFor="special_people">{errorMessages.favPeopleErr}</label>
           </div>
         </div>
         <div className="extras-form__field-container">
           <label className="extras-form__label" htmlFor="favoured_possession">{"Favourite Possession: "}</label>
           <div className="extras-form__input-container">
-            <textarea className="extras-form__input extras-form__input--small" id="favoured_possession" name="favoured_possession" onChange={onChangeHandler} value={inputValues.favoured_possession} rows="2"/>
-            <label className="extras-form__error" htmlFor="favoured_possession"></label>
+            <textarea className={!errorMessages.favPosseionErr ? "extras-form__input extras-form__input--small" : "extras-form__input extras-form__input--small extras-form__input--error"} id="favoured_possession" name="favoured_possession" onChange={onChangeHandler} value={inputValues.favoured_possession} rows="2"/>
+            <label className="extras-form__error" htmlFor="favoured_possession">{errorMessages.favPosseionErr}</label>
           </div>
         </div>
         {/* TODO EQUIPMENT */}

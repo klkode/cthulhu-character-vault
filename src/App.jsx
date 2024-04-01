@@ -36,10 +36,10 @@ function App() {
                             <Route path="/" element={<HomePage />} />
                             <Route path="/login" element={<LoginPage isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />} />
                             <Route path="/signup" element={<RegisterPage isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />} />
-                            <Route path="/characters" element={<CharacterVaultPage isLoggedIn={isLoggedIn}/>} />
-                            <Route path="/characters/add" element={<AddCharacterPage isLoggedIn={isLoggedIn}/>} />
-                            <Route path="/characters/:id" element={<CharacterSheetPage isLoggedIn={isLoggedIn}/>} />
-                            <Route path="/characters/:id/edit" element={<EditCharacterPage isLoggedIn={isLoggedIn}/>} />
+                            <Route path="/characters" element={<CharacterVaultPage />} />
+                            <Route path="/characters/add" element={<AddCharacterPage />} />
+                            <Route path="/characters/:id" element={<CharacterSheetPage />} />
+                            <Route path="/characters/:id/edit" element={<EditCharacterPage />} />
                             <Route path="*" element={<NotFoundPage />} />
                         </Routes>
                     </BrowserRouter>
