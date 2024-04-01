@@ -2,8 +2,8 @@
 
 .buttonLink{
     @include linkOfButtonStyle();
-    
+
     &__btn{
-        @include buttonLinkStyle()
+        @include buttonStyle()
     }
 }
