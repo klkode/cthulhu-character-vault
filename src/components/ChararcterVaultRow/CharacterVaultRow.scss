@@ -1,8 +1,19 @@
 @use '../../styles/partials/mixins.scss' as *;
+@use '../../styles/partials/font-styles.scss' as *;
+@use '../../styles/partials/colours.scss' as *;
+@use '../../styles/partials/breakpoints' as *;
+
 
 .vault-row{
     @include flexRow();
     justify-content: space-between;
+    padding: 0.5rem;
+    background-color: $accentColour;
+    color: $darkText;
+
+    &:hover{
+        background-color: $hoverColour;
+    }
 
     &__name-container{
         display: flex;
@@ -10,7 +21,13 @@
     }
 
     &__name{
+        @include bodyTextStyle();
+        color: $darkText;
+        text-decoration: none;
 
+        &:hover, &:active{
+            color: $lightText;
+        }
     }
 
     &__background-container{
@@ -19,7 +36,7 @@
     }
 
     &__background{
-
+        margin: 0;
     }
 
     &__actions-container{
@@ -28,8 +45,20 @@
         justify-content: flex-end;
     }
 
-    &__actions-btn{
+    &__action-btn{
+        height: 2rem;
+        width: 2rem;
+        border-radius: 0.314rem;
+        margin-left: 0.5rem;
+        background-color: $lightBackground;
 
+        &:hover, &:active{
+            background-color: $lightText;
+        }
+
+        @include tablet(){
+            margin-left: 1.5rem;
+        }
     }
 
 }

@@ -1,6 +1,8 @@
 import './CharacterVaultRow.scss';
 import { Link, useNavigate } from 'react-router-dom';
 import DeleteCharacterModal from '../DeleteCharacterModal/DeleteCharacterModal';
+import { ReactComponent as EditIcon } from '../../assets/icons/edit-24px.svg';
+import { ReactComponent as DeleteIcon } from '../../assets/icons/delete_outline-24px.svg';
 import { useState } from 'react';
 
 function CharacterVaultRow({ id, name, background, setCharacterList }) {
@@ -28,8 +30,8 @@ function CharacterVaultRow({ id, name, background, setCharacterList }) {
                 <p className="vault-row__background">{background}</p>
             </div>
             <div className="vault-row__actions-container">
-                <button className="vault-row__action-btn" onClick={editClickHandler}>EDIT</button>
-                <button className="vault-row__action-btn" onClick={deleteClickHandler}>DELETE</button>
+                <button className="vault-row__action-btn" onClick={editClickHandler}><EditIcon /></button>
+                <button className="vault-row__action-btn" onClick={deleteClickHandler}><DeleteIcon /></button>
             </div>
             {!hideModal &&
             <DeleteCharacterModal id={id} name={name} closeModal={setHideModal} setCharacterList={setCharacterList} userToken={sessionStorage.getItem("token")} />}

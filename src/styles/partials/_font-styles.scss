@@ -20,9 +20,9 @@ $sectionHeaderLineHeight: 1.25rem;
 $sectionHeaderFontWeight: 700;
 
 // -Subheader-
-$subheaderTextSize: 0.875rem;           
-$subheaderLineHeight: 1.375rem;        
-$subheaderFontWeight: 700;
+$subHeaderTextSize: 1.75rem;           
+$subHeaderLineHeight: 2rem;        
+$subHeaderFontWeight: 700;
 
 // -Body Text-
 $bodyTextSize: 1.34rem;               
@@ -51,8 +51,8 @@ $sectionHeaderMobileTextSize: 0.75rem;
 $sectionHeaderMobileLineHeight: 1.25rem;      
 
 // -Subheader-
-$subheaderMobileTextSize: 0.8125rem;         
-$subheaderMobileLineHeight: 1.125rem;         
+$subHeaderMobileTextSize: 1.125rem;         
+$subHeaderMobileLineHeight: 1.5rem;         
 
 // -Body Text-
 $bodyMobileTextSize: 1rem;               
@@ -94,6 +94,24 @@ $labelsMobileLineHeight: 1rem;
     @include tablet(){
         font-size: $sectionHeaderTextSize;
         line-height: $sectionHeaderLineHeight;
+
+        margin-top: $spacingAboveComponent;
+        margin-bottom: $spacingBelowComponent;
+    }
+}
+
+@mixin subHeadingStyle(){
+    font-family: $font;
+    font-size: $subHeaderMobileTextSize;
+    line-height: $subHeaderMobileLineHeight;
+    font-weight: $subHeaderFontWeight;
+
+    margin-top: $mobileSpacingAboveComponent;
+    margin-bottom: $mobileSpacingBelowComponent;
+
+    @include tablet(){
+        font-size: $subHeaderTextSize;
+        line-height: $subHeaderLineHeight;
 
         margin-top: $spacingAboveComponent;
         margin-bottom: $spacingBelowComponent;
