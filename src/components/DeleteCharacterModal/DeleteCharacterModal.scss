@@ -1,4 +1,8 @@
-@use "../../styles/partials/mixins" as *;
+@use '../../styles/partials/mixins.scss' as *;
+@use "../../styles/partials/font-styles.scss" as *;
+@use "../../styles/partials/colours.scss" as *;
+@use "../../styles/partials/breakpoints.scss" as *;
+@use "../../styles/partials/variables.scss" as *;
 
 .delete-character{
     width: 100vw;
@@ -11,14 +15,22 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(27, 28, 38, 0.8);
+    color: $darkText;
 
     &__card{
         @include flexCol();
         justify-content: space-between;
-        background-color: white;
-        height: 35%;
-        width: 50%;
+        background-color: $lightBackground;
+
+        padding: 1rem;
+
+        @include tablet(){
+            height: 35%;
+            width: 50%;
+            border-radius: 0.314rem;
+            padding: 1.5rem
+        }
     }
 
     &__top-container{
@@ -27,11 +39,20 @@
     }
 
     &__header{
-
+        @include sectionHeadingStyle();
+        color: $darkText;
     }
 
     &__top-close-btn{
+        border: none;
+        outline: none;
+        background-color: $lightBackground;
+        height: 1.5rem;
+        width: 1.5rem;
 
+        &:hover{
+            background-color: $lightText;
+        }
     }
 
     &__body-container{
@@ -39,7 +60,7 @@
     }
 
     &__body{
-
+        color: $darkText;
     }
 
     &__bottom-container{
@@ -48,13 +69,14 @@
     }
     
     &__btn{
-
+        @include buttonStyle();
+        
         &--cancel{
 
         }
 
         &--delete{
-
+            margin-left: 1rem;
         }
     }
 }

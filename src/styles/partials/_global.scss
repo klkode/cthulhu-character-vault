@@ -7,11 +7,13 @@
 body{
     @include flexCol();
     font-family: $font;
+    color: $darkText;
 }
 
 section{
     @include flexCol();
     font-family: $font;
+    color: $darkText;
 
     background-color: $lightBackground;
     padding: 1rem;

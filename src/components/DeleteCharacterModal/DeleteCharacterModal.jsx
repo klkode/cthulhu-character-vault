@@ -1,6 +1,7 @@
 import './DeleteCharacterModal.scss';
 import axios from "axios";
 import { BASE_URL } from "../../constant-variables.js";
+import { ReactComponent as CloseIcon } from '../../assets/icons/close-24px.svg';
 
 function DeleteCharacterModal( {name, id, closeModal, setCharacterList, userToken} ) {
     
@@ -37,7 +38,7 @@ function DeleteCharacterModal( {name, id, closeModal, setCharacterList, userToke
             <div className="delete-character__card">
                 <div className="delete-character__top-container">
                     <h4 className="delete-character__header">Delete Character</h4>
-                    <button className="delete-character__top-close-btn" onClick={closeHandler}>X</button>
+                    <button className="delete-character__top-close-btn" onClick={closeHandler}><CloseIcon /></button>
                 </div>
                 <div className="delete-character__body-container">
                     <p className="delete-character__body">{`Are you sure you want to delete character ${name}? You cannot delete this action once confirmed.`}</p>
