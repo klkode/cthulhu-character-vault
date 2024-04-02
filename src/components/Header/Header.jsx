@@ -14,7 +14,8 @@ function Header( {isLoggedIn, setIsLoggedIn} ) {
     <header className="header">
       <div className="header__logo-container">
         <Link className="header__logo-link" to={"/"}>
-          <img className="header__logo-img" src={logo} alt="cute cthulhu"/></Link>
+          <img className="header__logo-img" src={logo} alt="cute cthulhu"/>
+        </Link>
       </div>
       <div className="header__navs-container">
         <nav className="header__site-nav">
