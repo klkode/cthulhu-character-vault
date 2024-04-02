@@ -102,3 +102,14 @@
         height: 8rem;
     }
 }
+
+@mixin sheetSectionBorders(){
+    border: $darkBackground solid 0.06125rem;
+    border-radius: 0.314rem;
+    padding: 0.5rem;
+    margin-bottom: $mobileSpacingBelowComponent;
+
+    @include tablet(){
+        margin-bottom: $spacingBelowComponent;
+    }
+}

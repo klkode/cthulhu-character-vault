@@ -6,41 +6,67 @@
 
 .character-extras{
     @include flexCol();
+    @include sheetSectionBorders();
 
     &__heading{
         @include sectionHeadingStyle();
+        
     }
 
     &__container{
-        @include flexRow();
-        justify-content: space-between;
+        @include flexCol();
+
+        @include tablet(){
+            @include flexRow();
+            justify-content: space-between;
+        }
+        
     }
 
     &__dropdown{
-
+        flex-basis: 40%;
+        width: 100%;
+        margin-right: 1rem;
     }
 
     &__dropdown-menu{
-
+        background-color: white;
     }
 
     &__option-container{
-
+        
     }
     
     &__option{
         text-transform: capitalize;
+        background-color: white;
+
+        &:hover, &:active, &:focus{
+            background-color: $hoverColour;
+        }
 
         &--default{
-
+            width: 100%;
+            background-color: $accentColour;
         }
     }
 
     &__value-container{
+        display: flex;
+        border: $darkBackground solid 0.06125rem;
+        border-radius: 0.314rem;
+        margin: $mobileSpacingBelowComponent 0;
+        background-color: white;
+        padding: 0.5rem;
 
+        @include tablet(){
+            margin-top: 0;
+            margin-bottom: $spacingBelowComponent;
+            width: 100%;
+        }
     }
 
     &__value{
-
+        @include bodyTextStyle();
     }
 }

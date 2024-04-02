@@ -1,7 +1,7 @@
 import SkillsTable from '../SkillsTable/SkillsTable';
 import './CharacterSkills.scss';
 
-function CharacterSkills({skills}) {
+function CharacterSkills({skills, skillDetails}) {
     
   return (
     <article className="character-skills">
@@ -56,7 +56,7 @@ function CharacterSkills({skills}) {
           </div>
         </div>
       </div>
-      <SkillsTable skills={skills} />
+      <SkillsTable skills={skills} skillDetails={skillDetails} />
     </article>
   );
 }

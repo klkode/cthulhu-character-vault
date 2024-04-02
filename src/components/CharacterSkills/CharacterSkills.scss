@@ -1,10 +1,16 @@
 @use '../../styles/partials/mixins.scss' as *;
+@use "../../styles/partials/font-styles.scss" as *;
+@use "../../styles/partials/colours.scss" as *;
+@use "../../styles/partials/breakpoints.scss" as *;
+@use "../../styles/partials/variables.scss" as *;
+
 
 .character-skills{
     @include flexCol();
+    @include sheetSectionBorders();
 
     &__heading{
-
+        @include sectionHeadingStyle();
     }
 
     &__filter-container{
@@ -16,7 +22,12 @@
     }
 
     &__search-bar{
-
+        display: none;
+        @include textInputStyle();
+        margin-bottom: $mobileSpacingBelowComponent;
+        @include tablet(){
+            margin-bottom: $spacingBelowComponent;
+        }
     }
 
     &__filter-group{
@@ -24,11 +35,11 @@
     }
 
     &__filter-box{
-
+        display: none;
     }
 
     &__filter-option{
-
+        display: none;
     }
     
 }

@@ -1,4 +1,9 @@
 @use '../../styles/partials/mixins.scss' as *;
+@use "../../styles/partials/font-styles.scss" as *;
+@use "../../styles/partials/colours.scss" as *;
+@use "../../styles/partials/breakpoints.scss" as *;
+@use "../../styles/partials/variables.scss" as *;
+
 
 .skills-table{
     @include flexCol();
@@ -6,40 +11,95 @@
     &__headings-container{
         @include flexRow();
         justify-content: space-between;
+        background-color: $darkBackground;
+        color: $lightText;
+        padding: 0.5rem;
+        border-top-left-radius: 0.314rem;
+        border-top-right-radius: 0.314rem;
         
     }
 
     &__skill-container{
         display: flex;
-        flex-basis: 20%;
+        flex-basis: 40%;
+        align-content: center;
+        flex-flow: column;
+        justify-content: center;
+
+        @include tablet(){
+            flex-basis: 25%;
+        }
     }
 
     &__base-container{
         display: flex;
-        flex-basis: 20%;
+        flex-basis: 15%;
+        align-content: center;
+        flex-flow: column;
+        justify-content: center;
+
+        @include tablet(){
+            flex-basis: 20%;
+        }
     }
 
     &__hard-container{
         display: flex;
         flex-basis: 20%;
+        align-content: center;
+        flex-flow: column;
+        justify-content: center;
+
+        @include tablet(){
+            flex-basis: 20%;
+        }
+        
     }
 
     &__extreme-container{
         display: flex;
-        flex-basis: 20%;
+        flex-basis: 15%;
+        flex-flow: column;
+        justify-content: center;
+        
+        @include tablet(){
+            flex-basis: 20%;
+        }
     }
 
     &__rows-container{
         @include flexCol();
         // temp styling to see theory of table
-        border: 1px solid #000;
+        border: 0.01625rem solid $darkBackground;
+        border-bottom-left-radius: 0.314rem;
+        border-bottom-right-radius: 0.314rem;
         // padding: 1rem;
         overflow-y: auto;
         height: 16rem;
     }
 
     &__heading{
+        font-size: 0.75rem;
 
+        @include tablet(){
+            font-size: 1.125rem;
+        }
+
+        &--mobile{
+            display: flex;
+
+            @include tablet(){
+                display: none;
+            }
+        }
+
+        &--bigger-breakpoint{
+            display: none;
+
+            @include tablet(){
+                display: flex;
+            }
+        }
     }
 
     &__no-results{

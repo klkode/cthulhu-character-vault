@@ -1,11 +1,11 @@
 import './SkillsRow.scss';
 
-function SkillsRow({ id, points }) {
+function SkillsRow({ id, name, points }) {
  //TODO get skill object
     return (
         <div className="skills-row">
             <div className="skills-row__skill-container">
-                <p className="skills-row__name">{id}</p>
+                <p className="skills-row__name">{name}</p>
             </div>
             <div className="skills-row__base-container">
                 <p className="skills-row__value">{points}</p>

@@ -1,35 +1,74 @@
 @use '../../styles/partials/mixins.scss' as *;
+@use "../../styles/partials/font-styles.scss" as *;
+@use "../../styles/partials/colours.scss" as *;
+@use "../../styles/partials/breakpoints.scss" as *;
+@use "../../styles/partials/variables.scss" as *;
+
 
 .skills-row{
     @include flexRow();
     justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem;
+
+    &:nth-child(2n){
+        background-color: $accentColour;
+    }
+
+    &:nth-child(2n+1){
+        background-color: $hoverColour;
+    }
+
+    &:hover{
+        color: $lightText;
+    }
 
     &__skill-container{
         display: flex;
-        flex-basis: 20%;
+        flex-basis: 40%;
+        @include tablet(){
+            flex-basis: 25%;
+        }
     }
 
     &__base-container{
         display: flex;
-        flex-basis: 20%;
+        flex-basis: 15%;
+        @include tablet(){
+            flex-basis: 20%;
+        }
     }
 
     &__hard-container{
         display: flex;
-        flex-basis: 20%;
+        flex-basis: 15%;
+        @include tablet(){
+            flex-basis: 20%;
+        }
     }
 
     &__extreme-container{
         display: flex;
-        flex-basis: 20%;
+        flex-basis: 15%;
+        @include tablet(){
+            flex-basis: 20%;
+        }
     }
 
     &__name{
-
+        margin: 0;
+        font-size: 0.75rem;
+        @include tablet(){
+            font-size: 1.125rem;
+        }
     }
 
     &__value{
-
+        margin: 0;
+        font-size: 0.8rem;
+        @include tablet(){
+            font-size: 1.125rem;
+        }
     }
     
 }

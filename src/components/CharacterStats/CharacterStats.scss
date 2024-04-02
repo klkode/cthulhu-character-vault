@@ -1,10 +1,15 @@
-@use '../../styles/partials/mixins.scss' as *;
+@use "../../styles/partials/mixins.scss" as *;
+@use "../../styles/partials/font-styles.scss" as *;
+@use "../../styles/partials/colours.scss" as *;
+@use "../../styles/partials/breakpoints.scss" as *;
+@use "../../styles/partials/variables.scss" as *;@use '../../styles/partials/mixins.scss' as *;
 
 .character-stats{
     @include flexCol();
+    @include sheetSectionBorders();
 
     &__heading{
-
+        @include sectionHeadingStyle();
     }
     
     &__container{
@@ -21,11 +26,16 @@
     }
 
     &__calculated-grouping{
-        @include flexRow();
-        justify-content: space-between;
+        @include flexCol();
+        justify-content: flex-start;
+
+        @include tablet(){
+            @include flexRow();
+            justify-content: space-between;
+        }
     }
 
     &__stat{
-
+        @include bodyTextStyle();
     }
 }
