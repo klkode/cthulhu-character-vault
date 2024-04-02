@@ -1,0 +1,63 @@
+@use '../../styles/partials/mixins.scss' as *;
+@use "../../styles/partials/font-styles.scss" as *;
+@use "../../styles/partials/colours.scss" as *;
+@use "../../styles/partials/breakpoints.scss" as *;
+@use "../../styles/partials/variables.scss" as *;
+
+.edit-skills-form{
+    @include flexCol();
+    
+    &__heading{
+        @include sectionHeadingStyle();
+    }
+
+    &__instructions{
+
+    }
+
+    &__container{
+        @include flexCol();
+    }
+
+    &__background-container{
+        display: flex;
+    }
+
+    &__skills-container{
+        border: 0.125rem solid $darkBackground;
+        border-radius: 0.314rem;
+        padding: 0.25rem 1rem;
+        margin-bottom: $mobileSpacingBelowComponent;
+
+        @include tablet(){
+            margin-bottom: $spacingBelowComponent;
+            padding: 0.25rem 1.5rem;
+        }
+    }
+
+    &__table-container{
+        overflow-y: auto;
+        height: 50vh;
+    }
+
+    &__btn-container{
+        @include flexCol();
+    }
+
+    &__nav-btn-container{
+        @include flexRow();
+        justify-content: space-between;
+    }
+
+    &__btn{
+        @include buttonStyle();
+    }
+
+    &__cancel-container{
+        width: 100%;
+        display: none;
+        &--mobile{
+            display: flex;
+        }
+    }
+}

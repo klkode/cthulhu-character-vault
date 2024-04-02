@@ -101,8 +101,10 @@ function EditSkillsForm( {backgroundId, backgrounds, updateBackground, skillInpu
         <form className="edit-skills-form" id="edit-skills-form" name="edit-skills-form">
             <h2 className="edit-skills-form__heading" >Investigator Background and Skills</h2>
             {/* <p className="edit-skills__instructions" ></p> */}
-            <div className="edit-stats-form__stats-container">
-                <BackgroundSelection selectedId={backgroundId} updateSelectedBackground={backgroundSelect} backgroundList={backgrounds}/>
+            <div className="edit-skills-form__container">
+                <fieldset className="edit-skills-form__background-container">
+                    <BackgroundSelection selectedId={backgroundId} updateSelectedBackground={backgroundSelect} backgroundList={backgrounds}/>
+                </fieldset>
                 <fieldset className="edit-skills-form__skills-container">
                     <div className="edit-skills-form__table-container">
                         {skillList.map((skill) =>{
@@ -113,9 +115,13 @@ function EditSkillsForm( {backgroundId, backgrounds, updateBackground, skillInpu
                 </fieldset>
             </div>
             <div className="edit-skills-form__btn-container">
-                <button className="edit-skills-form__btn" onClick={previousClickHandler}>Previous</button>
-                <CancelButton />
-                <button className="edit-skills-form__btn" onClick={nextClickHandler}>Next</button>
+                <div className="edit-skills-form__nav-btn-container">
+                    <button className="edit-skills-form__btn" onClick={previousClickHandler}>Previous</button>
+                    <button className="edit-skills-form__btn" onClick={nextClickHandler}>Next</button>
+                </div>
+                <div className="edit-skills-form__cancel-container edit-skills-form__cancel-container--mobile">
+                    <CancelButton />
+                </div>
             </div>
         </form>
     );

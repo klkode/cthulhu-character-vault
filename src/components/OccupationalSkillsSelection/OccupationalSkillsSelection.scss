@@ -1,4 +1,8 @@
-@use "../../styles/partials/mixins" as *;
+@use '../../styles/partials/mixins.scss' as *;
+@use "../../styles/partials/font-styles.scss" as *;
+@use "../../styles/partials/colours.scss" as *;
+@use "../../styles/partials/breakpoints.scss" as *;
+@use "../../styles/partials/variables.scss" as *;
 
 .occupation-skill{
     @include flexRow();
@@ -17,15 +21,28 @@
     }
 
     &__dropdown{
+        width: 100%;
+        margin-right: 1rem;
+        margin-bottom: $mobileSpacingBelowComponent;
 
-    }
-
-    &__option{
-
-        &--default{
-
+        @include tablet(){
+            width: 100%;
+            margin-bottom: $spacingBelowComponent;
         }
     }
+
+    &__option, .btn, .btn-secondary{
+        background-color: $accentColour;
+
+        &:hover, &:active, &:focus {
+            background-color: $hoverColour;
+        }
+
+        &--default{
+            width: 100%;
+            background-color: $accentColour;
+        }
+    } 
 
     &__dropdown-menu{
 

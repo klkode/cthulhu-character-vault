@@ -232,9 +232,11 @@ function InvestigatorSkillsForm({backgroundValue, inputValues, updateBackground,
         skills={skillsList.filter((skill) => !(skill.name === "Credit Rating" || skill.name === "Cthulhu Mythos"))}  personalSkillsList={personalSkillsList} 
         setPersonalSkillsList={setPersonalSkillsList} />
       <div className="skills-form__btn-container">
-        <button className="skills-form__btn" onClick={previousClickHandler}>Previous</button>
+        <div className="skills-form__nav-btn-container">
+          <button className="skills-form__btn" onClick={previousClickHandler}>Previous</button>
+          <button className="skills-form__btn" onClick={nextClickHandler}>Next</button>
+        </div>
         <CancelButton />
-        <button className="skills-form__btn" onClick={nextClickHandler}>Next</button>
       </div>
     </form>
   );

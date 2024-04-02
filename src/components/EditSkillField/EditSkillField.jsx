@@ -10,11 +10,11 @@ function EditSkillField( {id, name, value, updateSkill, error} ){
 
     return(
         <div className="skill-field">
-            <label className="skill-field__label" htmlFor={`Skill${id}`}>{name}</label>
             <div className="skill-field__input-container">
-                <input className={!error ? "skill-field__text-box" : "skill-field__text-box skill-field__text-box--error"} id={`Skill${id}`} name={`Skill${id}`} onChange={onChangeHandler} type="number" min="0" max="99" step="1" value={value} />
-                <label className="skill-field__error" htmlFor={`Skill${id}`}>{error}</label>
+                <label className="skill-field__label" htmlFor={`Skill${id}`}>{name}</label>
+                <input className={!error[id] ? "skill-field__text-box" : "skill-field__text-box skill-field__text-box--error"} id={`Skill${id}`} name={`Skill${id}`} onChange={onChangeHandler} type="number" min="0" max="99" step="1" value={value} />
             </div>
+            <label className="skill-field__error" htmlFor={`Skill${id}`}>{error[id]}</label>
         </div>
     );
 }

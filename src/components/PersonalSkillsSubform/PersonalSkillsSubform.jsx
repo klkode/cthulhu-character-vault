@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { ReactComponent as DeleteIcon } from '../../assets/icons/delete_outline-24px.svg';
 import './PersonalSkillsSubform.scss';
 
 function PersonalSkillsSubform({skills, personalSkillsList, setPersonalSkillsList}) {
@@ -53,32 +54,36 @@ function PersonalSkillsSubform({skills, personalSkillsList, setPersonalSkillsLis
                     return ( 
                     <div className="personal-skills__selections-container" key={index}>
                         <div className="personal-skills__row-container">
-                            {index === 0 
-                            ? <p className="personal-skills__option personal-skills__option--only">{singleSkill.name}</p>
-                            :<div className="dropdown personal-skills__dropdown">
-                                <button className="btn btn-secondary dropdown-toggle personal-skills__option personal-skills__option--default" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    {!singleSkill.name ? "Choose a Skill": singleSkill.name}
-                                </button>
-                                <ul className="dropdown-menu personal-skills__dropdown-menu">
-                                    {skills.map((skill) => {
-                                        return (
-                                            <li className="personal-skills__option-container" key={skill.skill_id}>
-                                                <button className="dropdown-item personal-skills__option" type="button" value={skill.skill_id} onClick={(event) => selectHandler(event, index)}>{skill.name}</button>
-                                            </li>
-                                        );
-                                    })}
-                                </ul>
-                            </div>}
-                            <div className="personal-skills__points-container">
-                                <input className="personal-skills__points-box" name="points" value={!singleSkill.points ? (!singleSkill.base_value ? "" : singleSkill.base_value) : singleSkill.points} onChange={(event) => onChangeHandler(event, index)} type="number" min="1" max="99" step="1" />
+                            <div className="personal-skills__label-container">
+                                {index === 0 
+                                ? <p className="personal-skills__option personal-skills__option--only">{singleSkill.name}</p>
+                                :<div className="dropdown personal-skills__dropdown">
+                                    <button className="btn btn-secondary dropdown-toggle personal-skills__option personal-skills__option--default" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        {!singleSkill.name ? "Choose a Skill": singleSkill.name}
+                                    </button>
+                                    <ul className="dropdown-menu personal-skills__dropdown-menu">
+                                        {skills.map((skill) => {
+                                            return (
+                                                <li className="personal-skills__option-container" key={skill.skill_id}>
+                                                    <button className="dropdown-item personal-skills__option" type="button" value={skill.skill_id} onClick={(event) => selectHandler(event, index)}>{skill.name}</button>
+                                                </li>
+                                            );
+                                        })}
+                                    </ul>
+                                </div>}
                             </div>
-                            {(personalSkillsList.length > 1 && index !== 0) &&
-                            <button className="personal-skills__delete-btn" onClick={(event)=>removeBtnHandler(event, index)}>Remove</button>
-                            }       
+                            <div className="personal-skills__inputs-container">
+                                <div className="personal-skills__points-container">
+                                    <input className="personal-skills__points-box" name="points" value={!singleSkill.points ? (!singleSkill.base_value ? "" : singleSkill.base_value) : singleSkill.points} onChange={(event) => onChangeHandler(event, index)} type="number" min="1" max="99" step="1" />
+                                </div>
+                                {(personalSkillsList.length > 1 && index !== 0) &&
+                                <button className="personal-skills__delete-btn" onClick={(event)=>removeBtnHandler(event, index)}><DeleteIcon /></button>
+                                }
+                            </div>      
                         </div>
                         {(personalSkillsList.length - 1 === index) &&
                         <div className="personal-skills__add-btn-container">
-                            <button className="personal-skills__add-btn" onClick={addBtnHandler}>Add</button>
+                            <button className="personal-skills__add-btn" onClick={addBtnHandler}>+</button>
                         </div>
                         }
                     </div>
