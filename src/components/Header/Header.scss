@@ -32,9 +32,15 @@
         text-decoration: none;
         margin: 0;
         color: $lightText;
+        padding-top: 0.25rem;
         // &:hover{
         //     color: $accentColour;
         // }
+    }
+
+    &__logo-img{
+        height: 2rem;
+        width: 2rem;
     }
 
     &__navs-container{

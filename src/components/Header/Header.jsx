@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import ButtonLink from '../ButtonLink/ButtonLink';
+
+import logo from "../../assets/logos/cthulhu_logo.png";
 import './Header.scss';
 import { Link } from 'react-router-dom';
 
@@ -13,8 +13,8 @@ function Header( {isLoggedIn, setIsLoggedIn} ) {
   return (
     <header className="header">
       <div className="header__logo-container">
-        <Link className="header__logo-link" to={"/"}>CoC Vault</Link>
-        {/* placeholder */}
+        <Link className="header__logo-link" to={"/"}>
+          <img className="header__logo-img" src={logo} alt="cute cthulhu"/></Link>
       </div>
       <div className="header__navs-container">
         <nav className="header__site-nav">
@@ -42,7 +42,6 @@ function Header( {isLoggedIn, setIsLoggedIn} ) {
           <ul className="header__links-container">
             <li className="header__nav-item">
               <Link className="header__link" to={"/"} onClick={logout}>Log out</Link>
-              {/* <ButtonLink btnText={"Log Out"} navTo={"/"} onClick={logout} /> */}
             </li>
           </ul>
           }
