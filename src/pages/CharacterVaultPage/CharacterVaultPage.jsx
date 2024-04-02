@@ -3,12 +3,16 @@ import { useEffect, useState } from 'react';
 import { BASE_URL } from "../../constant-variables.js"
 import axios from "axios";
 import CharacterVaultTable from '../../components/CharacterVaultTable/CharacterVaultTable.jsx';
+import UnauthorizedDisplay from '../../components/UnauthorizedDisplay/UnauthorizedDisplay.jsx';
+import LoadingDisplay from '../../components/LoadingDisplay/LoadingDisplay.jsx';
+import ServerErrorDisplay from '../../components/ServerErrorDisplay/ServerErrorDisplay.jsx';
 
 function CharacterVaultPage() {
 
   // State variables for the pages data and loading state
   const [characterList, setCharacterList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [serverErrMsg, setServerErrMsg] = useState("");
 
   // Get the session token
   const token = sessionStorage.getItem("token");
@@ -29,6 +33,7 @@ function CharacterVaultPage() {
         console.error(error);
         setCharacterList([]);
         setIsLoading(false);
+        setServerErrMsg(error.response.data.error)
       }
     }
 
@@ -39,14 +44,19 @@ function CharacterVaultPage() {
     }
   }, [token]);
 
-  // TODO look nicer
-  if (isLoading) {
-    return <div>Loading...</div>
-  }
 
   // TODO look nicer
   if(!token){
-    return <div>You must be logged in to view your character vault.</div>
+    return <UnauthorizedDisplay message={"You must be logged in to view your character vault."} />
+  }
+
+  // TODO look nicer
+  if (isLoading) {
+    return <LoadingDisplay message={"Loading..."} />
+  }
+
+  if(!!serverErrMsg){
+    return <ServerErrorDisplay message={serverErrMsg} />
   }
 
   return (

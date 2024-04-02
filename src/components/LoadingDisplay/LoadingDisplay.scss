@@ -4,17 +4,12 @@
 @use "../../styles/partials/breakpoints.scss" as *;
 @use "../../styles/partials/variables.scss" as *;
 
-.server-error-display{
+.loading{
     @include flexCol();
     background-color: $lightBackground;
-    color: $errorColour;
-
-    &__heading{
-        @include subHeadingStyle();
-        color: $errorColour;
-    }
+    color: $darkText;
 
     &__message{
-        color: $errorColour;
+        color: $darkText;
     }
 }

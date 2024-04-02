@@ -10,6 +10,9 @@ import CharacterDetails from '../../components/CharacterDetails/CharacterDetails
 import CharacterExtras from '../../components/CharacterExtras/CharacterExtras.jsx';
 import CharacterSkills from '../../components/CharacterSkills/CharacterSkills.jsx';
 import CharacterStats from '../../components/CharacterStats/CharacterStats.jsx';
+import UnauthorizedDisplay from '../../components/UnauthorizedDisplay/UnauthorizedDisplay.jsx';
+import LoadingDisplay from '../../components/LoadingDisplay/LoadingDisplay.jsx';
+import ServerErrorDisplay from '../../components/ServerErrorDisplay/ServerErrorDisplay.jsx';
 
 function CharacterSheetPage() {
     // Get the character id
@@ -76,19 +79,26 @@ function CharacterSheetPage() {
         navigate(`/characters/${id}/edit`);
     }
 
-    // TODO look nicer
-    if (isLoading) {
-        return <div>Loading...</div>
-    }
+ 
 
     // TODO look nicer
     if(!token){
-        return <div>You must be logged in to view a character sheet.</div>
+        return <UnauthorizedDisplay message={"You must be logged in to view a character sheet."} />
+    }
+
+   // TODO look nicer
+    if (isLoading) {
+        return <LoadingDisplay message={"Loading..."}/>
+    }
+
+    if(!!serverErrMsg){
+        return <ServerErrorDisplay message={serverErrMsg} />
     }
 
     // TODO navigate away?
     if(!characterSheet){
-        return <div>No character data found</div>
+        // return <div>No character data found</div>
+        navigate("/characters");
     }
 
     return(

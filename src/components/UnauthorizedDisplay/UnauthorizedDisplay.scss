@@ -4,15 +4,10 @@
 @use "../../styles/partials/breakpoints.scss" as *;
 @use "../../styles/partials/variables.scss" as *;
 
-.server-error-display{
+.unauthorized{
     @include flexCol();
     background-color: $lightBackground;
     color: $errorColour;
-
-    &__heading{
-        @include subHeadingStyle();
-        color: $errorColour;
-    }
 
     &__message{
         color: $errorColour;

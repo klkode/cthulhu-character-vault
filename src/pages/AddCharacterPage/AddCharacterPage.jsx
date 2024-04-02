@@ -8,6 +8,8 @@ import { BASE_URL, CREDIT_SKILL_ID, DEFAULT_MOVEMENT_SCORE, DODGE_SKILL_ID, LANG
 import axios from "axios";
 import { createCharacterToPost } from '../../utils/create-character.js';
 import { useNavigate } from 'react-router-dom';
+import ServerErrorDisplay from '../../components/ServerErrorDisplay/ServerErrorDisplay.jsx';
+import UnauthorizedDisplay from '../../components/UnauthorizedDisplay/UnauthorizedDisplay.jsx';
 
 function AddCharacterPage() {
     // Get the session token
@@ -268,16 +270,14 @@ function AddCharacterPage() {
 
     // TODO look nicer
     if(!token){
-        return <div>You must be logged in to create a new character.</div>
+        return <UnauthorizedDisplay message={"You must be logged in to create a new character."} />
     }
     
     return (
         <section className="add-character">
             <h1 className="add-character__heading">Create a New Character</h1>
             {!!serverErrMsg 
-            ?<div className="add-character__server-err-container">
-                <p className="add-character__server-error">{serverErrMsg}</p>
-            </div>
+            ?<ServerErrorDisplay message={serverErrMsg}/>
             :<article className="add-character__form-container">
                 {formState === 1 && 
                 <InvestigatorDetailsForm 

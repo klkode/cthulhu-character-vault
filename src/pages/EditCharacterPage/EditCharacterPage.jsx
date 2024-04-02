@@ -8,6 +8,9 @@ import { BASE_URL } from "../../constant-variables.js"
 import axios from "axios";
 import { createCharacterToUpdate } from '../../utils/create-character.js';
 import { useNavigate, useParams } from 'react-router-dom';
+import ServerErrorDisplay from '../../components/ServerErrorDisplay/ServerErrorDisplay.jsx';
+import LoadingDisplay from '../../components/LoadingDisplay/LoadingDisplay.jsx';
+import UnauthorizedDisplay from '../../components/UnauthorizedDisplay/UnauthorizedDisplay.jsx';
 
 function EditCharacterPage() {
     // Get the session token
@@ -180,26 +183,24 @@ function EditCharacterPage() {
 
     // TODO look nicer
     if(!token){
-        return <div>You must be logged in to edit a character.</div>
+        return <UnauthorizedDisplay message={"You must be logged in to edit a character."} />
     }
 
     // TODO look nicer
     if (isLoading) {
-      return <div>Loading...</div>
+      return <LoadingDisplay message={"Loading..."} />
     }
 
     // TODO navigate away?
     if(!characterInputs){
-      return <div>No character data found</div>
+      navigate("/characters");
     }
 
     return (
         <section className="edit-character">
             <h1 className="edit-character__heading">Update Character</h1>
             {!!serverErrMsg 
-            ?<div className="edit-character__server-err-container">
-                <p className="edit-character__server-error">{serverErrMsg}</p>
-            </div>
+            ?<ServerErrorDisplay message={serverErrMsg} />
             :<article className="edit-character__form-container">
                 {formState === 1 && 
                 <InvestigatorDetailsForm 
